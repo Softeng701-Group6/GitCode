@@ -1,0 +1,45 @@
+.loginContainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+  }
+  
+  .loginContainerv2 {
+    text-align: center;
+  }
+  
+  .inputContainer {
+    margin: 10px 0;
+  }
+  
+  .textfield {
+    width: 100%;
+  }
+  
+  .loginBTN {
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  
+  .or {
+    margin: 10px 0;
+    font-weight: bold;
+  }
+  
+  .googleBTN {
+    background-color: #db4a39;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 4px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
