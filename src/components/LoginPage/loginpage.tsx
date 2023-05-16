@@ -20,7 +20,6 @@ const Login: React.FC = () => {
     try {
       const auth = getAuth();
       await signInWithEmailAndPassword(auth, email, password);
-      // Login successful, you can perform further actions here
     } catch (error: any) {
       alert(error.message);
     }
