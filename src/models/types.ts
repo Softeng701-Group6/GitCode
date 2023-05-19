@@ -28,6 +28,7 @@ export interface Comment extends GeneralObject {
 
 export interface Question extends GeneralObject {
     articleId: DocumentReference;  // Reference to Article
+    initialGraph: string; // TODO
     goalGraph: string; // TODO
     hint: string[];
 }
