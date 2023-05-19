@@ -28,11 +28,17 @@ export interface Comment extends GeneralObject {
 
 export interface Question extends GeneralObject {
     articleId: DocumentReference;  // Reference to Article
-    initialGraph: string; // TODO
-    goalGraph: string; // TODO
+    initialGraph: DocumentReference; // Reference to Graph
+    goalGraph: DocumentReference; // Reference to Graph
     hint: string[];
 }
 
 export interface Graph extends GeneralObject {
-    // TODO
+    nodes: string[];
+    edges: Edge[];
+}
+
+interface Edge {
+    source: string;
+    target: string;
 }

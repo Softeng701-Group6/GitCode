@@ -1,9 +1,10 @@
 import { useState } from "react";
-import { User } from "../models/types.ts";
+import { Graph, User } from "../models/types.ts";
 import { storeDocument, getCollection } from "../firebase/firestoreUtils.ts";
+import { Collection } from "../firebase/enums.ts";
 
 const TestPage = () => {
-    const [a, setA] = useState<User>({
+    const [a] = useState<User>({
         // id: "asd",
         name: "aaa",
         password: "",
@@ -11,8 +12,17 @@ const TestPage = () => {
         level: "",
         profileImg: "",
     });
+    const [b] = useState<Graph>({
+        nodes: ['C1', 'C2', 'C3'],
+        edges: [
+            { source: 'C1', target: 'C2' },
+            { source: 'C1', target: 'C3' },
+        ]
+    });
+
     const handleSet = async () => {
-        await storeDocument("d", a);
+        // await storeDocument("d", a);
+        await storeDocument(Collection.GRAPHS, b);
     };
     const handleGet = async () => {
         console.log(await getCollection<User>("d"))
