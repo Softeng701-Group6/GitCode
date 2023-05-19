@@ -10,6 +10,7 @@ export interface User extends GeneralObject {
     expProgress: string;
     level: string;
     profileImg: string;
+    completedQuestions: DocumentReference;  // Reference to Question
 }
 
 export interface Article extends GeneralObject {
