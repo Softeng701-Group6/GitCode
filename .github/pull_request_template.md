@@ -1,2 +1,2 @@
 ## Description
-Resolves #[GH ticket num]
+Resolves #[Ticket num]
