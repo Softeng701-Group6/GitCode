@@ -6,6 +6,8 @@ import PageLayout from "./components/PageLayout";
 import { ThemeProvider } from "@mui/material";
 import { defaultTheme } from "./themes/defaultTheme";
 import LevelSelectPage from "./pages/LevelSelectPage/LevelSelectPage";
+import TestPage from "./components/TestPage.tsx";
+import LandingPage from "./components/LandingPage/landingpage";
 import "./App.css";
 
 function App() {
@@ -17,6 +19,8 @@ function App() {
           <Route path="login" element={<LoginPage />} />
           <Route path="signup" element={<SignupPage />} />
           <Route path="levels" element={<LevelSelectPage />} />
+          <Route path="/test" element={<TestPage />} />
+          <Route path="/home" element={<LandingPage />} />
         </Route>
       </Routes>
     </ThemeProvider>
