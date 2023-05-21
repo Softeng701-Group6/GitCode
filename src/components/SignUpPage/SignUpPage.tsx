@@ -78,7 +78,7 @@ const Signuppage = () => {
           <button className="loginBTN">REGISTER</button>
         </form>
 
-        <span className="or">or</span>
+        <p className="or">OR</p>
 
         <button onClick={handleGoogleSignup} className="googleBTN">
           <i className="fa-brands fa-google"></i> Sign up with Google
