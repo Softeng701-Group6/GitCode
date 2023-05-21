@@ -1,16 +1,25 @@
 import { Route, Routes } from "react-router-dom";
-import SignupPage from "./components/SignUpPage/SignUpPage";
-import LoginPage from "./components/LoginPage/loginpage";
+import SignupPage from "./pages/SignUpPage/SignUpPage";
+import LoginPage from "./pages/LoginPage/LoginPage";
+import HomePage from "./pages/HomePage/HomePage";
+import PageLayout from "./components/PageLayout";
+import { ThemeProvider } from "@mui/material";
+import { defaultTheme } from "./themes/defaultTheme";
+import LevelSelectPage from "./pages/LevelSelectPage/LevelSelectPage";
 import "./App.css";
-import TestPage from "./components/TestPage.tsx";
 
 function App() {
   return (
-    <Routes>
-      <Route path="/login" element={<LoginPage />} />
-      <Route path="/signup" element={<SignupPage />} />
-      <Route path="/test" element={<TestPage />} />
-    </Routes>
+    <ThemeProvider theme={defaultTheme}>
+      <Routes>
+        <Route path="/" element={<PageLayout />}>
+          <Route index element={<HomePage />}/>
+          <Route path="login" element={<LoginPage />} />
+          <Route path="signup" element={<SignupPage />} />
+          <Route path="levels" element={<LevelSelectPage />} />
+        </Route>
+      </Routes>
+    </ThemeProvider>
   );
 }
 
