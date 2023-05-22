@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { auth, googleProvider } from "../../firebase/firebase";
 import { signInWithEmailAndPassword, signInWithPopup } from "firebase/auth";
-import "./loginpage.css";
+import "./LoginPage.css";
 import NavigationBar from "../../components/NavigationBar/NavigationBar";
 
 const LoginPage = () => {
