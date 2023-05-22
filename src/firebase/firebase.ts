@@ -1,3 +1,4 @@
+// eslint-disable-next-line
 import { getAuth, GoogleAuthProvider } from "firebase/auth";
 import { getFirestore } from "firebase/firestore";
 import { initializeApp, FirebaseApp } from "firebase/app";

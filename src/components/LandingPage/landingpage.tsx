@@ -1,5 +1,3 @@
-import { Button, TextField, Typography } from "@mui/material";
-import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "./landingpage.css";
 
@@ -14,12 +12,14 @@ const LandingPage = () => {
     <div className="homeContainer">
       <div className="title">
         <h4>Git</h4> <h4 id="code">Code.</h4>
-        <p>Level up your Git skills with interactive coding challenges and master the art of version control.</p>
+        <p>
+          Level up your Git skills with interactive coding challenges and master
+          the art of version control.
+        </p>
         <button onClick={handleRedirect} className="redirectButton">
-        GET STARTED
-      </button>
+          GET STARTED
+        </button>
       </div>
-
     </div>
   );
 };
