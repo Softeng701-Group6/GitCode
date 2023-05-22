@@ -1,10 +1,10 @@
 import { Box } from "@mui/material"
-
+import GraphApplication from "../../components/GraphApplication"
 
 export default function GraphApplicationTest() {
     return(
-        <Box>
-            <h1>hello world</h1>
+        <Box sx={{border: '5px solid white', height: '100vh'}}>
+            <GraphApplication />
         </Box>
     )
 }

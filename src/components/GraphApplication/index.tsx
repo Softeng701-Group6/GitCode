@@ -8,24 +8,22 @@ import { useState } from 'react';
 import { Box, Stack } from '@mui/material';
 
 
-const GraphApplication = () => {
+export default function GraphApplication() {
 
     const [nodes, setNodes] = useState<string[]>([]);
     const [edges, setEdges] = useState<Edge[]>([]);
-
     const [remote, setRemote] = useState<string[]>([]);
-
     const [HEAD, setHEAD] = useState<string>('');
 
 
     return (
-        <Stack>
-            <Box>
+        <Stack sx={{height: '100%'}}>
+            <Box sx={{height: '50%'}}>
                 <ReactFlowProvider>
                     <GitGraph nodes={nodes} edges={edges} remote={remote} HEAD={HEAD} />
                 </ReactFlowProvider>
             </Box>
-            <Box>
+            <Box sx={{height: '50%'}}>
                 <Terminal setNodes={setNodes} setEdges={setEdges} setRemote={setRemote} setHEAD={setHEAD}/>
             </Box>
         </Stack>
