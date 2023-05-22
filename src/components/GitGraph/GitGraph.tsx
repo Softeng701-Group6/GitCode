@@ -1,4 +1,4 @@
-import { useCallback } from "react";
+import { useCallback, useEffect } from "react";
 import ReactFlow, {
   Node,
   addEdge,
@@ -6,42 +6,81 @@ import ReactFlow, {
   Edge,
   Connection,
   useNodesState,
-  useEdgesState
+  useEdgesState,
+  useReactFlow,
+  ReactFlowInstance
 } from "reactflow";
-
-import CustomNode from "./CustomNode";
 
 import "reactflow/dist/style.css";
 
-const initialNodes: Node[] = [
-  {
-    id: "1",
-    type: "input",
-    data: { label: "Node 1" },
-    position: { x: 250, y: 5 }
-  },
-  { id: "2", data: { label: "Node 2" }, position: { x: 100, y: 100 } },
-  { id: "3", data: { label: "Node 3" }, position: { x: 400, y: 100 } },
-  {
-    id: "4",
-    type: "custom",
-    data: { label: "Custom Node" },
-    position: { x: 400, y: 200 }
-  }
-];
+import CustomNode from "./CustomNode";
+import { initialEdges, initialNodes } from "./initial-nodes-edges.js";
 
-const initialEdges: Edge[] = [
-  { id: "e1-2", source: "1", target: "2", animated: true },
-  { id: "e1-3", source: "1", target: "3" }
-];
+import dagre from 'dagre';
 
 const nodeTypes = {
   custom: CustomNode
 };
 
+const dagreGraph = new dagre.graphlib.Graph();
+dagreGraph.setDefaultEdgeLabel(() => ({}));
+
+const nodeWidth = 172;
+const nodeHeight = 36;
+
+const getLayoutedElements = (nodes: Node[], edges: Edge[], direction = 'TB') => {
+  const isHorizontal = direction === 'LR';
+  dagreGraph.setGraph({ rankdir: direction });
+
+  nodes.forEach((node: Node) => {
+    dagreGraph.setNode(node.id, { width: nodeWidth, height: nodeHeight });
+  });
+
+  edges.forEach((edge: Edge) => {
+    dagreGraph.setEdge(edge.source, edge.target);
+  });
+
+  dagre.layout(dagreGraph);
+
+  nodes.forEach((node: Node) => {
+    const nodeWithPosition = dagreGraph.node(node.id);
+    node.targetPosition = isHorizontal ? 'left' : 'top';
+    node.sourcePosition = isHorizontal ? 'right' : 'bottom';
+
+    // We are shifting the dagre node position (anchor=center center) to the top left
+    // so it matches the React Flow node anchor point (top left).
+    node.position = {
+      x: nodeWithPosition.x - nodeWidth / 2,
+      y: nodeWithPosition.y - nodeHeight / 2,
+    };
+
+    return node;
+  });
+
+  return { nodes, edges };
+};
+
 const GitGraph = () => {
-  const [nodes, setNodes, onNodesChange] = useNodesState(initialNodes);
-  const [edges, setEdges, onEdgesChange] = useEdgesState(initialEdges);
+  const [nodes, setNodes, onNodesChange] = useNodesState([]);
+  const [edges, setEdges, onEdgesChange] = useEdgesState([]);
+  const reactFlowInstance = useReactFlow();
+
+  useEffect(() => {
+
+    const {nodes: layoutNodes, edges: layoutEdges} = getLayoutedElements(
+      initialNodes,
+      initialEdges,
+      'LR'
+    );
+
+    setNodes([...layoutNodes]);
+    setEdges([...layoutEdges]);
+  }, []);
+
+  useEffect(() => {
+    reactFlowInstance.fitView();
+  }, [nodes]);
+
   const onConnect = useCallback(
     (params: Edge | Connection) => setEdges((els) => addEdge(params, els)),
     [setEdges]
@@ -60,7 +99,6 @@ const GitGraph = () => {
   };
 
   return (
-    <>
     <ReactFlow
       nodes={nodes}
       edges={edges}
@@ -71,12 +109,7 @@ const GitGraph = () => {
       fitView
     >
       <Background />
-      
     </ReactFlow>
-
-    <button onClick={addNode}>Add Node</button>
-    </>
-    
   );
 };
 
