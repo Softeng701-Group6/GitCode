@@ -1,4 +1,4 @@
-import { Card, CardContent, Stack, Typography, styled } from "@mui/material";
+import { Box, Card, CardContent, Stack, Typography, styled } from "@mui/material";
 import StarBorderIcon from '@mui/icons-material/StarBorder';
 import StarIcon from '@mui/icons-material/Star';
 import { ReactElement, useState } from "react";
@@ -40,8 +40,9 @@ export default function LevelCard({level, difficulty, tags}: Props) {
       <CardContentNoPadding sx={{
         padding: "18px !important",
       }}>
-        <Stack direction="row" spacing={20} sx={{
+        <Stack direction="row" sx={{
           display: "flex",
+          position: "relative",
           alignItems: "center"
         }}>
           <Stack direction="column" spacing={2}>
@@ -58,10 +59,13 @@ export default function LevelCard({level, difficulty, tags}: Props) {
             </Stack>
           </Stack>
 
-          <div onClick={toggleStarred}>{starred ? 
+          <Box onClick={toggleStarred} sx={{
+            position: "absolute",
+            right: 0
+          }}>{starred ? 
             <StarBorderIcon sx={starIconStyle}/> :
             <StarIcon sx={starIconStyle} />}
-          </div>
+          </Box>
           
           
         </Stack>
