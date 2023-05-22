@@ -76,7 +76,7 @@ const LoginPage = () => {
           <div className="optionsContainer">
             <p>OR</p>
             <button onClick={handleGoogleSignin} className="googleBTN">
-              <i className="fa-brands fa-google"></i> Sign in with Google
+              <i className="fa-brands fa-google"></i> SIGN IN WITH GOOGLE 
             </button>
             OR <Link to="/signup" style={{color:'#FFB800'}}><b>CREATE AN ACCOUNT </b></Link>
           </div>

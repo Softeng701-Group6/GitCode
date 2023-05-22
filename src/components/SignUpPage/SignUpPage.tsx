@@ -81,7 +81,7 @@ const Signuppage = () => {
         <p className="or">OR</p>
 
         <button onClick={handleGoogleSignup} className="googleBTN">
-          <i className="fa-brands fa-google"></i> Sign up with Google
+          <i className="fa-brands fa-google"></i> SIGN UP WITH GOOGLE
         </button>
       </div>
     </div>
