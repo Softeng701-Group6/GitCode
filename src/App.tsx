@@ -9,7 +9,7 @@ import GitGraph from "./components/GitGraph/GitGraph";
 function App() {
   const [count, setCount] = useState(0);
   return (
-    <div style={{ width: "100vw", height: "100vh", border: 'solid black 3px' }}>
+    <div style={{ width: "800px", height: "350px", border: 'solid black 3px' }}>
       <ReactFlowProvider>
         <GitGraph />
       </ReactFlowProvider>
