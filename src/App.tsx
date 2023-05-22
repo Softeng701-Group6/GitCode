@@ -8,6 +8,7 @@ import { defaultTheme } from "./themes/defaultTheme";
 import LevelSelectPage from "./pages/LevelSelectPage/LevelSelectPage";
 import TestPage from "./components/TestPage.tsx";
 import LandingPage from "./components/LandingPage/landingpage";
+import GraphApplicationTest from "./pages/GraphApplicationTest/GraphApplicationTest.tsx";
 import "./App.css";
 
 function App() {
@@ -21,6 +22,7 @@ function App() {
           <Route path="levels" element={<LevelSelectPage />} />
           <Route path="/test" element={<TestPage />} />
           <Route path="/home" element={<LandingPage />} />
+          <Route path="/graph" element={<GraphApplicationTest />} />
         </Route>
       </Routes>
     </ThemeProvider>
