@@ -39,7 +39,7 @@ export interface Graph extends GeneralObject {
     edges: Edge[];
 }
 
-interface Edge {
+export interface Edge {
     source: string;
     target: string;
 }
