@@ -7,7 +7,6 @@ import LevelSelectPage from "./pages/LevelSelectPage/LevelSelectPage";
 import TestPage from "./components/TestPage.tsx";
 import LandingPage from "./components/LandingPage/landingpage";
 import "./App.css";
-import DiscussionPage from "./pages/DiscussionPage/DiscussionPage.tsx";
 
 function App() {
   return (
@@ -19,7 +18,6 @@ function App() {
           <Route path="/signup" element={<SignupPage />} />
           <Route path="/test" element={<TestPage />} />
           <Route path="/home" element={<LevelSelectPage />} />
-          <Route path="/discussion" element={<DiscussionPage />} />
         </Routes>
       </ThemeProvider>
     </div>
