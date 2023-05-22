@@ -7,6 +7,7 @@ import "./QuestionEndModal.css";
 import tick from "../../assets/green_check.png";
 
 import { useNavigate } from "react-router-dom";
+import GreenButton from "../GreenButton/GreenButton";
 
 export default function QuestionEndModal() {
   const navigate = useNavigate();
@@ -26,10 +27,12 @@ export default function QuestionEndModal() {
         </Typography>
         <img className="green-tick" src={tick} />
         <Typography variant="body1" className="modal-text">
-          Take a moment to reflect on the importance of these actions in version
-          control and collaborative development. By committing and pushing
-          changes regularly, you maintain a reliable and traceable history of
-          your project, enabling seamless collaboration with other developers.
+          Take a moment to reflect on the Lesson.
+        </Typography>
+        <Typography variant="body1" className="modal-text">
+          By committing and pushing changes regularly, you maintain a reliable
+          and traceable history of your project, enabling seamless collaboration
+          with other developers.
         </Typography>
         <Typography variant="body1" className="modal-text">
           For more information and to continue the discussion, please visit the
@@ -39,13 +42,7 @@ export default function QuestionEndModal() {
           </a>
           .
         </Typography>
-        <Button
-          className="modal-close-button"
-          variant="contained"
-          onClick={handleGoToQuestions}
-        >
-          Return to Questions
-        </Button>
+        <GreenButton onClick={handleGoToQuestions}>Go To Questions</GreenButton>
       </Box>
     </Modal>
   );

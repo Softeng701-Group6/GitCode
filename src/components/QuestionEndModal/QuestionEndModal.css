@@ -37,13 +37,6 @@
     text-decoration: none;
   }
   
-  .modal-close-button {
-    margin-top: 20px;
-    background-color: #31884F !important;
-    color: #fff;
-    align-self: center;
-  }
-  
   .green-tick {
     width: 10vw;
     margin: auto;
