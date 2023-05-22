@@ -26,7 +26,7 @@ const GraphApplication = () => {
                 </ReactFlowProvider>
             </Box>
             <Box>
-                <Terminal />
+                <Terminal setNodes={setNodes} setEdges={setEdges} setRemote={setRemote} setHEAD={setHEAD}/>
             </Box>
         </Stack>
     )
