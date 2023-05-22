@@ -1,19 +1,29 @@
-import { useState } from "react";
-import reactLogo from "./assets/react.svg";
-import viteLogo from "/vite.svg";
+import { Route, Routes } from "react-router-dom";
+import SignupPage from "./pages/SignUpPage/SignUpPage";
+import LoginPage from "./pages/LoginPage/LoginPage";
+import HomePage from "./pages/HomePage/HomePage";
+import PageLayout from "./components/PageLayout";
+import { ThemeProvider } from "@mui/material";
+import { defaultTheme } from "./themes/defaultTheme";
+import LevelSelectPage from "./pages/LevelSelectPage/LevelSelectPage";
+import TestPage from "./components/TestPage.tsx";
+import LandingPage from "./components/LandingPage/landingpage";
 import "./App.css";
-import Graph from "./components/Graph";
-import { ReactFlowProvider } from "reactflow";
-import GitGraph from "./components/GitGraph";
 
 function App() {
-  const [count, setCount] = useState(0);
   return (
-    <div style={{ width: "800px", height: "350px", border: "solid black 3px" }}>
-      <ReactFlowProvider>
-        <GitGraph />
-      </ReactFlowProvider>
-    </div>
+    <ThemeProvider theme={defaultTheme}>
+      <Routes>
+        <Route path="/" element={<PageLayout />}>
+          <Route index element={<HomePage />}/>
+          <Route path="login" element={<LoginPage />} />
+          <Route path="signup" element={<SignupPage />} />
+          <Route path="levels" element={<LevelSelectPage />} />
+          <Route path="/test" element={<TestPage />} />
+          <Route path="/home" element={<LandingPage />} />
+        </Route>
+      </Routes>
+    </ThemeProvider>
   );
 }
 
