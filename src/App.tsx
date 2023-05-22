@@ -14,13 +14,12 @@ function App() {
   return (
     <ThemeProvider theme={defaultTheme}>
       <Routes>
-        <Route path="/" element={<PageLayout />}>
-          <Route index element={<HomePage />}/>
+        <Route path="/" element={<LandingPage />}>
+          <Route index element={<HomePage />} />
           <Route path="login" element={<LoginPage />} />
           <Route path="signup" element={<SignupPage />} />
-          <Route path="levels" element={<LevelSelectPage />} />
           <Route path="/test" element={<TestPage />} />
-          <Route path="/home" element={<LandingPage />} />
+          <Route path="/home" element={<LevelSelectPage />} />
         </Route>
       </Routes>
     </ThemeProvider>
