@@ -4,6 +4,7 @@ import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
 import "./QuestionEndModal.css";
+import tick from "../../assets/green_check.png";
 
 import { useNavigate } from "react-router-dom";
 
@@ -20,10 +21,10 @@ export default function QuestionEndModal() {
         <Typography variant="h4" className="modal-title">
           Level Complete!
         </Typography>
-        <img></img>
-        <Typography variant="body1" className="modal-text">
-          You have successfully completed your first Git commit and push.
+        <Typography variant="h4" className="modal-question-title">
+          1. Commit and Push
         </Typography>
+        <img className="green-tick" src={tick} />
         <Typography variant="body1" className="modal-text">
           Take a moment to reflect on the importance of these actions in version
           control and collaborative development. By committing and pushing
