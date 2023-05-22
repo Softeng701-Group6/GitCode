@@ -8,19 +8,17 @@ import ReactFlow, {
   useNodesState,
   useEdgesState,
   useReactFlow,
-  ReactFlowInstance
 } from "reactflow";
 
 import "reactflow/dist/style.css";
 
-import CustomNode from "./CustomNode";
+import CustomNode from "./CustomNode.tsx";
 import { initialEdges, initialNodes } from "./initial-nodes-edges.js";
-import { getLayoutedElements } from "./Layout.tsx";
+import { getLayoutedElements } from "./Layout.ts";
 
 const nodeTypes = {
-  custom: CustomNode
+  custom: CustomNode,
 };
-
 
 const GitGraph = () => {
   const [nodes, setNodes, onNodesChange] = useNodesState([]);
@@ -28,11 +26,10 @@ const GitGraph = () => {
   const reactFlowInstance = useReactFlow();
 
   useEffect(() => {
-
-    const {nodes: layoutNodes, edges: layoutEdges} = getLayoutedElements(
+    const { nodes: layoutNodes, edges: layoutEdges } = getLayoutedElements(
       initialNodes,
       initialEdges,
-      'LR'
+      "LR"
     );
 
     setNodes([...layoutNodes]);
@@ -54,7 +51,7 @@ const GitGraph = () => {
       id: newNodeId,
       type: "default",
       data: { label: `Node ${nodes.length + 1}` },
-      position: { x: 200, y: 200 }
+      position: { x: 200, y: 200 },
     };
 
     setNodes((prevNodes) => [...prevNodes, newNode]);

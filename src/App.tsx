@@ -4,12 +4,12 @@ import viteLogo from "/vite.svg";
 import "./App.css";
 import Graph from "./components/Graph";
 import { ReactFlowProvider } from "reactflow";
-import GitGraph from "./components/GitGraph/GitGraph";
+import GitGraph from "./components/GitGraph";
 
 function App() {
   const [count, setCount] = useState(0);
   return (
-    <div style={{ width: "800px", height: "350px", border: 'solid black 3px' }}>
+    <div style={{ width: "800px", height: "350px", border: "solid black 3px" }}>
       <ReactFlowProvider>
         <GitGraph />
       </ReactFlowProvider>
