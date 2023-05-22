@@ -15,7 +15,7 @@ import "reactflow/dist/style.css";
 
 import CustomNode from "./CustomNode";
 import { initialEdges, initialNodes } from "./initial-nodes-edges.js";
-import { getLayoutedElements } from "./Layout.ts";
+import { getLayoutedElements } from "./Layout.tsx";
 
 const nodeTypes = {
   custom: CustomNode
