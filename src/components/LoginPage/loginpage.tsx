@@ -3,7 +3,9 @@ import React, { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { auth, googleProvider } from "../../firebase/firebase";
 import { signInWithEmailAndPassword, signInWithPopup } from "firebase/auth";
-import "./loginpage.css";
+import { ThemeProvider } from "@mui/material";
+import { defaultTheme } from "./themes/defaultTheme";
+// import "./loginpage.css";
 
 const LoginPage = () => {
   const navigate = useNavigate();
@@ -30,6 +32,7 @@ const LoginPage = () => {
   };
 
   return (
+    <ThemeProvider theme={defaultTheme}>
       <div className="loginContainer">
         <div className="loginContainerv2">
           <Typography variant="h3" 
@@ -82,6 +85,7 @@ const LoginPage = () => {
           </div>
         </div>
     </div>
+    </ThemeProvider>
   );
 };
 
