@@ -1,22 +1,22 @@
-.homeContainer {
+/* .homeContainer {
     width: 100vh;
     height: 40vh;
     display: flex;
     background-image: url("../assets/background.png");
-}
+} */
 
-
+/* 
 .redirectButton {
     background-color: transparent;
     border-radius: 9px;
     border: 0.5px solid white;
-    color: white;
+    color: white; */
     /* bottom: 10%;
     position: absolute;
     bottom: 20%;
     left: 15%; */
-    margin-top: 20%;
-}
+    /* margin-top: 20%;
+} */
 
 body {
     /* background-color: #020110; */
@@ -25,24 +25,24 @@ body {
     
 }
 
-.title {
+/* .title {
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
     position: relative;
     float: left;
     justify-content: flex-start;
-}
+} */
 
-.title h4 {
+/* .title h4 {
     font-style: normal;
     font-weight: bold;
     font-size: 120px;
-    font-size: 5em;
+    font-size: 5em; */
     /* line-height: 133px; */
-    color: #FFFFFF;
+    /* color: #FFFFFF;
     margin: 0;
-}
+} */
 
 .title p {
     color: white;
