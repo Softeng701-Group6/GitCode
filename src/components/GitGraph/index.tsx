@@ -23,8 +23,8 @@ const nodeTypes = {
 };
 
 interface GraphState {
-  nodes: string[];
-  edges: EdgeState[];
+  nodes: Node[];
+  edges: Edge[];
   remote: string[];
   HEAD: string;
 }
@@ -37,14 +37,14 @@ const GitGraph = ({nodes, edges, remote, HEAD}: GraphState) => {
 
   useEffect(() => {
     const { nodes: layoutNodes, edges: layoutEdges } = getLayoutedElements(
-      initialNodes,
-      initialEdges,
+      nodes,
+      edges,
       "LR"
     );
 
     setNodes([...layoutNodes]);
     setEdges([...layoutEdges]);
-  }, []);
+  }, [nodes, edges]);
 
   useEffect(() => {
     reactFlowInstance.fitView();
