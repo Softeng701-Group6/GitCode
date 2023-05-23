@@ -1,7 +1,5 @@
 import { Button, Grid, Typography, Container } from "@mui/material";
-import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import "./landingpage.css";
 
 const LandingPage = () => {
   const navigate = useNavigate();
@@ -14,7 +12,7 @@ const LandingPage = () => {
       <Container component="main">
         <Grid container
           direction="column"
-          justifyContent="flex-start"
+          justifyContent="center"
           alignItems="flex-start"
           >
           <Grid container
