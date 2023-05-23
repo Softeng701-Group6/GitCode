@@ -3,7 +3,8 @@
  */
 export enum Collection {
     USERS = "USERS",
-    ARTICLES = "ARTICLES",
+    DESCRIPTIONS = "DESCRIPTIONS",
+    DISCUSSIONS = "DISCUSSIONS",
     COMMENTS = "COMMENTS",
     QUESTIONS = "QUESTIONS",
     GRAPHS = "GRAPHS",
