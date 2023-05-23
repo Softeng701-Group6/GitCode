@@ -1,15 +1,13 @@
-import React from "react";
 import Modal from "@mui/material/Modal";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
-import Button from "@mui/material/Button";
 import "./QuestionEndModal.css";
 import tick from "../../assets/green_check.png";
 
 import { useNavigate } from "react-router-dom";
 import GreenButton from "../GreenButton/GreenButton";
 
-export default function QuestionEndModal() {
+export default function QuestionEndModal({ onClose }: { onClose: () => void }) {
   const navigate = useNavigate();
 
   const handleGoToQuestions = () => {
@@ -17,7 +15,7 @@ export default function QuestionEndModal() {
   };
 
   return (
-    <Modal open={true} onClose={handleGoToQuestions}>
+    <Modal open={true} onClose={onClose}>
       <Box className="modal-container">
         <Typography variant="h4" className="modal-title">
           Level Complete!
