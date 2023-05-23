@@ -28,5 +28,8 @@
 .mainGrid{
   max-width: 100%;
   width: 100%;
-  background-color: green;
+  height: 100vw;
+  padding-top: 100px;
+  padding-left: 10px;
+  /* background-color: green; */
 }
