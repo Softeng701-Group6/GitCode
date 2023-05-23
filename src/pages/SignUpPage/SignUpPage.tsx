@@ -119,6 +119,7 @@ const Signuppage = () => {
             SIGN UP
           </Button>
           <Grid container direction="column">
+            <span style={{ color: 'white' }}> OR </span>
             <Grid item xs>
               <Button onClick={handleGoogleSignup} sx={{borderRadius: '9px', color:'white'}}>
                 <GoogleIcon sx={{color:'white'}} /> SIGN UP WITH GOOGLE
