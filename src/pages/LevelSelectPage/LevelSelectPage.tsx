@@ -18,12 +18,9 @@ const tags = [
   },
 ];
 
-
-
-
 export default function LevelSelectPage() {
 
-  const [selected, setSelected] = React.useState<boolean | null>(false);
+  const [selected, setSelected] = React.useState<boolean | null>(true);
 
   return (
     <div>
