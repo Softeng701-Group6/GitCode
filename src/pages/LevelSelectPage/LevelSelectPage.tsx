@@ -25,7 +25,7 @@ export default function LevelSelectPage() {
   return (
     <div>
       <NavigationBar />
-      <Grid container spacing={2} sx={{}}>
+      <Grid className={styles.mainGrid} container spacing={2} sx={{}}>
         <Grid item xs={4}>
           <Stack direction="column">
             <LevelCard
