@@ -1,8 +1,10 @@
+import * as React from 'react';
 import { green, purple } from "@mui/material/colors";
 import LevelCard from "./LevelCard";
 import Tag from "../../components/Tag";
 import { Grid, Stack } from "@mui/material";
 import Frame from "../../components/Frame";
+import styles from './LevelSelectPage.module.css'
 import NavigationBar from "../../components/NavigationBar/NavigationBar";
 
 const tags = [
@@ -17,6 +19,9 @@ const tags = [
 ];
 
 export default function LevelSelectPage() {
+
+  const [selected, setSelected] = React.useState<boolean | null>(true);
+
   return (
     <div>
       <NavigationBar />
@@ -54,7 +59,17 @@ export default function LevelSelectPage() {
                 // Custom styles here
               }
             }
-          ></Frame>
+            
+          >
+          <div >
+            <span >
+              <button className={ selected ? styles.selected : styles.unselected} onClick={() => {setSelected(true)}}>DESCRIPTION</button>
+              <button className={ !selected ? styles.selected : styles.unselected} onClick={() => {setSelected(false)}}>DISCUSSION</button>
+            </span >
+            {/* Place description/ discussion component here */}
+          {selected ? <div>DESCRIPTION</div> : <div>DISCUSSION</div>}
+          </div>
+          </Frame>
         </Grid>
       </Grid>
     </div>
