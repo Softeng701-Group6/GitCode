@@ -2,6 +2,7 @@ import { useState } from "react";
 import GreenButton from "../../components/GreenButton/GreenButton";
 import NavigationBar from "../../components/NavigationBar/NavigationBar";
 import QuestionEndModal from "../../components/QuestionEndModal/QuestionEndModal";
+import "./QuestionPage.module.css";
 
 const QuestionPage = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
