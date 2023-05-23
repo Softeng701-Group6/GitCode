@@ -41,3 +41,9 @@
 .read-the-docs {
   color: #888;
 }
+
+body {
+  background-image:url(src/assets/background.png);
+  background-size: cover;
+  
+}
