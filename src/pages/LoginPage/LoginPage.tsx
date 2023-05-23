@@ -4,6 +4,7 @@ import { useNavigate, Link } from "react-router-dom";
 import { auth, googleProvider } from "../../firebase/firebase";
 import { signInWithEmailAndPassword, signInWithPopup } from "firebase/auth";
 import GoogleIcon from '@mui/icons-material/Google';
+import NavigationBar from "../../components/NavigationBar/NavigationBar";
 
 const LoginPage = () => {
   const navigate = useNavigate();
@@ -110,7 +111,6 @@ const LoginPage = () => {
         </Box>
       </Box>
     </Container>
-
   );
 };
 
