@@ -96,6 +96,7 @@ const LoginPage = () => {
             LOG IN
           </Button>
           <Grid container direction="column">
+            <span style={{ color: 'white' }}> OR </span>
             <Grid item xs>
               <Button onClick={handleGoogleSignin} sx={{borderRadius: '9px', color:'white'}}>
                 <GoogleIcon sx={{color:'white'}} /> SIGN IN WITH GOOGLE
