@@ -2,6 +2,7 @@
     height: 40vh;
     padding: 2rem;
     background-image: url("../assets/background.png");
+    align-items: center;
 }
 
 
