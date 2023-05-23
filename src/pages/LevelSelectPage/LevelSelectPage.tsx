@@ -1,8 +1,10 @@
+import * as React from 'react';
 import { green, purple } from "@mui/material/colors";
 import LevelCard from "./LevelCard";
 import Tag from "../../components/Tag";
 import { Grid, Stack } from "@mui/material";
 import Frame from "../../components/Frame";
+import './LevelSelectPage.module.css'
 
 const tags = [
   {
@@ -15,7 +17,13 @@ const tags = [
   }
 ]
 
+
+
+
 export default function LevelSelectPage() {
+
+  const [selected, setSelected] = React.useState<boolean | null>(false);
+
   return (
     <Grid container spacing={2} sx={{
       
@@ -39,8 +47,17 @@ export default function LevelSelectPage() {
       <Grid item xs={8}>
         <Frame sx={{
           // Custom styles here
+          
         }}>
-
+          <div>
+            <span >
+              <button style={{backgroundColor: selected ? '#7A4CC5' : "#3E3E3E"}} onClick={() => {setSelected(true)}}>DESCRIPTION</button>
+              <button style={{backgroundColor: !selected ? '#7A4CC5' : "#3E3E3E"}} onClick={() => {setSelected(false)}}>DISCUSSION</button>
+            </span >
+          {selected ? <div/> : <div></div>}
+          </div>
+            
+              
         </Frame>
       </Grid>
     </Grid>

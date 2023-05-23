@@ -1,0 +1,14 @@
+button{
+    width:50%;
+    font-size:16pt; 
+    font-weight:bold;
+}
+
+button:hover {
+    border-color: #fff;
+  }
+
+button:focus,
+button:focus-visible {
+  outline: none;
+}
