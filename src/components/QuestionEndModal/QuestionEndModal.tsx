@@ -3,6 +3,7 @@ import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import "./QuestionEndModal.css";
 import tick from "../../assets/green_check.png";
+import CloseIcon from "@mui/icons-material/Close";
 
 import { useNavigate } from "react-router-dom";
 import GreenButton from "../GreenButton/GreenButton";
@@ -14,9 +15,16 @@ export default function QuestionEndModal({ onClose }: { onClose: () => void }) {
     navigate("/home");
   };
 
+  const handleCloseModal = () => {
+    onClose();
+  };
+
   return (
-    <Modal open={true} onClose={onClose}>
+    <Modal open={true} onClose={handleCloseModal}>
       <Box className="modal-container">
+        <div className="modal-close-button" onClick={handleCloseModal}>
+          <CloseIcon />
+        </div>
         <Typography variant="h4" className="modal-title">
           Level Complete!
         </Typography>
