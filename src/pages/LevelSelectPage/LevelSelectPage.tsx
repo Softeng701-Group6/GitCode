@@ -3,6 +3,7 @@ import LevelCard from "./LevelCard";
 import Tag from "../../components/Tag";
 import { Grid, Stack } from "@mui/material";
 import Frame from "../../components/Frame";
+import LevelDescription from "../../components/LevelDescription";
 
 const tags = [
   {
@@ -40,7 +41,7 @@ export default function LevelSelectPage() {
         <Frame sx={{
           // Custom styles here
         }}>
-
+          <LevelDescription/>
         </Frame>
       </Grid>
     </Grid>
