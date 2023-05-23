@@ -35,7 +35,7 @@ interface Answer {
 export interface Comment extends GeneralObject {
     userId: DocumentReference;  // Reference to User
     message: string;
-    upVotes: number;
+    upVotes: DocumentReference[];  // Reference to User
 }
 
 export interface Question extends GeneralObject {
