@@ -1,10 +1,9 @@
-import { TextField, Typography } from "@mui/material";
+import { TextField, Typography, Button, Container, Grid, Box } from "@mui/material";
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import { auth, googleProvider } from "../../firebase/firebase";
 import { createUserWithEmailAndPassword, signInWithPopup } from "firebase/auth";
-// import "/src/components/LoginPage/loginpage.css";
-import "./SignUpPage.css";
+import GoogleIcon from '@mui/icons-material/Google';
 
 const Signuppage = () => {
   const navigate = useNavigate();
@@ -36,55 +35,104 @@ const Signuppage = () => {
   };
 
   return (
-    <div className="loginContainer">
-      <div className="loginContainerv2">
-        <h1>Create Your Account</h1>
-        <form onSubmit={handleSignup}>
-          <div className="inputContainer">
-            <Typography>EMAIL</Typography>
-            <TextField
-              className="textfield"
-              placeholder="Enter your email"
-              type="email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-            />
-          </div>
+    <Container component="main" maxWidth="xs">
+      <Box m={2} pt={3}
+        sx={{  
+          marginTop: 8,
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+        }}
+      >
+        <Typography variant="h2" 
+          sx={{ 
+            fontWeight: 'bold', 
+            color: 'white',
+            margin: '4%'
+          }}> Create Your Account  
+        </Typography>
 
-          <div className="inputContainer">
-            <Typography>PASSWORD</Typography>
-            <TextField
-              className="textfield"
-              placeholder="Password"
-              variant="outlined"
-              type="password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-            />
-          </div>
+        <Box component="form" onSubmit={handleSignup} noValidate sx={{ mt: 1 }}>
+          <Typography sx={{ color: 'white', textAlign: 'left'}}>EMAIL</Typography>
+          <TextField
+            required
+            fullWidth
+            id="email"
+            name="email"
+            autoFocus
+            placeholder="Enter your email..."
+            type="email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            size="small"
+            sx={{
+              mt: 1, mb: 3,
+              input: {color: 'white'},
+              border: '1px solid white',
+              borderRadius: '9px',
+            }}
+          />
+          <Typography sx={{ color: 'white', textAlign: 'left'}}>PASSWORD</Typography>
+          <TextField
+            required
+            fullWidth
+            className="textfield"
+            placeholder="Enter your password..."
+            variant="outlined"
+            type="password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            size="small"
+            sx={{
+              mt: 1, mb: 3,
+              input: {color: 'white'},
+              border: '1px solid white',
+              borderRadius: '9px'
+            }}
+          />
 
-          <div className="inputContainer">
-            <Typography>CONFIRM PASSWORD</Typography>
-            <TextField
-              className="textfield"
-              placeholder="Confirm Password"
-              variant="outlined"
-              type="password"
-              value={passwordVerify}
-              onChange={(e) => setPasswordVerify(e.target.value)}
-            />
-          </div>
+          <Typography sx={{ color: 'white', textAlign: 'left'}}>CONFIRM PASSWORD</Typography>
+          <TextField
+            required
+            fullWidth
+            className="textfield"
+            placeholder="Re-enter your password"
+            variant="outlined"
+            type="password"
+            value={passwordVerify}
+            onChange={(e) => setPasswordVerify(e.target.value)}
+            size="small"
+            sx={{
+              mt: 1, mb: 3,
+              input: {color: 'white'},
+              border: '1px solid white',
+              borderRadius: '9px'
+            }}
+          />
 
-          <button className="loginBTN">REGISTER</button>
-        </form>
-
-        <p className="or">OR</p>
-
-        <button onClick={handleGoogleSignup} className="googleBTN">
-          <i className="fa-brands fa-google"></i> SIGN UP WITH GOOGLE
-        </button>
-      </div>
-    </div>
+          <Button
+            type="submit"
+            variant="contained"
+            sx={{ mt: 3, mb: 2, backgroundColor: 'transparent', border: '1px solid white', '&:hover': {
+            backgroundColor: "#FFB800"}, borderRadius: '9px' }}
+          >
+            SIGN UP
+          </Button>
+          <Grid container direction="column">
+            <Grid item xs>
+              <Button onClick={handleGoogleSignup} sx={{borderRadius: '9px', color:'white'}}>
+                <GoogleIcon sx={{color:'white'}} /> SIGN UP WITH GOOGLE
+              </Button>
+            </Grid>
+            <Grid item xs>
+              <Link to="/login" style={{color:'#FFB800', marginTop: '1%'}}>
+                {"Already Have An Account?"} <b> <u>Log In </u></b>
+              </Link>
+            </Grid>
+          </Grid>
+        </Box>
+      </Box>
+    </Container>
   );
 };
 
