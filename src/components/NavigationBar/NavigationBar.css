@@ -1,0 +1,66 @@
+.root {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+  }
+  
+  .appBar {
+    background: #252525;
+  }
+  
+  .toolbar {
+    display: flex;
+    justify-content: space-between;
+  }
+  
+  .title {
+    font-family: 'inter';
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: white;
+    text-decoration: none;
+    margin-right: 1rem;
+    cursor: pointer;
+  }
+  
+  .title:hover {
+    color: #FFB800;
+  }
+  
+  .subTitle {
+    font-family: 'inter';
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #FFB800;
+    text-decoration: none;
+    margin-right: 1rem;
+    cursor: pointer;
+  }
+  
+  .subTitle:hover {
+    color: white;
+  }
+  
+  .loginButton,
+  .signupButton {
+    color: white;
+  }
+  
+  .userIcon {
+    font-size: 2rem;
+    color: #FFB800;
+  }
+  
+  .userMenu {
+    margin-top: 45px;
+  }
+  
+  .menuItem {
+    display: flex;
+    justify-content: center;
+  }
+  
+  .progressBar {
+    background-color: #31884F;
+  }
+  
