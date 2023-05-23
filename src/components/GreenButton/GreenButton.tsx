@@ -1,6 +1,6 @@
 import React, { ReactNode, MouseEvent } from "react";
 import Button, { ButtonProps } from "@mui/material/Button";
-import "./GreenButton.css";
+import styles from "./GreenButton.module.css";
 
 interface GreenButtonProps extends ButtonProps {
   children: ReactNode;
@@ -13,7 +13,7 @@ const GreenButton: React.FC<GreenButtonProps> = ({
   ...rest
 }) => (
   <Button
-    className="green-button"
+    className={styles["green-button"]}
     variant="contained"
     onClick={onClick}
     {...rest}
