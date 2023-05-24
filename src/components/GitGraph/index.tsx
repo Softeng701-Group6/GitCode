@@ -27,7 +27,7 @@ const nodeTypes = {
 interface GraphState {
   nodes: string[];
   edges: FirebaseEdge[];
-  remote: string[];
+  remote: Set<string>;
   HEAD: string;
 }
 
