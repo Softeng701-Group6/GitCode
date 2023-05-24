@@ -7,6 +7,7 @@ import Frame from "../../components/Frame";
 import styles from './LevelSelectPage.module.css'
 import NavigationBar from "../../components/NavigationBar/NavigationBar";
 
+
 const tags = [
   {
     name: "commit",
@@ -19,7 +20,6 @@ const tags = [
 ];
 
 export default function LevelSelectPage() {
-
   const [selected, setSelected] = React.useState<boolean | null>(true);
 
   return (
