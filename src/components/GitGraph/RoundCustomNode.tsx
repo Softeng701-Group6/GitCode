@@ -5,6 +5,7 @@ import { Handle, Position } from 'reactflow';
 interface NodeProps {
   data: {
     label: string;
+    color: string;
   };
 }
 
@@ -17,22 +18,23 @@ const RoundCustomNode: React.FC<NodeProps> = ({ data }) => {
         justifyContent: 'center',
         alignItems: 'center',
         borderRadius: '50%',
-        backgroundColor: '#1A192B',
-        width: '100px',
-        height: '100px',
+        backgroundColor: data.color?data.color:'#1A192B',
+        width: '50px',
+        height: '50px',
         color: '#FFF',
-        border: '1px solid #ddd'
+        border: '1px solid #ddd',
+        fontSize: "12px",
       }}
     >
       {data.label}
       <Handle
         type="target"
-        position={Position.Top}
+        position={Position.Left}
         style={{ borderRadius: '50%' }}
       />
       <Handle
         type="source"
-        position={Position.Bottom}
+        position={Position.Right}
         style={{ borderRadius: '50%' }}
       />
     </div>

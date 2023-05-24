@@ -74,7 +74,7 @@ const GitGraph = ({nodes, edges, remote, HEAD}: GraphState) => {
     // Convert nodes
     const nodes: Node[] = nodesInput.map(nodeId => ({
       id: nodeId,
-      data: { label: `Node ${nodeId}` },
+      data: { label: `Node ${nodeId}`, color: remote.has(nodeId)?"#A610BD":null },
       position: { x: 1, y: 1 },
       type: "circle"
     }));
