@@ -9,14 +9,14 @@
   position: relative;
   float: left;
   justify-content: flex-start;
-  font-size: 90px !important;
+  font-size: 5rem !important;
   font-stretch: 2px !important;
 }
 
 .blurb {
   color: white;
   text-align-last: left;
-  font-size: 24px !important;
+  font-size: 1.6rem !important;
 }
 
 .button {
@@ -28,5 +28,5 @@
   bottom: 0 !important;
   width: 164px !important;
   height: 40px !important;
-  font-size: 1.2rem !important;
+  font-size: 1.3rem !important;
 }
