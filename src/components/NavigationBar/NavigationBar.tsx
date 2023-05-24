@@ -39,10 +39,10 @@ export default function NavigationBar() {
     <Box className={styles.root}>
       <AppBar position="absolute" style={{ background: '#252525' }}>
         <Toolbar className={styles['toolbar']}>
-          <Typography variant="h6" component="a" href="/levels" className={styles['title']} sx={{fontSize:32, fontWeight:'bold', py:4, paddingLeft:4}}>
+          <Typography variant="h6" component="a" href="/home" className={styles['title']} sx={{fontSize:32, fontWeight:'bold', py:4, paddingLeft:4}}>
             Git
           </Typography>
-          <Typography variant="h6" component="a" href="/levels" className={styles['subTitle']} sx={{fontSize:32, fontWeight:'bold'}}>
+          <Typography variant="h6" component="a" href="/home" className={styles['subTitle']} sx={{fontSize:32, fontWeight:'bold'}}>
             Code.
           </Typography>
           {/*<Box sx={{ m: 3 }} />
