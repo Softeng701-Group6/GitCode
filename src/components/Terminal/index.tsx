@@ -4,11 +4,11 @@ import {Edge} from "../../models/types";
 interface GraphSetter {
     setNodes: (nodes: string[]) => void;
     setEdges: (edges: Edge[]) => void;
-    setRemote: (nodes: string[]) => void;
+    setRemote: (nodes: Set<string>) => void;
     setHEAD: (head: string) => void;
     nodes: string[];
     edges: Edge[];
-    remote: string[];
+    remote: Set<string>;
     HEAD: string;
 }
 
