@@ -26,10 +26,9 @@
 }
 
 .mainGrid{
+  position: absolute;
+  top: 100px;
   max-width: 100%;
   width: 100%;
-  height: 100vw;
-  padding-top: 100px;
   padding-left: 10px;
-  
 }
