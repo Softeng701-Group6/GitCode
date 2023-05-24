@@ -6,6 +6,7 @@ import { Grid, Stack } from "@mui/material";
 import Frame from "../../components/Frame";
 import styles from './LevelSelectPage.module.css'
 import NavigationBar from "../../components/NavigationBar/NavigationBar";
+import LevelDescription from '../../components/LevelDescription';
 
 
 const tags = [
@@ -25,7 +26,7 @@ export default function LevelSelectPage() {
   return (
     <div>
       <NavigationBar />
-      <Grid container spacing={2} sx={{}}>
+      <Grid className={styles.mainGrid} container spacing={2} sx={{}}>
         <Grid item xs={4}>
           <Stack direction="column">
             <LevelCard
@@ -67,7 +68,7 @@ export default function LevelSelectPage() {
               <button className={ !selected ? styles.selected : styles.unselected} onClick={() => {setSelected(false)}}>DISCUSSION</button>
             </span >
             {/* Place description/ discussion component here */}
-          {selected ? <div>DESCRIPTION</div> : <div>DISCUSSION</div>}
+          {selected ? <LevelDescription title='Description' content='Content'/> : <div>DISCUSSION</div>}
           </div>
           </Frame>
         </Grid>
