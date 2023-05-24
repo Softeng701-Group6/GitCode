@@ -1,18 +1,15 @@
-import ReactFlow, {
-    Node,
-    Edge
-  } from "reactflow";
-  import { useEffect } from "react";
+import { useEffect } from "react";
+import {Edge} from "../../models/types";
 
 interface GraphSetter {
-    setNodes: (nodes: Node[]) => void;
+    setNodes: (nodes: string[]) => void;
     setEdges: (edges: Edge[]) => void;
     setRemote: (nodes: string[]) => void;
     setHEAD: (head: string) => void;
-    nodes: Node[];
+    nodes: string[];
     edges: Edge[];
-    remote: String[];
-    HEAD: String;
+    remote: string[];
+    HEAD: string;
 }
 
 export default function Terminal({setNodes, setEdges, setRemote, setHEAD, nodes, edges, remote, HEAD} : GraphSetter) {
@@ -20,13 +17,9 @@ export default function Terminal({setNodes, setEdges, setRemote, setHEAD, nodes,
 
     useEffect(() => {
         const interval = setInterval(() => {
-          const newNode: Node = {
-            id: `${nodes.length+1}`,
-            data: { label: `New Node ${nodes.length+1}` },
-            position: { x: 0, y: 0 }
-          };
+          const newNode: string = `${nodes.length+1}`;
 
-          const newEdge: Edge = { id: "e"+ (nodes.length) +"-"+ newNode.id, source: newNode.id, target: `${(nodes.length)}` }
+          const newEdge: Edge = { source: newNode, target: `${(nodes.length)}` }
     
           console.log(nodes);
     

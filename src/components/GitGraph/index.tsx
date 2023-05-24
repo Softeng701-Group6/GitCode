@@ -10,21 +10,23 @@ import ReactFlow, {
   useReactFlow,
 } from "reactflow";
 
-import { Edge as EdgeState } from "../../models/types.ts";
+import {Edge as FirebaseEdge} from "../../models/types";
 
 import "reactflow/dist/style.css";
 
 import CustomNode from "./CustomNode.tsx";
 import { initialEdges, initialNodes } from "./initial-nodes-edges.js";
 import { getLayoutedElements } from "./Layout.ts";
+import RoundCustomNode from "./RoundCustomNode";
 
 const nodeTypes = {
   custom: CustomNode,
+  circle: RoundCustomNode
 };
 
 interface GraphState {
-  nodes: Node[];
-  edges: Edge[];
+  nodes: string[];
+  edges: FirebaseEdge[];
   remote: string[];
   HEAD: string;
 }
@@ -36,9 +38,10 @@ const GitGraph = ({nodes, edges, remote, HEAD}: GraphState) => {
   const reactFlowInstance = useReactFlow();
 
   useEffect(() => {
+    const { nodes: flowFormatNodes, edges : flowFormatEdges } = convertToFlowFormat(nodes, edges);
     const { nodes: layoutNodes, edges: layoutEdges } = getLayoutedElements(
-      nodes,
-      edges,
+      flowFormatNodes,
+      flowFormatEdges,
       "LR"
     );
 
@@ -66,6 +69,24 @@ const GitGraph = ({nodes, edges, remote, HEAD}: GraphState) => {
 
     setNodes((prevNodes) => [...prevNodes, newNode]);
   };
+
+  const convertToFlowFormat = (nodesInput: string[], edgesInput: FirebaseEdge[]) => {
+    // Convert nodes
+    const nodes: Node[] = nodesInput.map(nodeId => ({
+      id: nodeId,
+      data: { label: `Node ${nodeId}` },
+      position: { x: 1, y: 1 },
+      type: "circle"
+    }));
+  
+    // Convert edges
+    const edges: Edge[] = edgesInput.map((edge, index) => ({
+      ...edge,
+      id: `e${edge.source}-${edge.target}`,
+    }));
+  
+    return { nodes, edges };
+  }
 
   return (
     <ReactFlow
