@@ -2,15 +2,16 @@ import React from "react";
 import { AppBar, Box, Button, IconButton, LinearProgress, Menu, MenuItem, Toolbar, Tooltip, Typography } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import AccountCircleOutlinedIcon from '@mui/icons-material/AccountCircleOutlined';
-import './NavigationBar.css'; // Import the CSS file
+import styles from "./NavigationBar.module.css";
 
 const menuSettings = ['Profile', 'Logout'];
 
 export default function NavigationBar() {
+  var experience:number = 2;
+
   const navigate = useNavigate();
   const [anchorElUser, setAnchorElUser] = React.useState<null | HTMLElement>(null);
 
-  var experience:number = 2;
   const handleOpenUserMenu = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorElUser(event.currentTarget);
   };
@@ -20,27 +21,27 @@ export default function NavigationBar() {
   };
 
   return (
-    <Box className="root">
-      <AppBar position="absolute" style={{ background: '#252525'}}>
-        <Toolbar className="toolbar">
-          <Typography variant="h6" component="a" href="/" className="title">
+    <Box className={styles.root}>
+      <AppBar position="absolute" style={{ background: '#252525' }}>
+        <Toolbar className={styles['toolbar']}>
+          <Typography variant="h6" component="a" href="/levels" className={styles['title']} sx={{fontSize:32, fontWeight:'bold', py:4, paddingLeft:4}}>
             Git
           </Typography>
-          <Typography variant="h6" component="a" href="/" className="subTitle">
+          <Typography variant="h6" component="a" href="/levels" className={styles['subTitle']} sx={{fontSize:32, fontWeight:'bold'}}>
             Code.
           </Typography>
-          <Box sx={{ m: 3 }} />
-          <Button onClick={() => navigate('login')} className="loginButton">Login</Button>
-          <Button onClick={() => navigate('signup')} className="signupButton">Sign Up</Button>
+          {/*<Box sx={{ m: 3 }} />
+          <Button onClick={() => navigate('login')} className={styles['loginButton']}>Login</Button>
+  <Button onClick={() => navigate('signup')} className={styles['signupButton']}>Sign Up</Button>*/}
           <Box sx={{ flexGrow: 1 }}></Box>
           <Box sx={{ flexGrow: 0 }}>
             <Tooltip title="Open profile settings">
               <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                <AccountCircleOutlinedIcon className="userIcon" />
+                <AccountCircleOutlinedIcon className={styles['userIcon']} sx={{fontSize:48}}/>
               </IconButton>
             </Tooltip>
             <Menu
-              className="userMenu"
+              className={styles['userMenu']}
               id="menu-appbar"
               anchorEl={anchorElUser}
               anchorOrigin={{
@@ -56,7 +57,7 @@ export default function NavigationBar() {
               onClose={handleCloseUserMenu}
             >
               {menuSettings.map((menuSetting) => (
-                <MenuItem key={menuSetting} onClick={handleCloseUserMenu} className="menuItem">
+                <MenuItem key={menuSetting} onClick={handleCloseUserMenu} className={styles['menuItem']}>
                   <Typography textAlign="center">{menuSetting}</Typography>
                 </MenuItem>
               ))}
@@ -64,11 +65,11 @@ export default function NavigationBar() {
           </Box>
         </Toolbar>
         <Box sx={{ width: '100%' }}>
-          <LinearProgress variant="determinate" value={experience} sx={{
-              backgroundColor: '#343434',
-              '& .MuiLinearProgress-bar': {
-              backgroundColor: '#31884F'
-            }
+        <LinearProgress variant="determinate" value={experience} sx={{
+                      backgroundColor: '#343434',
+                      '& .MuiLinearProgress-bar': {
+                        backgroundColor: '#31884F'
+                      }
           }} />
         </Box>
       </AppBar>
