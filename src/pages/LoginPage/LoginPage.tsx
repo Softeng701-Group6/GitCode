@@ -1,10 +1,17 @@
-import { Button, TextField, Typography, Container, Grid, Box } from "@mui/material";
+import {
+  Button,
+  TextField,
+  Typography,
+  Container,
+  Grid,
+  Box,
+} from "@mui/material";
 import React, { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { auth, googleProvider } from "../../firebase/firebase";
 import { signInWithEmailAndPassword, signInWithPopup } from "firebase/auth";
-import GoogleIcon from '@mui/icons-material/Google';
-import NavigationBar from "../../components/NavigationBar/NavigationBar";
+import GoogleIcon from "@mui/icons-material/Google";
+import styles from "../../pages/SignUpPage/SignUpPage.module.css";
 
 const LoginPage = () => {
   const navigate = useNavigate();
@@ -32,25 +39,19 @@ const LoginPage = () => {
 
   return (
     <Container component="main" maxWidth="xs">
-      <Box m={2} pt={3}
-        sx={{  
-          marginTop: 8,
-          display: "flex",
-          flexDirection: "column",
-          alignItems: "center",
-        }}
-      >
-        
-        <Typography variant="h2" 
-          sx={{ 
-            fontWeight: 'bold', 
-            color: 'white',
-            margin: '4%'
-          }}> Login 
+      <Box className={styles["input-container"]}>
+        <Typography variant="h1" className={styles["heading"]}>
+          {" "}
+          Login
         </Typography>
 
-        <Box component="form" onSubmit={handleLogin} noValidate sx={{ mt: 1 }}>
-          <Typography sx={{ color: 'white', textAlign: 'left'}}>EMAIL</Typography>
+        <Box
+          component="form"
+          onSubmit={handleLogin}
+          noValidate
+          className={styles["form"]}
+        >
+          <Typography className={styles["sub-heading"]}>EMAIL</Typography>
           <TextField
             required
             fullWidth
@@ -58,54 +59,46 @@ const LoginPage = () => {
             name="email"
             autoComplete="email"
             autoFocus
-            placeholder="Enter your email..."
             type="email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             size="small"
-            sx={{
-              mt: 1, mb: 3,
-              input: {color: 'white'},
-              border: '1px solid white',
-              borderRadius: '9px',
-            }}
-          /> 
-          <Typography sx={{ color: 'white', textAlign: 'left'}}>PASSWORD</Typography>
+            InputProps={{ className: styles["input-box"] }}
+          />
+          <Typography className={styles["sub-heading"]}>PASSWORD</Typography>
           <TextField
             required
             fullWidth
             type="password"
             id="password"
             autoComplete="current-password"
-            placeholder="Enter your password..."
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             size="small"
-            sx={{
-              mt: 1, mb: 3,
-              input: {color: 'white'},
-              border: '1px solid white',
-              borderRadius: '9px'
-            }}
+            InputProps={{ className: styles["input-box"] }}
           />
           <Button
             type="submit"
             variant="contained"
-            sx={{ mt: 3, mb: 2, backgroundColor: 'transparent', border: '1px solid white', '&:hover': {
-            backgroundColor: "#FFB800"}, borderRadius: '9px' }}
+            className={styles["button"]}
           >
             LOG IN
           </Button>
           <Grid container direction="column">
-            <span style={{ color: 'white' }}> OR </span>
+            <span className={styles["or"]}> OR </span>
             <Grid item xs>
-              <Button onClick={handleGoogleSignin} sx={{borderRadius: '9px', color:'white'}}>
-                <GoogleIcon sx={{color:'white'}} /> SIGN IN WITH GOOGLE
+              <Button onClick={handleGoogleSignin} className={styles["button"]}>
+                <GoogleIcon className={styles["google-icon"]} /> SIGN IN WITH
+                GOOGLE
               </Button>
             </Grid>
             <Grid item xs>
-              <Link to="/signup" style={{color:'#FFB800', marginTop: '1%'}}>
-                {"Don't have an account?"} <b> <u>Sign Up </u></b>
+              <Link to="/signup" className={styles["link"]}>
+                {"Don't have an account?"}{" "}
+                <b>
+                  {" "}
+                  <u>Sign Up </u>
+                </b>
               </Link>
             </Grid>
           </Grid>
