@@ -1,16 +1,30 @@
 import React from "react";
-import { AppBar, Box, Button, IconButton, LinearProgress, Menu, MenuItem, Toolbar, Tooltip, Typography } from "@mui/material";
+import { 
+    AppBar, 
+    Box, 
+    Button, 
+    IconButton, 
+    LinearProgress, 
+    Menu, 
+    MenuItem, 
+    Toolbar, 
+    Tooltip, 
+    Typography 
+} from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import AccountCircleOutlinedIcon from '@mui/icons-material/AccountCircleOutlined';
 import styles from "./NavigationBar.module.css";
 
-const menuSettings = ['Profile', 'Logout'];
+
+const menuSettings = ["Profile", "Logout"];
 
 export default function NavigationBar() {
+
   var experience:number = 2;
 
   const navigate = useNavigate();
   const [anchorElUser, setAnchorElUser] = React.useState<null | HTMLElement>(null);
+
 
   const handleOpenUserMenu = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorElUser(event.currentTarget);
@@ -21,6 +35,7 @@ export default function NavigationBar() {
   };
 
   return (
+
     <Box className={styles.root}>
       <AppBar position="absolute" style={{ background: '#252525' }}>
         <Toolbar className={styles['toolbar']}>
@@ -45,13 +60,13 @@ export default function NavigationBar() {
               id="menu-appbar"
               anchorEl={anchorElUser}
               anchorOrigin={{
-                vertical: 'top',
-                horizontal: 'right',
+                vertical: "top",
+                horizontal: "right",
               }}
               keepMounted
               transformOrigin={{
-                vertical: 'top',
-                horizontal: 'right',
+                vertical: "top",
+                horizontal: "right",
               }}
               open={Boolean(anchorElUser)}
               onClose={handleCloseUserMenu}
@@ -71,6 +86,7 @@ export default function NavigationBar() {
                         backgroundColor: '#31884F'
                       }
           }} />
+
         </Box>
       </AppBar>
     </Box>
