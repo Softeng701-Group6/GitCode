@@ -38,7 +38,12 @@
 }
 
 .comment-sender {
+    /* Doesn't work, need help */
     width: 100%;
+}
+
+.comment-vote {
+    cursor: pointer;
 }
 
 .comment-sender-button {
