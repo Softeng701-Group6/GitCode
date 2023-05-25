@@ -1,0 +1,29 @@
+/* LevelDescription.module.css */
+
+.container {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 0 16px;
+}
+
+.title {
+    text-align: left;
+    font-size: 32px;
+    font-weight: bold;
+    color: #9985EA;
+    padding-top: 16px;
+    padding-bottom: 16px;
+}
+
+.content {
+    text-align: left;
+    padding-top: 8px;
+    padding-bottom: 8px;
+}
+
+.divider {
+    background: #848E84;
+    margin-top: 8px;
+    margin-bottom: 8px;
+}
