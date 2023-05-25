@@ -1,4 +1,4 @@
-import { DocumentReference, Timestamp } from "firebase/firestore";
+import { DocumentReference } from "firebase/firestore";
 
 export interface GeneralObject {
     id?: string;
@@ -48,9 +48,8 @@ export interface Question extends GeneralObject {
     learningObjective: learningObjective;
     discussion: Discussion;
     commentIds: DocumentReference[];  // Reference to Comment
-    initialGraph: DocumentReference; // Reference to Graph
-    goalGraph: DocumentReference; // Reference to Graph
-    dateCreated: Timestamp;
+    initialGraph: DocumentReference | null; // Reference to Graph
+    goalGraph: DocumentReference | null; // Reference to Graph
 }
 
 interface Edge {
@@ -59,6 +58,7 @@ interface Edge {
 }
 
 export interface Graph extends GeneralObject {
+    name: string;
     nodes: string[];
     edges: Edge[];
 }
