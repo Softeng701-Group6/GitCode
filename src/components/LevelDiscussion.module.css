@@ -27,3 +27,32 @@
     margin-top: 8px;
     margin-bottom: 8px;
 }
+
+.comment-section {
+    /* Doesn't work, need help */
+    width: 100%;
+}
+
+.comment-title {
+    color: #8E848E;
+}
+
+.comment-sender {
+    width: 100%;
+}
+
+.comment-sender-button {
+    /* Doesn't work, need help */
+    color: white;
+}
+
+.comment-box {
+    color: white;
+    background: #3E3E3E;
+    border-radius: 6px;
+}
+
+.comment-read {
+    margin-top: 8px;
+    margin-bottom: 8px;
+}
