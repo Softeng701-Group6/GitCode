@@ -1,4 +1,4 @@
-import { Box, Card, CardContent, Stack, Typography, styled } from "@mui/material";
+import { Box, Stack, Typography } from "@mui/material";
 import StarBorderIcon from '@mui/icons-material/StarBorder';
 import StarIcon from '@mui/icons-material/Star';
 import { ReactElement, useState } from "react";
