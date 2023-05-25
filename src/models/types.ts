@@ -52,7 +52,7 @@ export interface Question extends GeneralObject {
     goalGraph: DocumentReference | null; // Reference to Graph
 }
 
-interface Edge {
+export interface Edge {
     source: string;
     target: string;
 }
