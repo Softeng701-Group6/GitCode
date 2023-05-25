@@ -13,6 +13,7 @@ const TestPage = () => {
   //     profileImg: "",
   // });
   const [b] = useState<Graph>({
+    name: "Test",
     nodes: ["C1", "C2", "C3"],
     edges: [
       { source: "C1", target: "C2" },
