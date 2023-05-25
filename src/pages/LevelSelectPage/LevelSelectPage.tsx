@@ -7,6 +7,8 @@ import Frame from "../../components/Frame";
 import styles from './LevelSelectPage.module.css'
 import NavigationBar from "../../components/NavigationBar/NavigationBar";
 import LevelDescription from '../../components/LevelDescription';
+import LevelDiscussion from "../../components/LevelDiscussion.tsx";
+import { DUMMY_DATA_QUESTIONS } from "../../firebase/db/dummyData.ts";
 
 
 const tags = [
@@ -25,7 +27,7 @@ export default function LevelSelectPage() {
 
   return (
     <div>
-      <NavigationBar />
+      <NavigationBar/>
       <Grid className={styles.mainGrid} container spacing={2} sx={{}}>
         <Grid item xs={4}>
           <Stack direction="column">
@@ -60,16 +62,26 @@ export default function LevelSelectPage() {
                 // Custom styles here
               }
             }
-            
+
           >
-          <div >
-            <span >
-              <button className={ selected ? styles.selected : styles.unselected} onClick={() => {setSelected(true)}}>DESCRIPTION</button>
-              <button className={ !selected ? styles.selected : styles.unselected} onClick={() => {setSelected(false)}}>DISCUSSION</button>
-            </span >
-            {/* Place description/ discussion component here */}
-          {selected ? <LevelDescription title='Description' content='Content'/> : <div>DISCUSSION</div>}
-          </div>
+            <div>
+            <span>
+              <button className={selected ? styles.selected : styles.unselected}
+                      onClick={() => {
+                        setSelected(true);
+                      }}
+              >DESCRIPTION</button>
+              <button className={!selected ? styles.selected : styles.unselected}
+                      onClick={() => {
+                        setSelected(false);
+                      }}
+              >DISCUSSION</button>
+            </span>
+              {/* Place description/ discussion component here */}
+              {selected ?
+                <LevelDescription title='Description' content='Content'/> :
+                <LevelDiscussion question={DUMMY_DATA_QUESTIONS[0]}/>}
+            </div>
           </Frame>
         </Grid>
       </Grid>
