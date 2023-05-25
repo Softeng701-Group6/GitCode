@@ -1,4 +1,5 @@
 import { Box, Button, Divider, Stack, TextField, Typography } from "@mui/material";
+import ThumbUpIcon from '@mui/icons-material/ThumbUp';
 import styles from "./LevelDiscussion.module.css";
 import { Question } from "../models/types.ts";
 import { useState } from "react";
@@ -84,16 +85,31 @@ export default function LevelDiscussion({question}: Props) {
         {dummyComments.map(comment => (
           <Stack key={comment.id} className={styles["comment-read"]}>
             <Typography>{comment.userId}</Typography>
-            <TextField
-              className={styles["comment-box"]}
-              multiline
-              rows={4}
-              value={comment.message}
-              InputProps={{
-                readOnly: true,
-                style: {color: 'white'},
-              }}
-            />
+
+            <Stack
+              className={styles["comment-sender"]}
+              direction="row">
+
+              <TextField
+                className={styles["comment-box"]}
+                multiline
+                rows={4}
+                value={comment.message}
+                InputProps={{
+                  readOnly: true,
+                  style: {color: 'white'},
+                }}
+              />
+
+              <ThumbUpIcon
+                className={styles["comment-vote"]}
+                onClick={() => {
+                  comment.upVotes++;
+                  setDummyComments([...dummyComments]);
+                }}/>
+
+              <Typography>{comment.upVotes}</Typography>
+            </Stack>
           </Stack>
         ))}
       </Stack>
