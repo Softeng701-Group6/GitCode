@@ -37,8 +37,6 @@ export default function Terminal({
 
     console.log(commandArray);
 
-
-
     //Need to pass the props through to the parent component
     if (commandArray[0] !== "git") {
       console.log("Invalid command");
@@ -52,7 +50,7 @@ export default function Terminal({
       console.log("Committing the graph");
       //TODO Need to name the commit with something reasonable
       const newNode: string = `${nodes.length + 1}`;
-      const newEdge: Edge = { source: newNode, target: `${nodes.length}` };
+      const newEdge: Edge = { source: `${nodes.length}`, target: newNode };
       console.log(nodes);
       setNodes([...nodes, newNode]);
       setEdges([...edges, newEdge]);
