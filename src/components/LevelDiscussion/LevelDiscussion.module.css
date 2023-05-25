@@ -1,0 +1,63 @@
+/* LevelDescription.module.css */
+
+.container {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 0 16px;
+}
+
+.title {
+    text-align: left;
+    font-size: 32px;
+    font-weight: bold;
+    color: #9985EA;
+    padding-top: 16px;
+    padding-bottom: 16px;
+}
+
+.content {
+    text-align: left;
+    padding-top: 8px;
+    padding-bottom: 8px;
+}
+
+.divider {
+    background: #848E84;
+    margin-top: 8px;
+    margin-bottom: 8px;
+}
+
+.comment-section {
+    /* Doesn't work, need help */
+    width: 100%;
+}
+
+.comment-title {
+    color: #8E848E;
+}
+
+.comment-sender {
+    /* Doesn't work, need help */
+    width: 100%;
+}
+
+.comment-vote {
+    cursor: pointer;
+}
+
+.comment-sender-button {
+    /* Doesn't work, need help */
+    color: white;
+}
+
+.comment-box {
+    color: white;
+    background: #3E3E3E;
+    border-radius: 6px;
+}
+
+.comment-read {
+    margin-top: 8px;
+    margin-bottom: 8px;
+}
