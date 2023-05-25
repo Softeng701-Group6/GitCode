@@ -1,4 +1,6 @@
-const QUESTIONS = [
+import { Graph, Question } from "../../models/types.ts";
+
+export const DUMMY_DATA_QUESTIONS: Question[] = [
     {
         title: "Commit and Push",
         hints: [
@@ -54,6 +56,28 @@ const QUESTIONS = [
                         "Keep up the great work, and happy coding!"]
                 }
             ]
-        }
+        },
+        commentIds: [],
+        initialGraph: null,
+        goalGraph: null
+    }
+]
+
+export const DUMMY_DATA_GRAPHS: Graph[] = [
+    {
+        name: `${DUMMY_DATA_QUESTIONS[0].title} - Initial Graph`,
+        nodes: ["C1", "C2", "C3"],
+        edges: [
+            {source: "C1", target: "C2"},
+            {source: "C1", target: "C3"}
+        ]
+    },
+    {
+        name: `${DUMMY_DATA_QUESTIONS[0].title} - Goal Graph`,
+        nodes: ["C1", "C2", "C3"],
+        edges: [
+            {source: "C1", target: "C2"},
+            {source: "C1", target: "C3"}
+        ]
     }
 ]
