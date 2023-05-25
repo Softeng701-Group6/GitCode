@@ -6,7 +6,7 @@ import { Grid, Stack } from "@mui/material";
 import Frame from "../../components/Frame";
 import styles from './LevelSelectPage.module.css'
 import NavigationBar from "../../components/NavigationBar/NavigationBar";
-import LevelDescription from '../../components/LevelDescription';
+import LevelDescription from '../../components/LevelDescription/LevelDescription';
 import LevelDiscussion from "../../components/LevelDiscussion/LevelDiscussion.tsx";
 import { DUMMY_DATA_QUESTIONS } from "../../firebase/db/dummyData.ts";
 import { useEffect, useState } from "react";
