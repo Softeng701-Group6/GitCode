@@ -1,0 +1,9 @@
+p {
+    margin: 0px 0px 0px 0px;
+    text-align: left;
+    font-family: "Cascadia Code", Courier, monospace;
+}
+
+.MuiBox-root::-webkit-scrollbar {
+    display: none;
+}
