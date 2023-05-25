@@ -49,17 +49,18 @@ export default function Terminal({
       //TODO What to do with commit message?
       console.log("Committing the graph");
       //TODO Need to name the commit with something reasonable
+      // Probably gonna be a hash of length 6
       const newNode: string = `${nodes.length + 1}`;
-      const newEdge: Edge = { source: `${nodes.length}`, target: newNode };
-      console.log(nodes);
+      const newEdge: Edge = { source: `${HEAD}`, target: newNode };
+
       setNodes([...nodes, newNode]);
       setEdges([...edges, newEdge]);
-      //Is this set head correct?
+
       setHEAD(newNode);
 
     } else if (commandArray[0] === "push") {
       console.log("Pushing the graph");
-
+      setRemote(new Set(nodes));
     }
   };
 
