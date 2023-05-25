@@ -1,4 +1,4 @@
-import { DocumentReference, Timestamp } from "firebase/firestore";
+import { DocumentReference } from "firebase/firestore";
 
 export interface GeneralObject {
     id?: string;
@@ -13,33 +13,52 @@ export interface User extends GeneralObject {
     completedQuestions: DocumentReference[];  // Reference to Question
 }
 
-export interface Article extends GeneralObject {
-    authorId: DocumentReference;  // Reference to User
-    dateCreated: Timestamp;
-    title: string;
+interface Description {
     description: string;
-    commentIds: DocumentReference[];  // Reference to Comment
+    activityArray: string[];
+}
+
+interface learningObjective {
+    objective: string;
+    outcomeArray: string[];
+}
+
+interface Discussion {
+    statement: string;
+    commands: string[];
+    answers: Answer[];
+}
+
+interface Answer {
+    step: string;
+    explanation: string[];
 }
 
 export interface Comment extends GeneralObject {
     userId: DocumentReference;  // Reference to User
     message: string;
-    upVotes: number;
+    upVotes: DocumentReference[];  // Reference to User
 }
 
 export interface Question extends GeneralObject {
-    articleId: DocumentReference;  // Reference to Article
-    initialGraph: DocumentReference; // Reference to Graph
-    goalGraph: DocumentReference; // Reference to Graph
-    hint: string[];
-}
-
-export interface Graph extends GeneralObject {
-    nodes: string[];
-    edges: Edge[];
+    title: string;
+    hints: string[];
+    summary: string[];
+    description: Description;
+    learningObjective: learningObjective;
+    discussion: Discussion;
+    commentIds: DocumentReference[];  // Reference to Comment
+    initialGraph: DocumentReference | null; // Reference to Graph
+    goalGraph: DocumentReference | null; // Reference to Graph
 }
 
 interface Edge {
     source: string;
     target: string;
+}
+
+export interface Graph extends GeneralObject {
+    name: string;
+    nodes: string[];
+    edges: Edge[];
 }
