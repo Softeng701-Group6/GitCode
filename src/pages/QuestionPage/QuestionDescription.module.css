@@ -1,0 +1,22 @@
+.container {
+  position: relative;
+  height: 100%;
+}
+
+.content-container {
+  overflow: scroll;
+
+  text-align: left;
+}
+
+.submit-button {
+  position: absolute;
+
+  /* TODO: is there a way to pos absolute respecting Frame padding? */
+  bottom: 18px;
+  left: 0;
+  width: -webkit-fill-available;
+
+  margin-left: 18px;
+  margin-right: 18px;
+}
