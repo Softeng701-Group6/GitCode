@@ -6,7 +6,7 @@ import { Grid, Stack } from "@mui/material";
 import Frame from "../../components/Frame";
 import styles from './LevelSelectPage.module.css'
 import NavigationBar from "../../components/NavigationBar/NavigationBar";
-import LevelDescription from '../../components/LevelDescription';
+import LevelDescription from '../../components/LevelDescription/LevelDescription';
 import LevelDiscussion from "../../components/LevelDiscussion/LevelDiscussion.tsx";
 import { DUMMY_DATA_QUESTIONS } from "../../firebase/db/dummyData.ts";
 import { useEffect, useState } from "react";
@@ -49,7 +49,7 @@ export default function LevelSelectPage() {
   return (
     <div>
       <NavigationBar/>
-      <Grid className={styles.mainGrid} container spacing={2} sx={{}}>
+      <Grid className={styles.mainGrid} container spacing={2} sx={{height: 0.85}}>
         <Grid item xs={4}>
           <Stack direction="column">
             <LevelCard
@@ -76,11 +76,11 @@ export default function LevelSelectPage() {
             />
           </Stack>
         </Grid>
-        <Grid item xs={8}>
+        <Grid item xs={8} >
           <Frame
             sx={
               {
-                // Custom styles here
+                height: 1
               }
             }
 

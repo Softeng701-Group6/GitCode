@@ -24,7 +24,7 @@
 
 .divider {
     background: #848E84;
-    margin-top: 8px;
+    margin-top: 16px;
     margin-bottom: 8px;
 }
 
@@ -34,12 +34,16 @@
 }
 
 .comment-title {
+    padding-right: 16px;
+    padding-top: 16px;
+    padding-bottom: 16px;
+    text-align: left;
     color: #8E848E;
 }
 
 .comment-sender {
     /* Doesn't work, need help */
-    width: 100%;
+    width: 1;
 }
 
 .comment-vote {
@@ -55,6 +59,7 @@
     color: white;
     background: #3E3E3E;
     border-radius: 6px;
+    margin-right: 12px;
 }
 
 .comment-read {
