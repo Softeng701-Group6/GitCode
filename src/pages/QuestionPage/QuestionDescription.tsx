@@ -3,7 +3,7 @@ import Frame from "../../components/Frame";
 import GreenButton from "../../components/GreenButton/GreenButton";
 import ArrowBack from '@mui/icons-material/ArrowBack';
 import { ReactElement } from "react";
-import { grey, purple } from "@mui/material/colors";
+import { grey } from "@mui/material/colors";
 import { useNavigate } from "react-router-dom";
 import styles from "./QuestionDescription.module.css";
 
