@@ -39,6 +39,7 @@ const QuestionPage = () => {
           </QuestionDescription>
         </Grid>
         <Grid item xs={8}>
+          {/* TODO: replace with proper GraphApplication using fetched graph from database */}
           <GraphApplicationTest />
         </Grid>
       </Grid>
