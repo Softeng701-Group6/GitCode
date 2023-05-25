@@ -2,7 +2,7 @@
 
 Resolves #[Ticket num]
 
-This PR does the following
+This PR does the following:
 
--
--
+- [ ] [Task 1]
+- [ ] [Task 2]

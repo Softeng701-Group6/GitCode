@@ -1,9 +1,15 @@
 import { createTheme } from '@mui/material/styles'
+import { dark } from '@mui/material/styles/createPalette'
 
 export const defaultTheme = createTheme({
   palette: {
     background: { default: '#181818', paper: '#292929' },
-    primary: { main: '#49533B' },
+    primary: { 
+      main: '#49533B' 
+    },
+    secondary: {
+      main: '#FFB800'
+    },
   },
   typography: {
     fontFamily: '"Montserrat","Open Sans","Tahoma","Verdana",sans-serif',
