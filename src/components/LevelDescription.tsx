@@ -20,7 +20,7 @@ export default function LevelDescription({title, content}:Props) {
   }
   
   return (
-    <Stack className={styles['container']}>
+    <Stack className={styles['container']} sx={{height: 1}}>
       <Typography className={styles['title']} sx={{fontWeight:'bold', fontSize:32}}>
         {title}
       </Typography>
