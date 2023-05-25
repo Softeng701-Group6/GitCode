@@ -9,6 +9,10 @@ import NavigationBar from "../../components/NavigationBar/NavigationBar";
 import LevelDescription from '../../components/LevelDescription';
 import LevelDiscussion from "../../components/LevelDiscussion.tsx";
 import { DUMMY_DATA_QUESTIONS } from "../../firebase/db/dummyData.ts";
+import { useEffect, useState } from "react";
+import { Question } from "../../models/types.ts";
+import { getCollection } from "../../firebase/firestoreUtils.ts";
+import { Collection } from "../../firebase/enums.ts";
 
 
 const tags = [
@@ -24,6 +28,22 @@ const tags = [
 
 export default function LevelSelectPage() {
   const [selected, setSelected] = React.useState<boolean | null>(true);
+  const [allQuestions, setAllQuestions] = useState<Question[]>([]);
+  const [isLoading, setIsLoading] = useState<boolean>(true);
+
+  useEffect(() => {
+    async function init() {
+      // Linking to firebase
+
+      // const allQs = await getCollection<Question>(Collection.QUESTIONS);
+      // setAllQuestions(allQs);
+      // setIsLoading(false);
+
+      setAllQuestions(DUMMY_DATA_QUESTIONS);
+    }
+
+    init();
+  }, []);
 
   return (
     <div>
@@ -80,7 +100,7 @@ export default function LevelSelectPage() {
               {/* Place description/ discussion component here */}
               {selected ?
                 <LevelDescription title='Description' content='Content'/> :
-                <LevelDiscussion question={DUMMY_DATA_QUESTIONS[0]}/>}
+                <LevelDiscussion question={allQuestions[0]}/>}
             </div>
           </Frame>
         </Grid>
