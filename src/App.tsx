@@ -5,7 +5,8 @@ import { ThemeProvider } from "@mui/material";
 import { defaultTheme } from "./themes/defaultTheme";
 import LevelSelectPage from "./pages/LevelSelectPage/LevelSelectPage";
 import TestPage from "./components/TestPage.tsx";
-import LandingPage from "./pages/LandingPage/landingpage.tsx";
+import LandingPage from "./pages/LandingPage/landingpage";
+import GraphApplicationTest from "./pages/GraphApplicationTest/GraphApplicationTest.tsx";
 import "./App.css";
 import QuestionPage from "./pages/QuestionPage/QuestionPage.tsx";
 
@@ -19,6 +20,7 @@ function App() {
           <Route path="/signup" element={<SignupPage />} />
           <Route path="/test" element={<TestPage />} />
           <Route path="/home" element={<LevelSelectPage />} />
+          <Route path="/graph" element={<GraphApplicationTest />} />
           <Route path="/question" element={<QuestionPage />} />
         </Routes>
       </ThemeProvider>
