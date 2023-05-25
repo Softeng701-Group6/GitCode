@@ -13,15 +13,17 @@ export interface User extends GeneralObject {
     completedQuestions: DocumentReference[];  // Reference to Question
 }
 
-export interface Description extends GeneralObject {
-    title: string;
-    activityArray: string[];
+interface Description {
     description: string;
+    activityArray: string[];
+}
+
+interface learningObjective {
     objective: string;
     outcomeArray: string[];
 }
 
-export interface Discussion extends GeneralObject {
+interface Discussion {
     statement: string;
     commands: string[];
     answers: Answer[];
@@ -39,21 +41,24 @@ export interface Comment extends GeneralObject {
 }
 
 export interface Question extends GeneralObject {
-    descriptionId: DocumentReference;  // Reference to Description
-    discussionId: DocumentReference;  // Reference to Discussion
+    title: string;
+    hints: string[];
+    summary: string[];
+    description: Description;
+    learningObjective: learningObjective;
+    discussion: Discussion;
     commentIds: DocumentReference[];  // Reference to Comment
     initialGraph: DocumentReference; // Reference to Graph
     goalGraph: DocumentReference; // Reference to Graph
-    hint: string[];
     dateCreated: Timestamp;
-}
-
-export interface Graph extends GeneralObject {
-    nodes: string[];
-    edges: Edge[];
 }
 
 interface Edge {
     source: string;
     target: string;
+}
+
+export interface Graph extends GeneralObject {
+    nodes: string[];
+    edges: Edge[];
 }
