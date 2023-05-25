@@ -48,9 +48,10 @@ export default function QuestionDescription({title, children, onSubmit}: Props) 
       </Stack>
 
       <Typography variant="h2" sx={{
+        my: 5,
         color: "#7A4CC5",
       }}>{title}</Typography>
-      <Stack className={styles["content-container"]}>
+      <Stack className={styles["content-container"]} spacing={5}>
         {children}
       </Stack>
 
