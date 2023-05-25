@@ -24,9 +24,9 @@ export default function Terminal({
   remote,
   HEAD,
 }: GraphSetter) {
-  const [command, setCommand] = useState("");
-  const [commandHistory, setCommandHistory] = useState([]); //Array of strings [command1, command2, command3
-  const [isSubmitted, setIsSubmitted] = useState(false);
+  const [command, setCommand] = useState<string>("");
+  const [commandHistory, setCommandHistory] = useState<string[]>([]); //Array of strings [command1, command2, command3
+  const [isSubmitted, setIsSubmitted] = useState<boolean>(false);
 
   //This function will handle the command input and pass it to the graph component
   const handleCommand = (commandInput: string) => {
