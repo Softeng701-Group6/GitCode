@@ -5,7 +5,7 @@ import { ThemeProvider } from "@mui/material";
 import { defaultTheme } from "./themes/defaultTheme";
 import LevelSelectPage from "./pages/LevelSelectPage/LevelSelectPage";
 import TestPage from "./components/TestPage.tsx";
-import LandingPage from "./components/LandingPage/landingpage";
+import LandingPage from "./pages/LandingPage/landingpage";
 import GraphApplicationTest from "./pages/GraphApplicationTest/GraphApplicationTest.tsx";
 import "./App.css";
 import QuestionPage from "./pages/QuestionPage/QuestionPage.tsx";

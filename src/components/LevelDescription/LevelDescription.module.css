@@ -29,6 +29,12 @@
     padding-top: 8px;
     padding-bottom: 8px;
   }
+
+  .modal-key-commands {
+    text-align: left;
+    color: #fff;
+    font-size: 20px;
+  }
   
   .divider {
     background: #848E84;
