@@ -8,12 +8,13 @@ interface GreenButtonProps extends ButtonProps {
 }
 
 const GreenButton: React.FC<GreenButtonProps> = ({
+  className,
   children,
   onClick,
   ...rest
 }) => (
   <Button
-    className={styles["green-button"]}
+    className={`${styles["green-button"]} ${className}`}
     variant="contained"
     onClick={onClick}
     {...rest}

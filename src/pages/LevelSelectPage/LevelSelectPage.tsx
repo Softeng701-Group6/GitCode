@@ -11,10 +11,6 @@ import LevelDiscussion from "../../components/LevelDiscussion/LevelDiscussion.ts
 import { DUMMY_DATA_QUESTIONS } from "../../firebase/db/dummyData.ts";
 import { useEffect, useState } from "react";
 import { Question } from "../../models/types.ts";
-import { getCollection } from "../../firebase/firestoreUtils.ts";
-import { Collection } from "../../firebase/enums.ts";
-
-
 
 const tags = [
   {

@@ -27,12 +27,12 @@ const RoundCustomNode: React.FC<NodeProps> = ({ data }) => {
       {data.label}
       <Handle
         type="target"
-        position={Position.Top}
+        position={Position.Left}
         style={{ borderRadius: '50%' }}
       />
       <Handle
         type="source"
-        position={Position.Bottom}
+        position={Position.Right}
         style={{ borderRadius: '50%' }}
       />
     </div>
