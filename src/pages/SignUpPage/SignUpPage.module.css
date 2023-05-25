@@ -1,0 +1,59 @@
+.input-container {
+  margin-top: 8%;
+  padding-top: 3%;
+  margin: 2%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.heading {
+  font-weight: bold;
+  color: white;
+  margin: 4%;
+}
+
+.sub-heading {
+  color: white;
+  text-align: left;
+}
+
+.form {
+  margin-top: 3%;
+}
+
+.input-box {
+  margin-top: 1%;
+  margin-bottom: 3%;
+  color: white !important;
+  border: 1px solid white;
+  border-radius: 9px;
+  margin-bottom: 5%;
+}
+
+.button {
+  background-color: transparent !important;
+  border: 1px solid white !important;
+  border-radius: 9px !important;
+  color: white !important;
+}
+
+.button:hover {
+  background-color: #ffb800;
+}
+
+.or {
+  color: white;
+  margin-top: 2%;
+  margin-bottom: 2%;
+}
+
+.google-icon {
+  color: white;
+}
+
+.link {
+  color: #ffb800;
+  margin-top: 2%;
+  font-size: small;
+}
