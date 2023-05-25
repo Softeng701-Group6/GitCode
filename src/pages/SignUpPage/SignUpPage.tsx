@@ -3,6 +3,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { auth, googleProvider } from "../../firebase/firebase";
 import { createUserWithEmailAndPassword, signInWithPopup } from "firebase/auth";
+import NavigationBar from "../../components/NavigationBar/NavigationBar";
 
 const Signuppage = () => {
   const navigate = useNavigate();
@@ -35,6 +36,7 @@ const Signuppage = () => {
 
   return (
     <div className="loginContainer">
+      <NavigationBar />
       <div className="loginContainerv2">
         <h1>Create Your Account</h1>
         <form onSubmit={handleSignup}>
