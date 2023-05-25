@@ -1,6 +1,7 @@
-import { Box, Button, Divider, Stack, Typography } from "@mui/material";
+import { Box, Divider, Stack, Typography } from "@mui/material";
 import styles from "./LevelDescription.module.css";
 import { useNavigate } from "react-router-dom";
+import GreenButton from "./GreenButton/GreenButton";
 
 interface Props {
     title: string;
@@ -30,10 +31,8 @@ export default function LevelDescription({title, content}:Props) {
         {content}
       </Typography>
       <Divider className={styles['divider']} variant="middle" />
-      <Box sx={{ flexGrow: 1 }}></Box>
-      <Button className={styles['button']} variant="contained" onClick={startProblem} sx={{ marginTop: 8, fontSize: 24, fontWeight: 'bold', backgroundColor: '#31884F' }}>
-        Start Problem
-      </Button>
+      <Box sx={{ flexGrow: 1}}></Box>
+      <GreenButton onClick={startProblem}>Start Problem</GreenButton>
     </Stack>
   );
 }
