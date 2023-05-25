@@ -6,7 +6,14 @@ import { Grid, Stack } from "@mui/material";
 import Frame from "../../components/Frame";
 import styles from './LevelSelectPage.module.css'
 import NavigationBar from "../../components/NavigationBar/NavigationBar";
-import LevelDescription from '../../components/LevelDescription/LevelDescription';
+import LevelDescription from '../../components/LevelDescription';
+import LevelDiscussion from "../../components/LevelDiscussion/LevelDiscussion.tsx";
+import { DUMMY_DATA_QUESTIONS } from "../../firebase/db/dummyData.ts";
+import { useEffect, useState } from "react";
+import { Question } from "../../models/types.ts";
+import { getCollection } from "../../firebase/firestoreUtils.ts";
+import { Collection } from "../../firebase/enums.ts";
+
 
 
 const tags = [
@@ -22,10 +29,26 @@ const tags = [
 
 export default function LevelSelectPage() {
   const [selected, setSelected] = React.useState<boolean | null>(true);
+  const [allQuestions, setAllQuestions] = useState<Question[]>([]);
+  const [isLoading, setIsLoading] = useState<boolean>(true);
+
+  useEffect(() => {
+    async function init() {
+      // Linking to firebase
+
+      // const allQs = await getCollection<Question>(Collection.QUESTIONS);
+      // setAllQuestions(allQs);
+      // setIsLoading(false);
+
+      setAllQuestions(DUMMY_DATA_QUESTIONS);
+    }
+
+    init();
+  }, []);
 
   return (
     <div>
-      <NavigationBar />
+      <NavigationBar/>
       <Grid className={styles.mainGrid} container spacing={2} sx={{}}>
         <Grid item xs={4}>
           <Stack direction="column">
@@ -60,16 +83,26 @@ export default function LevelSelectPage() {
                 // Custom styles here
               }
             }
-            
+
           >
-          <div >
-            <span >
-              <button className={ selected ? styles.selected : styles.unselected} onClick={() => {setSelected(true)}}>DESCRIPTION</button>
-              <button className={ !selected ? styles.selected : styles.unselected} onClick={() => {setSelected(false)}}>DISCUSSION</button>
-            </span >
-            {/* Place description/ discussion component here */}
-          {selected ? <LevelDescription title='Description' content='Content'/> : <div>DISCUSSION</div>}
-          </div>
+            <div>
+            <span>
+              <button className={selected ? styles.selected : styles.unselected}
+                      onClick={() => {
+                        setSelected(true);
+                      }}
+              >DESCRIPTION</button>
+              <button className={!selected ? styles.selected : styles.unselected}
+                      onClick={() => {
+                        setSelected(false);
+                      }}
+              >DISCUSSION</button>
+            </span>
+              {/* Place description/ discussion component here */}
+              {selected ?
+                <LevelDescription title='Description' content='Content'/> :
+                <LevelDiscussion question={allQuestions[0]}/>}
+            </div>
           </Frame>
         </Grid>
       </Grid>
