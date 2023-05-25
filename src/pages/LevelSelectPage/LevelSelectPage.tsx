@@ -48,7 +48,7 @@ export default function LevelSelectPage() {
   return (
     <div>
       <NavigationBar/>
-      <Grid className={styles.mainGrid} container spacing={2} sx={{}}>
+      <Grid className={styles.mainGrid} container spacing={2} sx={{height: 0.85}}>
         <Grid item xs={4}>
           <Stack direction="column">
             <LevelCard
@@ -75,11 +75,11 @@ export default function LevelSelectPage() {
             />
           </Stack>
         </Grid>
-        <Grid item xs={8}>
+        <Grid item xs={8} >
           <Frame
             sx={
               {
-                // Custom styles here
+                height: 1
               }
             }
 
