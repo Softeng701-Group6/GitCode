@@ -1,33 +1,60 @@
 import { Button, Stack, Typography } from "@mui/material";
 import Frame from "../../components/Frame";
 import GreenButton from "../../components/GreenButton/GreenButton";
-import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
+import ArrowBack from '@mui/icons-material/ArrowBack';
+import { ReactElement } from "react";
+import { grey, purple } from "@mui/material/colors";
+import { useNavigate } from "react-router-dom";
+import styles from "./QuestionDescription.module.css";
 
 interface Props {
   title: string;
-  content: string;
+  children?: ReactElement | ReactElement[];
   onSubmit: () => void;
 }
 
-export default function QuestionDescription({title, content, onSubmit}: Props) {
+export default function QuestionDescription({title, children, onSubmit}: Props) {
+
+  const navigate = useNavigate();
+
+  function alertBack() {
+    const confirmBack = confirm("Are you sure you want to leave the workspace? Your changes will be not saved.")
+  
+    if (confirmBack) {
+      navigate(-1);
+    }
+  }
+
   return (
-    <Frame sx={{
-      height: "100%"
-    }}>
+    <Frame className={styles["container"]}>
       <Stack direction="row">
         {/* TODO: replace with ThemeButton */}
-        <Button> 
-          <ArrowBackIosNewIcon />
+        <Button onClick={alertBack} sx={{
+          background: "#7A4CC5",
+          color: "white",
+          marginRight: "10px"
+        }}> 
+          <ArrowBack />
         </Button>
 
         {/* TODO: replace with ToggleButton */}
-        <Button>Discussion</Button>
+        <Button sx={{
+          background: grey[700],
+          color: grey[200],
+          width: "-webkit-fill-available",
+
+          fontWeight: "bold"
+        }}>Discussion</Button>
       </Stack>
 
-      <Typography>{title}</Typography>
-      <Typography>{content}</Typography>
+      <Typography variant="h2" sx={{
+        color: "#7A4CC5",
+      }}>{title}</Typography>
+      <Stack className={styles["content-container"]}>
+        {children}
+      </Stack>
 
-      <GreenButton onClick={onSubmit}>Submit</GreenButton>
+      <GreenButton className={styles["submit-button"]} onClick={onSubmit}>Submit</GreenButton>
     </Frame>
   );
 }
