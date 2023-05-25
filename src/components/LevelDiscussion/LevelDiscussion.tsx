@@ -1,7 +1,7 @@
 import { Box, Button, Divider, Stack, TextField, Typography } from "@mui/material";
 import ThumbUpIcon from '@mui/icons-material/ThumbUp';
 import styles from "./LevelDiscussion.module.css";
-import { Question } from "../models/types.ts";
+import { Question } from "../../models/types.ts";
 import { useState } from "react";
 
 interface Props {

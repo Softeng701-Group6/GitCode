@@ -7,7 +7,7 @@ import Frame from "../../components/Frame";
 import styles from './LevelSelectPage.module.css'
 import NavigationBar from "../../components/NavigationBar/NavigationBar";
 import LevelDescription from '../../components/LevelDescription';
-import LevelDiscussion from "../../components/LevelDiscussion.tsx";
+import LevelDiscussion from "../../components/LevelDiscussion/LevelDiscussion.tsx";
 import { DUMMY_DATA_QUESTIONS } from "../../firebase/db/dummyData.ts";
 import { useEffect, useState } from "react";
 import { Question } from "../../models/types.ts";
