@@ -78,7 +78,7 @@ export default function Terminal({
   }, [isSubmitted]);
 
   const scrollToBottom = () => {
-    messagesEnd.scrollIntoView({ behavior: "smooth" });
+    messagesEnd?.scrollIntoView({ behavior: "smooth" });
   };
 
   let messagesEnd: HTMLDivElement | null;
