@@ -15,6 +15,10 @@ export default function QuestionEndModal({ onClose }: { onClose: () => void }) {
     navigate("/home");
   };
 
+  const handleGoToDiscussion = () => {
+    navigate("/home", { state: { tab: "discussion" } });
+  };
+
   const handleCloseModal = () => {
     onClose();
   };
@@ -53,7 +57,7 @@ export default function QuestionEndModal({ onClose }: { onClose: () => void }) {
         <Typography variant="body2" className={styles["modal-text"]}>
           For more information and to continue the discussion, please visit the
           discussion page for this question{" "}
-          <a href="/home" className={styles["modal-link"]}>
+          <a onClick={handleGoToDiscussion} className={styles["modal-link"]}>
             here
           </a>
           .

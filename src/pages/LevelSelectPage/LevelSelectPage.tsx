@@ -11,6 +11,7 @@ import LevelDiscussion from "../../components/LevelDiscussion/LevelDiscussion.ts
 import { DUMMY_DATA_QUESTIONS } from "../../firebase/db/dummyData.ts";
 import { useEffect, useState } from "react";
 import { Question } from "../../models/types.ts";
+import { useLocation } from "react-router-dom";
 
 const tags = [
   {
@@ -24,7 +25,11 @@ const tags = [
 ];
 
 export default function LevelSelectPage() {
-  const [selected, setSelected] = React.useState<boolean | null>(true);
+  const location = useLocation();
+  const [selected, setSelected] = React.useState(
+    location.state?.tab === "discussion" ? false : true
+  );
+
   const [allQuestions, setAllQuestions] = useState<Question[]>([]);
   const [isLoading, setIsLoading] = useState<boolean>(true);
 
@@ -105,8 +110,10 @@ export default function LevelSelectPage() {
               {/* Place description/ discussion component here */}
               {selected ? (
                 <LevelDescription title="Description" content="Content" />
-              ) : (
+              ) : allQuestions[0] ? (
                 <LevelDiscussion question={allQuestions[0]} />
+              ) : (
+                <div>Loading...</div>
               )}
             </div>
           </Frame>
