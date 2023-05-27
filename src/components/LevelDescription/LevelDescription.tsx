@@ -35,11 +35,6 @@ export default function LevelDescription({ title, content }: Props) {
       </Typography>
       <ul className={styles["modal-key-commands"]}>
         <li>
-          Understanding Version Control: Students will grasp the concept of
-          version control and how Git enables tracking changes to code over
-          time.
-        </li>
-        <li>
           Familiarity with Git Terminology: Students will become reacquainted
           with essential Git terminology, including "commit," and "push."
         </li>
