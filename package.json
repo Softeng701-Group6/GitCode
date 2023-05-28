@@ -17,7 +17,7 @@
     "@fortawesome/free-solid-svg-icons": "^6.4.0",
     "@fortawesome/react-fontawesome": "^0.2.0",
     "@mui/icons-material": "^5.11.16",
-    "@mui/material": "^5.13.1",
+    "@mui/material": "^5.13.2",
     "dagre": "^0.8.5",
     "firebase": "^9.22.0",
     "react": "^18.2.0",

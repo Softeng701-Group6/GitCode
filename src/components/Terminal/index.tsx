@@ -24,9 +24,9 @@ export default function Terminal({
   remote,
   HEAD,
 }: GraphSetter) {
-  const [command, setCommand] = useState("");
-  const [commandHistory, setCommandHistory] = useState([]); //Array of strings [command1, command2, command3
-  const [isSubmitted, setIsSubmitted] = useState(false);
+  const [command, setCommand] = useState<string>("");
+  const [commandHistory, setCommandHistory] = useState<string[]>([]); //Array of strings [command1, command2, command3
+  const [isSubmitted, setIsSubmitted] = useState<boolean>(false);
 
   //This function will handle the command input and pass it to the graph component
   const handleCommand = (commandInput: string) => {
@@ -36,8 +36,6 @@ export default function Terminal({
     const commandArray = commandInput.split(" ");
 
     console.log(commandArray);
-
-
 
     //Need to pass the props through to the parent component
     if (commandArray[0] !== "git") {
@@ -51,17 +49,18 @@ export default function Terminal({
       //TODO What to do with commit message?
       console.log("Committing the graph");
       //TODO Need to name the commit with something reasonable
+      // Probably gonna be a hash of length 6
       const newNode: string = `${nodes.length + 1}`;
-      const newEdge: Edge = { source: newNode, target: `${nodes.length}` };
-      console.log(nodes);
+      const newEdge: Edge = { source: `${HEAD}`, target: newNode };
+
       setNodes([...nodes, newNode]);
       setEdges([...edges, newEdge]);
-      //Is this set head correct?
+
       setHEAD(newNode);
 
     } else if (commandArray[0] === "push") {
       console.log("Pushing the graph");
-
+      setRemote(new Set(nodes));
     }
   };
 
@@ -79,7 +78,7 @@ export default function Terminal({
   }, [isSubmitted]);
 
   const scrollToBottom = () => {
-    messagesEnd.scrollIntoView({ behavior: "smooth" });
+    messagesEnd?.scrollIntoView({ behavior: "smooth" });
   };
 
   let messagesEnd: HTMLDivElement | null;

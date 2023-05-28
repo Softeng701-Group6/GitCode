@@ -15,6 +15,10 @@ export default function QuestionEndModal({ onClose }: { onClose: () => void }) {
     navigate("/home");
   };
 
+  const handleGoToDiscussion = () => {
+    navigate("/home", { state: { tab: "discussion" } });
+  };
+
   const handleCloseModal = () => {
     onClose();
   };
@@ -45,16 +49,12 @@ export default function QuestionEndModal({ onClose }: { onClose: () => void }) {
           <li>git commit -m "Message"</li>
           <li>git push</li>
         </ul>
-        <Typography variant="body2" className={styles["modal-text"]}>
-          By committing and pushing changes regularly, you maintain a reliable
-          and traceable history of your project, enabling seamless collaboration
-          with other developers.
-        </Typography>
-        <Typography variant="body2" className={styles["modal-text"]}>
-          For more information and to continue the discussion, please visit the
-          discussion page for this question{" "}
-          <a href="/home" className={styles["modal-link"]}>
-            here
+        <Typography></Typography>
+        <Typography variant="body1" className={styles["modal-text"]}>
+          You had a great answer to this question! To read more about the
+          solution or post your answer in the discussion{" "}
+          <a onClick={handleGoToDiscussion} className={styles["modal-link"]}>
+            click here
           </a>
           .
         </Typography>
