@@ -36,6 +36,7 @@ interface Answer {
 }
 
 export interface Comment extends GeneralObject {
+  questionId: string; // Reference to Question (hard coded)
   userId: DocumentReference;  // Reference to User
   message: string;
   upVotes: DocumentReference[];  // Reference to User
@@ -48,9 +49,9 @@ export interface Question extends GeneralObject {
   description: Description;
   learningObjective: learningObjective;
   discussion: Discussion;
-  commentIds: DocumentReference[];  // Reference to Comment
-  initialGraph: DocumentReference | null; // Reference to Graph
-  goalGraph: DocumentReference | null; // Reference to Graph
+  // commentIds: DocumentReference[];  // Reference to Comment
+  initialGraph: Graph | null; // Reference to Graph
+  goalGraph: Graph | null; // Reference to Graph
 }
 
 export interface Edge {
