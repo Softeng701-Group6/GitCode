@@ -10,18 +10,15 @@ import ReactFlow, {
   useReactFlow,
 } from "reactflow";
 
-import {Edge as FirebaseEdge} from "../../models/types";
+import { Edge as FirebaseEdge } from "../../models/types";
 
 import "reactflow/dist/style.css";
 
-import CustomNode from "./CustomNode.tsx";
-import { initialEdges, initialNodes } from "./initial-nodes-edges.js";
 import { getLayoutedElements } from "./Layout.ts";
-import RoundCustomNode from "./RoundCustomNode";
+import CommitNode from "./CommitNode.tsx";
 
 const nodeTypes = {
-  custom: CustomNode,
-  circle: RoundCustomNode
+  commit: CommitNode,
 };
 
 interface GraphState {
@@ -31,14 +28,14 @@ interface GraphState {
   HEAD: string;
 }
 
-const GitGraph = ({nodes, edges, remote, HEAD}: GraphState) => {
-
+const GitGraph = ({ nodes, edges, remote, HEAD }: GraphState) => {
   const [UINodes, setNodes, onNodesChange] = useNodesState([]);
   const [UIEdges, setEdges, onEdgesChange] = useEdgesState([]);
   const reactFlowInstance = useReactFlow();
 
   useEffect(() => {
-    const { nodes: flowFormatNodes, edges : flowFormatEdges } = convertToFlowFormat(nodes, edges);
+    const { nodes: flowFormatNodes, edges: flowFormatEdges } =
+      convertToFlowFormat(nodes, edges);
     const { nodes: layoutNodes, edges: layoutEdges } = getLayoutedElements(
       flowFormatNodes,
       flowFormatEdges,
@@ -70,23 +67,26 @@ const GitGraph = ({nodes, edges, remote, HEAD}: GraphState) => {
     setNodes((prevNodes) => [...prevNodes, newNode]);
   };
 
-  const convertToFlowFormat = (nodesInput: string[], edgesInput: FirebaseEdge[]) => {
+  const convertToFlowFormat = (
+    nodesInput: string[],
+    edgesInput: FirebaseEdge[]
+  ) => {
     // Convert nodes
-    const nodes: Node[] = nodesInput.map(nodeId => ({
+    const nodes: Node[] = nodesInput.map((nodeId) => ({
       id: nodeId,
       data: { label: `Node ${nodeId}` },
       position: { x: 1, y: 1 },
-      type: "circle"
+      type: "commit",
     }));
-  
+
     // Convert edges
     const edges: Edge[] = edgesInput.map((edge, index) => ({
       ...edge,
       id: `e${edge.source}-${edge.target}`,
     }));
-  
+
     return { nodes, edges };
-  }
+  };
 
   return (
     <ReactFlow
@@ -97,6 +97,10 @@ const GitGraph = ({nodes, edges, remote, HEAD}: GraphState) => {
       onConnect={onConnect}
       nodeTypes={nodeTypes}
       fitView
+      panOnDrag={false}
+      panOnScroll={false}
+      zoomOnScroll={false}
+      zoomOnPinch={false}
     >
       <Background />
     </ReactFlow>

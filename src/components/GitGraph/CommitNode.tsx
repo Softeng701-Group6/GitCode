@@ -8,18 +8,21 @@ interface NodeProps {
   };
 }
 
+export const width = 172;
+export const height = 36;
+
 // Define your node component
-const RoundCustomNode: React.FC<NodeProps> = ({ data }) => {
+const CommitNode: React.FC<NodeProps> = ({ data }) => {
   return (
     <div
       style={{
         display: 'flex',
         justifyContent: 'center',
         alignItems: 'center',
-        borderRadius: '50%',
+        borderRadius: '10%',
         backgroundColor: '#1A192B',
         width: '100px',
-        height: '100px',
+        height: '50px',
         color: '#FFF',
         border: '1px solid #ddd'
       }}
@@ -39,4 +42,4 @@ const RoundCustomNode: React.FC<NodeProps> = ({ data }) => {
   );
 };
 
-export default RoundCustomNode;
+export default CommitNode;
