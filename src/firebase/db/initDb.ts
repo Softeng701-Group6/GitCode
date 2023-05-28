@@ -57,21 +57,21 @@ async function addGraphs() {
 }
 
 async function addQuestions() {
-  const allGraphs = await getDocs(collection(firestore, Collection.GRAPHS));
-
-  for (const question of DUMMY_DATA_QUESTIONS) {
-    const initialGraph = allGraphs.docs.find(doc => {
-      return doc.data().name === `${question.title} - Initial Graph`;
-    });
-    const goalGraph = allGraphs.docs.find(doc => {
-      return doc.data().name === `${question.title} - Goal Graph`;
-    });
-
-    question.initialGraph = initialGraph!.ref;
-    question.goalGraph = goalGraph!.ref;
-
-    await storeDocument(Collection.QUESTIONS, question);
-
-    console.log(`Added ${question.title}`);
-  }
+  // const allGraphs = await getDocs(collection(firestore, Collection.GRAPHS));
+  //
+  // for (const question of DUMMY_DATA_QUESTIONS) {
+  //   const initialGraph = allGraphs.docs.find(doc => {
+  //     return doc.data().name === `${question.title} - Initial Graph`;
+  //   });
+  //   const goalGraph = allGraphs.docs.find(doc => {
+  //     return doc.data().name === `${question.title} - Goal Graph`;
+  //   });
+  //
+  //   question.initialGraph = initialGraph!.ref;
+  //   question.goalGraph = goalGraph!.ref;
+  //
+  //   await storeDocument(Collection.QUESTIONS, question);
+  //
+  //   console.log(`Added ${question.title}`);
+  // }
 }
