@@ -93,12 +93,13 @@ export default function LevelDiscussion({ question }: Props) {
         ))}
 
         <Typography sx={{ textAlign: "left", py: 2 }}>
-          Keep up the good work and happy coding!
-        </Typography>
-
-        <Typography sx={{ textAlign: "left", py: 2 }}>
           For more information, Checkout Atlassian's Page{" "}
-          <a className={styles["modal-link"]}>here</a>
+          <a href="https://www.atlassian.com/git/tutorials/learn-git-with-bitbucket-cloud">
+            here
+          </a>
+        </Typography>
+        <Typography variant="h3" sx={{ textAlign: "left", py: 2 }}>
+          Post your answers below, Is there another way to get the solution?
         </Typography>
       </Stack>
 

@@ -7,6 +7,8 @@ import { grey } from "@mui/material/colors";
 import { useNavigate } from "react-router-dom";
 import styles from "./QuestionDescription.module.css";
 
+import defaultImg from "../../assets/ActivityCommitGraph.jpg";
+
 interface Props {
   title: string;
   children?: ReactElement | ReactElement[];
@@ -74,6 +76,14 @@ export default function QuestionDescription({
           {title}
         </Typography>
         {children}
+        <Typography variant="h3">Desired Graph</Typography>
+        <img src={defaultImg} />
+
+        <Typography variant="body2">
+          {" "}
+          Feel free to use hints located on the right side of the screen if you
+          require further guidance
+        </Typography>
       </Stack>
 
       <GreenButton className={styles["submit-button"]} onClick={onSubmit}>

@@ -19,8 +19,6 @@ export const DUMMY_DATA_QUESTIONS: Question[] = [
             activityArray: [
                 "In this activity, we will guide you through the process of committing and pushing changes to a Git repository.",
                 "All changes have already been added and staged, now we need to commit and push our changes onto main.",
-                "Use git commit commands in the terminal to complete this task and click submit to check!",
-                "Feel free to use hints located on the right side of the screen if you require further guidance"
             ]
         },
         learningObjective: {
