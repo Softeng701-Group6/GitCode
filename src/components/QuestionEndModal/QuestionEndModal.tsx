@@ -54,11 +54,13 @@ export default function QuestionEndModal({ onClose }: { onClose: () => void }) {
           and traceable history of your project, enabling seamless collaboration
           with other developers.
         </Typography>
+
+        <Typography></Typography>
         <Typography variant="body2" className={styles["modal-text"]}>
-          For more information and to continue the discussion, please visit the
-          discussion page for this question{" "}
+          You had a great answer to this question! To read more about the
+          solution or post your answer in the discussion{" "}
           <a onClick={handleGoToDiscussion} className={styles["modal-link"]}>
-            here
+            click here
           </a>
           .
         </Typography>
