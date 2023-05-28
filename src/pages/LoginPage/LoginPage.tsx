@@ -38,73 +38,78 @@ const LoginPage = () => {
   };
 
   return (
-    <Container component="main" maxWidth="xs">
-      <Box className={styles["input-container"]}>
-        <Typography variant="h1" className={styles["heading"]}>
-          {" "}
-          Login
-        </Typography>
+    <Box sx={{display: 'flex', flexDirection: 'column', justifyContent: 'center', height: '100vh'}}>
+      <Container component="main" maxWidth="xs" sx={{textAlign: 'center'}}>
+        <Box className={styles["input-container"]}>
+          <Typography variant="h1" className={styles["heading"]}>
+            {" "}
+            Login
+          </Typography>
 
-        <Box
-          component="form"
-          onSubmit={handleLogin}
-          noValidate
-          className={styles["form"]}
-        >
-          <Typography className={styles["sub-heading"]}>EMAIL</Typography>
-          <TextField
-            required
-            fullWidth
-            id="email"
-            name="email"
-            autoComplete="email"
-            autoFocus
-            type="email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            size="small"
-            InputProps={{ className: styles["input-box"] }}
-          />
-          <Typography className={styles["sub-heading"]}>PASSWORD</Typography>
-          <TextField
-            required
-            fullWidth
-            type="password"
-            id="password"
-            autoComplete="current-password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            size="small"
-            InputProps={{ className: styles["input-box"] }}
-          />
-          <Button
-            type="submit"
-            variant="contained"
-            className={styles["button"]}
+          <Box
+            component="form"
+            onSubmit={handleLogin}
+            noValidate
+            className={styles["form"]}
           >
-            LOG IN
-          </Button>
-          <Grid container direction="column">
-            <span className={styles["or"]}> OR </span>
-            <Grid item xs>
-              <Button onClick={handleGoogleSignin} className={styles["button"]}>
-                <GoogleIcon className={styles["google-icon"]} /> SIGN IN WITH
-                GOOGLE
-              </Button>
+            <Typography className={styles["sub-heading"]}>EMAIL</Typography>
+            <TextField
+              required
+              fullWidth
+              id="email"
+              name="email"
+              autoComplete="email"
+              autoFocus
+              type="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              size="small"
+              InputProps={{ className: styles["input-box"] }}
+            />
+            <Typography className={styles["sub-heading"]}>PASSWORD</Typography>
+            <TextField
+              required
+              fullWidth
+              type="password"
+              id="password"
+              autoComplete="current-password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              size="small"
+              InputProps={{ className: styles["input-box"] }}
+            />
+            <Button
+              type="submit"
+              variant="contained"
+              className={styles["button"]}
+            >
+              LOG IN
+            </Button>
+            <Grid container direction="column">
+              <span className={styles["or"]}> OR </span>
+              <Grid item xs>
+                <Button
+                  onClick={handleGoogleSignin}
+                  className={styles["button"]}
+                >
+                  <GoogleIcon className={styles["google-icon"]} /> SIGN IN WITH
+                  GOOGLE
+                </Button>
+              </Grid>
+              <Grid item xs>
+                <Link to="/signup" className={styles["link"]}>
+                  {"Don't have an account?"}{" "}
+                  <b>
+                    {" "}
+                    <u>Sign Up </u>
+                  </b>
+                </Link>
+              </Grid>
             </Grid>
-            <Grid item xs>
-              <Link to="/signup" className={styles["link"]}>
-                {"Don't have an account?"}{" "}
-                <b>
-                  {" "}
-                  <u>Sign Up </u>
-                </b>
-              </Link>
-            </Grid>
-          </Grid>
+          </Box>
         </Box>
-      </Box>
-    </Container>
+      </Container>
+    </Box>
   );
 };
 
