@@ -41,26 +41,21 @@ export default function Terminal({
     if (commandArray[0] !== "git") {
       console.log("Invalid command");
       //Nothing will happen if it's an invalid command
-    } 
+    }
 
+    switch (commandArray[1]) {
+      case "commit":
+        const newNode: string = `${nodes.length + 1}`;
+        const newEdge: Edge = { source: `${HEAD}`, target: newNode };
 
-    if (commandArray[1] === "commit") {
-      //TODO Need to do more checks on the command still
-      //TODO What to do with commit message?
-      console.log("Committing the graph");
-      //TODO Need to name the commit with something reasonable
-      // Probably gonna be a hash of length 6
-      const newNode: string = `${nodes.length + 1}`;
-      const newEdge: Edge = { source: `${HEAD}`, target: newNode };
+        setNodes([...nodes, newNode]);
+        setEdges([...edges, newEdge]);
 
-      setNodes([...nodes, newNode]);
-      setEdges([...edges, newEdge]);
-
-      setHEAD(newNode);
-
-    } else if (commandArray[0] === "push") {
-      console.log("Pushing the graph");
-      setRemote(new Set(nodes));
+        setHEAD(newNode);
+        break;
+      case "push":
+        setRemote(new Set(nodes));
+        break;
     }
   };
 
@@ -82,23 +77,6 @@ export default function Terminal({
   };
 
   let messagesEnd: HTMLDivElement | null;
-
-  // useEffect(() => {
-  //   const interval = setInterval(() => {
-  //     const newNode: string = `${nodes.length + 1}`;
-
-  //     const newEdge: Edge = { source: newNode, target: `${nodes.length}` };
-
-  //     console.log(nodes);
-
-  //     setNodes([...nodes, newNode]);
-  //     setEdges([...edges, newEdge]);
-  //   }, [100000]);
-
-  //   return () => {
-  //     clearInterval(interval);
-  //   };
-  // }, [setNodes, nodes]);
 
   return (
     // <h1>Terminal Component</h1>
