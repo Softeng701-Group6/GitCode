@@ -32,20 +32,12 @@ const QuestionPage = () => {
               </Typography>
               <ul>
                 <li>
-                  In this activity, we will guide you through the process of
-                  committing and pushing changes to a Git repository.
-                </li>
-                <li>
                   All changes have already been added and staged, now we need to
                   commit and push our changes onto main.
                 </li>
                 <li>
                   Use git commit commands in the terminal to complete this task
                   and click submit to check!
-                </li>
-                <li>
-                  Feel free to use hints located on the right side of the screen
-                  if you are require further guidance.
                 </li>
               </ul>
             </div>
