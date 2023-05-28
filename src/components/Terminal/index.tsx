@@ -28,6 +28,10 @@ export default function Terminal({
   const [commandHistory, setCommandHistory] = useState<string[]>([]); //Array of strings [command1, command2, command3
   const [isSubmitted, setIsSubmitted] = useState<boolean>(false);
 
+  useEffect(() => {
+    console.log(HEAD);
+  },[HEAD]);
+
   //This function will handle the command input and pass it to the graph component
   const handleCommand = (commandInput: string) => {
     console.log("Handling the command here");
@@ -56,6 +60,13 @@ export default function Terminal({
       case "push":
         setRemote(new Set(nodes));
         break;
+      case "checkout":
+        if (!nodes.includes(commandArray[2]))
+          console.log('invalid checkout address');
+        else 
+          setHEAD(commandArray[2]);
+        break;
+
     }
   };
 
