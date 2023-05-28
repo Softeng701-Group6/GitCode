@@ -79,16 +79,13 @@ export default function QuestionDescription({
         <Typography variant="h3">Desired Graph</Typography>
         <img src={defaultImg} />
 
-        <Typography variant="body2">
+        <Typography>
           {" "}
           Feel free to use hints located on the right side of the screen if you
-          require further guidance
+          require further guidance{" "}
         </Typography>
+        <GreenButton onClick={onSubmit}>Submit</GreenButton>
       </Stack>
-
-      <GreenButton className={styles["submit-button"]} onClick={onSubmit}>
-        Submit
-      </GreenButton>
     </Frame>
   );
 }
