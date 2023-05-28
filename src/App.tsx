@@ -25,7 +25,6 @@ function App() {
   if (isLoading) return <h1>Loading...</h1>;
 
   return (
-    <div>
       <ThemeProvider theme={defaultTheme}>
         <Routes>
           <Route path="/" element={<LandingPage />} />
@@ -50,7 +49,6 @@ function App() {
           />
         </Routes>
       </ThemeProvider>
-    </div>
   );
 }
 
