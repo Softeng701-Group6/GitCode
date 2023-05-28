@@ -54,29 +54,59 @@ export default function LevelDiscussion({ question }: Props) {
         Model Answer
       </Typography>
       <Stack>
-        <Typography sx={{ textAlign: "left", py:2 }}>
+        <Typography sx={{ textAlign: "left", py: 2 }}>
           {discussion.statement}
         </Typography>
-        <Stack direction="column" spacing={2} sx={{ my:4, borderRadius: 1, alignItems:'flex-start', marginRight:4,width: 0.92, px: 4, py: 4,  backgroundColor:'#1E1E1E'}}>
+        <Stack
+          direction="column"
+          spacing={2}
+          sx={{
+            my: 4,
+            borderRadius: 1,
+            alignItems: "flex-start",
+            marginRight: 4,
+            width: 0.92,
+            px: 4,
+            py: 4,
+            backgroundColor: "#1E1E1E",
+          }}
+        >
           {discussion.commands.map((cmd) => (
-            <Typography sx={{ textAlign: "left"}} key={cmd}>
+            <Typography sx={{ textAlign: "left" }} key={cmd}>
               {cmd}
             </Typography>
           ))}
         </Stack>
         {discussion.answers.map((ans) => (
-          <Stack key={ans.step} sx={{py: 2}} >
+          <Stack key={ans.step} sx={{ py: 2 }}>
             <Typography sx={{ textAlign: "left", py: 2 }}>
               {ans.step}
             </Typography>
-            <Typography sx={{ textAlign: "left" }}>
-              {ans.explanation}
-            </Typography>
+            <ul>
+              {ans.explanation.map((line, index) => (
+                <li key={index}>
+                  <Typography sx={{ textAlign: "left" }}>{line}</Typography>
+                </li>
+              ))}
+            </ul>
           </Stack>
         ))}
+
+        <Typography sx={{ textAlign: "left", py: 2 }}>
+          Keep up the good work and happy coding!
+        </Typography>
+
+        <Typography sx={{ textAlign: "left", py: 2 }}>
+          For more information, Checkout Atlassian's Page{" "}
+          <a className={styles["modal-link"]}>here</a>
+        </Typography>
       </Stack>
 
-      <Divider className={styles["divider"]} sx={{marginTop: 4}} variant="middle" />
+      <Divider
+        className={styles["divider"]}
+        sx={{ marginTop: 4 }}
+        variant="middle"
+      />
       <Box sx={{ flexGrow: 1 }}></Box>
 
       <Stack alignItems="flex-start" className={styles["comment-section"]}>

@@ -39,9 +39,8 @@ export default function LevelDescription({ title, content }: Props) {
           with essential Git terminology, including "commit," and "push."
         </li>
         <li>
-          Committing Changes: Students will learn how to create a commit in Git,
-          understanding the purpose and significance of commit messages in
-          documenting changes.
+          Committing Changes: Students will revisit how to create a commit in
+          Git
         </li>
         <li>
           Pushing Commits: Students will grasp the concept of pushing commits to
@@ -49,9 +48,6 @@ export default function LevelDescription({ title, content }: Props) {
           and the git push command.
         </li>
       </ul>
-      {/*<Typography className={styles['content']} sx={{py:4}}>
-        {content}
-  </Typography>*/}
       <Divider className={styles["divider"]} variant="middle" />
       <Box sx={{ flexGrow: 1 }}></Box>
       <GreenButton onClick={startProblem}>Start Problem</GreenButton>
