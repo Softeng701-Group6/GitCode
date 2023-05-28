@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { Edge } from "../../models/types";
-import { Box, TextField } from "@mui/material";
+import { Box, Stack, TextField, Typography } from "@mui/material";
 import "./TerminalStyle.css";
 
 interface GraphSetter {
@@ -41,8 +41,7 @@ export default function Terminal({
     if (commandArray[0] !== "git") {
       console.log("Invalid command");
       //Nothing will happen if it's an invalid command
-    } 
-
+    }
 
     if (commandArray[1] === "commit") {
       //TODO Need to do more checks on the command still
@@ -57,7 +56,6 @@ export default function Terminal({
       setEdges([...edges, newEdge]);
 
       setHEAD(newNode);
-
     } else if (commandArray[0] === "push") {
       console.log("Pushing the graph");
       setRemote(new Set(nodes));
@@ -101,7 +99,6 @@ export default function Terminal({
   // }, [setNodes, nodes]);
 
   return (
-    // <h1>Terminal Component</h1>
     <div>
       {/* // The Terminal Container */}
       <Box
@@ -123,7 +120,7 @@ export default function Terminal({
           }}
         >
           {commandHistory.map((command) => {
-            return <p>{command}</p>;
+            return <p>C:\GitCode{`>`} {command}</p>;
           })}
           <div
             style={{ float: "left", clear: "both" }}
@@ -132,28 +129,33 @@ export default function Terminal({
             }}
           ></div>
         </Box>
-        <TextField
-          variant="standard"
-          fullWidth
-          value={command}
-          inputProps={{
-            style: { fontFamily: "Cascadia Code, Courier, monospace" },
-          }}
-          sx={{
-            input: { color: "white", borderColor: "white" },
-            fieldset: { borderColor: "white", color: "white" },
-            "& .MuiInput-underline:after": { borderColor: "black" },
-            "& .MuiFilledInput-underline:after": { borderColor: "black" },
-          }}
-          onKeyDown={(ev) => {
-            if (ev.key === "Enter") {
-              setIsSubmitted(true);
-            }
-          }}
-          onChange={(ev) => {
-            setCommand(ev.target.value);
-          }}
-        ></TextField>
+        <Stack direction='row' alignItems='center' spacing={2}>
+          <Typography sx={{fontFamily: "Cascadia Code, Courier, monospace", padding: '4px 0px 5px 0px', color: 'white'}}>
+            C:\GitCode{`>`}
+          </Typography>
+          <TextField
+            variant="standard"
+            fullWidth
+            value={command}
+            inputProps={{
+              style: { fontFamily: "Cascadia Code, Courier, monospace" },
+            }}
+            sx={{
+              input: { color: "white", borderColor: "white" },
+              fieldset: { borderColor: "white", color: "white" },
+              "& .MuiInput-underline:after": { borderColor: "black" },
+              "& .MuiFilledInput-underline:after": { borderColor: "black" },
+            }}
+            onKeyDown={(ev) => {
+              if (ev.key === "Enter") {
+                setIsSubmitted(true);
+              }
+            }}
+            onChange={(ev) => {
+              setCommand(ev.target.value);
+            }}
+          />
+        </Stack>
       </Box>
     </div>
   );
