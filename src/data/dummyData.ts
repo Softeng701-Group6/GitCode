@@ -54,7 +54,7 @@ export const DUMMY_DATA_QUESTIONS: Question[] = [
         }
       ]
     },
-    commentIds: [],
+    // commentIds: [],
     initialGraph: null,
     goalGraph: null
   }
@@ -67,7 +67,8 @@ export const DUMMY_DATA_GRAPHS: Graph[] = [
     edges: [
       {source: "C1", target: "C2"},
       {source: "C1", target: "C3"}
-    ]
+    ],
+    headNode: "C1"
   },
   {
     name: `${DUMMY_DATA_QUESTIONS[0].title} - Goal Graph`,
@@ -75,6 +76,7 @@ export const DUMMY_DATA_GRAPHS: Graph[] = [
     edges: [
       {source: "C1", target: "C2"},
       {source: "C1", target: "C3"}
-    ]
+    ],
+    headNode: "C1"
   }
 ]
