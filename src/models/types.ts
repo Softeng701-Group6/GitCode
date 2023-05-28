@@ -6,6 +6,7 @@ export interface GeneralObject {
 
 export interface User extends GeneralObject {
   name: string;
+  email: string;
   expProgress: string;
   level: string;
   profileImg: string;
