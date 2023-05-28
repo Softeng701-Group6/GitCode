@@ -20,43 +20,34 @@ export default function LevelDescription({ title, content }: Props) {
 
   return (
     <Stack className={styles["container"]}>
-      <Typography
-        className={styles["title"]}
-        sx={{ fontWeight: "bold", fontSize: 32 }}
-      >
+      <Typography className={styles["title"]} variant="h2">
         1. Commit and Push
         {/*{title}*/}
       </Typography>
-      <Typography
-        className={styles["objectives-heading"]}
-        sx={{ fontWeight: "bold", fontSize: 24 }}
-      >
+      <Typography className={styles["objectives-heading"]} variant="h3">
         Learning Objectives
       </Typography>
-      <ul className={styles["modal-key-commands"]}>
+      <ul>
         <li>
-          Understanding Version Control: Students will grasp the concept of
-          version control and how Git enables tracking changes to code over
-          time.
+          <Typography sx={{ textAlign: "left" }}>
+            Familiarity with Git Terminology: Students will become reacquainted
+            with essential Git terminology, including "commit," and "push."
+          </Typography>
         </li>
         <li>
-          Familiarity with Git Terminology: Students will become reacquainted
-          with essential Git terminology, including "commit," and "push."
+          <Typography sx={{ textAlign: "left" }}>
+            Committing Changes: Students will revisit how to create a commit in
+            Git
+          </Typography>
         </li>
         <li>
-          Committing Changes: Students will learn how to create a commit in Git,
-          understanding the purpose and significance of commit messages in
-          documenting changes.
-        </li>
-        <li>
-          Pushing Commits: Students will grasp the concept of pushing commits to
-          a remote repository, gaining knowledge about the purpose of remotes
-          and the git push command.
+          <Typography sx={{ textAlign: "left" }}>
+            Pushing Commits: Students will grasp the concept of pushing commits
+            to a remote repository, gaining knowledge about the purpose of
+            remotes and the git push command.
+          </Typography>
         </li>
       </ul>
-      {/*<Typography className={styles['content']} sx={{py:4}}>
-        {content}
-  </Typography>*/}
       <Divider className={styles["divider"]} variant="middle" />
       <Box sx={{ flexGrow: 1 }}></Box>
       <GreenButton onClick={startProblem}>Start Problem</GreenButton>
