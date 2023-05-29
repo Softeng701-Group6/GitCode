@@ -37,7 +37,7 @@ export default function NavigationBar() {
   return (
 
     <Box className={styles.root}>
-      <AppBar position="absolute" style={{ background: '#252525' }}>
+      <AppBar position='static' style={{ background: '#252525' }}>
         <Toolbar className={styles['toolbar']}>
           <Typography variant="h6" component="a" href="/home" className={styles['title']} sx={{fontSize:32, fontWeight:'bold', py:4, paddingLeft:4}}>
             Git
@@ -45,9 +45,6 @@ export default function NavigationBar() {
           <Typography variant="h6" component="a" href="/home" className={styles['subTitle']} sx={{fontSize:32, fontWeight:'bold'}}>
             Code.
           </Typography>
-          {/*<Box sx={{ m: 3 }} />
-          <Button onClick={() => navigate('login')} className={styles['loginButton']}>Login</Button>
-  <Button onClick={() => navigate('signup')} className={styles['signupButton']}>Sign Up</Button>*/}
           <Box sx={{ flexGrow: 1 }}></Box>
           <Box sx={{ flexGrow: 0 }}>
             <Tooltip title="Open profile settings">
