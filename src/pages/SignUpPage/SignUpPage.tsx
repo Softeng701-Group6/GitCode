@@ -1,20 +1,12 @@
-import {
-  TextField,
-  Typography,
-  Button,
-  Container,
-  Grid,
-  Box,
-} from "@mui/material";
+import { Box, Button, Container, Grid, TextField, Typography, } from "@mui/material";
 import { useState } from "react";
-import { useNavigate, Link } from "react-router-dom";
-import { auth, firestore, googleProvider } from "../../firebase/firebase";
+import { Link, useNavigate } from "react-router-dom";
+import { auth, googleProvider } from "../../firebase/firebase";
 import { createUserWithEmailAndPassword, signInWithPopup } from "firebase/auth";
 import GoogleIcon from "@mui/icons-material/Google";
 import styles from "./SignUpPage.module.css";
-import { doc, getDoc, setDoc } from "firebase/firestore";
 import { User } from "../../models/types";
-import { storeDocument } from "../../firebase/firestoreUtils";
+import { isDocumentExists, storeDocument } from "../../firebase/firestoreUtils";
 import { Collection } from "../../firebase/enums";
 
 const Signuppage = () => {
@@ -36,8 +28,8 @@ const Signuppage = () => {
         password
       );
       const user = userCredential.user;
-      const userDoc = doc(firestore, "users", user.uid);
       const newUser: User = {
+        id: user.uid,
         name: "New User",
         email: email,
         expProgress: "0",
@@ -46,7 +38,8 @@ const Signuppage = () => {
         completedQuestions: [],
         attemptedQuestions: [],
       };
-      await setDoc(userDoc, newUser);
+      await storeDocument(Collection.USERS, newUser);
+
       navigate("/home");
     } catch (error: any) {
       alert(error.message);
@@ -57,22 +50,22 @@ const Signuppage = () => {
     try {
       const userCredential = await signInWithPopup(auth, googleProvider);
       const user = userCredential.user;
-      const newUser: User = {
-        name: "New User",
-        email: email,
-        expProgress: "0",
-        level: "1",
-        profileImg: "",
-        completedQuestions: [],
-        attemptedQuestions: [],
-      };
 
-      const userDoc = doc(firestore, "users", user.uid);
-
-      if ((await getDoc(userDoc)).exists()) {
+      if (await isDocumentExists(Collection.USERS, user.uid)) {
         navigate("/home");
       } else {
+        const newUser: User = {
+          id: user.uid,
+          name: "New User",
+          email: email,
+          expProgress: "0",
+          level: "1",
+          profileImg: "",
+          completedQuestions: [],
+          attemptedQuestions: [],
+        };
         await storeDocument(Collection.USERS, newUser);
+
         navigate("/home");
       }
     } catch (error: any) {
@@ -81,8 +74,8 @@ const Signuppage = () => {
   };
 
   return (
-    <Box sx={{display: 'flex', flexDirection: 'column', justifyContent: 'center', height: '100vh'}}>
-      <Container component="main" maxWidth="xs" sx={{textAlign: 'center'}}>
+    <Box sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', height: '100vh' }}>
+      <Container component="main" maxWidth="xs" sx={{ textAlign: 'center' }}>
         <Grid
           container
           direction="column"

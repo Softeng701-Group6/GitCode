@@ -1,5 +1,5 @@
 import { GeneralObject } from "../models/types.ts";
-import { collection, doc, getDocs, setDoc } from "firebase/firestore";
+import { collection, doc, getDoc, getDocs, setDoc } from "firebase/firestore";
 import { firestore } from "./firebase.ts";
 import { Collection } from "./enums.ts";
 
@@ -38,4 +38,17 @@ export async function getCollection<T extends GeneralObject>(collectionName: str
 
     return data;
   });
+}
+
+/**
+ * Check if the document exists in the database
+ *
+ * @param collectionName Collection name
+ * @param id Document ID
+ */
+export async function isDocumentExists(collectionName: Collection, id: string): Promise<boolean> {
+  const docRef = doc(firestore, collectionName, id);
+  const docSnap = await getDoc(docRef);
+
+  return docSnap.exists();
 }
