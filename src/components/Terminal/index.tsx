@@ -83,47 +83,29 @@ export default function Terminal({
 
   let messagesEnd: HTMLDivElement | null;
 
-  // useEffect(() => {
-  //   const interval = setInterval(() => {
-  //     const newNode: string = `${nodes.length + 1}`;
-
-  //     const newEdge: Edge = { source: newNode, target: `${nodes.length}` };
-
-  //     console.log(nodes);
-
-  //     setNodes([...nodes, newNode]);
-  //     setEdges([...edges, newEdge]);
-  //   }, [100000]);
-
-  //   return () => {
-  //     clearInterval(interval);
-  //   };
-  // }, [setNodes, nodes]);
-
   return (
     // <h1>Terminal Component</h1>
-    <div>
-      {/* // The Terminal Container */}
       <Box
         sx={{
           backgroundColor: "#262626",
-          border: "1px solid white",
-          maxHeight: "90%",
+          height: '100%',
           width: "100%",
+          display: 'flex',
+          flexDirection: 'column',
         }}
       >
         {/* // The Terminal header, where the text will be shown */}
         <Box
           sx={{
             overflow: "auto",
-            minHeight: "400px",
             display: "flex",
             flexDirection: "column",
             backgroundColor: "#363636",
+            flexGrow: 1
           }}
         >
-          {commandHistory.map((command) => {
-            return <p>{command}</p>;
+          {commandHistory.map((command, index) => {
+            return <p key={`command-${index}`}>{command}</p>;
           })}
           <div
             style={{ float: "left", clear: "both" }}
@@ -140,10 +122,11 @@ export default function Terminal({
             style: { fontFamily: "Cascadia Code, Courier, monospace" },
           }}
           sx={{
-            input: { color: "white", borderColor: "white" },
-            fieldset: { borderColor: "white", color: "white" },
-            "& .MuiInput-underline:after": { borderColor: "black" },
-            "& .MuiFilledInput-underline:after": { borderColor: "black" },
+            // input: { color: "white", borderColor: "white" },
+            // fieldset: { borderColor: "white", color: "white" },
+            // "& .MuiInput-underline:after": { borderColor: "black" },
+            // "& .MuiFilledInput-underline:after": { borderColor: "black" },
+            flexGrow: 0
           }}
           onKeyDown={(ev) => {
             if (ev.key === "Enter") {
@@ -155,6 +138,5 @@ export default function Terminal({
           }}
         ></TextField>
       </Box>
-    </div>
   );
 }
