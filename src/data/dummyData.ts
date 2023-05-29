@@ -1,4 +1,4 @@
-import { Difficulty, Tags } from "../firebase/firebaseEnums.ts";
+import { Difficulty, Tags } from "../models/enums.ts";
 import { Graph, Question } from "../models/types.ts";
 
 export const DUMMY_DATA_QUESTIONS: Question[] = [
