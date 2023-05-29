@@ -38,9 +38,9 @@ interface Answer {
 
 export interface Comment extends GeneralObject {
   questionId: string; // Reference to Question (hard coded)
-  userId: DocumentReference;  // Reference to User
+  userId: string;  // Reference to User
   message: string;
-  upVotes: DocumentReference[];  // Reference to User
+  upVotes: string[];  // Reference to User
 }
 
 export interface Question extends GeneralObject {

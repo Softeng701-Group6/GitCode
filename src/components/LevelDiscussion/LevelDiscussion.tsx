@@ -7,10 +7,11 @@ import {
   Typography,
 } from "@mui/material";
 import ThumbUpIcon from "@mui/icons-material/ThumbUp";
+import ThumbUpAltOutlinedIcon from '@mui/icons-material/ThumbUpAltOutlined';
 import styles from "./LevelDiscussion.module.css";
 import { Comment, Question, User } from "../../models/types.ts";
 import { useContext, useEffect, useState } from "react";
-import { getCollection, getDocumentById, getDocumentByRef, storeDocument } from "../../firebase/firestoreUtils.ts";
+import { getCollection, storeDocument } from "../../firebase/firestoreUtils.ts";
 import { Collection } from "../../firebase/firebaseEnums.ts";
 import { UserContext } from "../../context/UserContext.ts";
 
@@ -20,46 +21,53 @@ interface Props {
 
 export default function LevelDiscussion({ question }: Props) {
   const discussion = question.discussion;
+  const [refresh, setRefresh] = useState<boolean>(true);
   const user = useContext(UserContext)!;
-  const [currentUserDoc, setCurrentUserDoc] = useState<any>(null);
   const [commentToSend, setCommentToSend] = useState<string>("");
   const [comments, setComments] = useState<Comment[]>([]);
   const [isLoading, setIsLoading] = useState<boolean>(true);
+  const [allUsers, setAllUsers] = useState<User[]>([]);
 
   useEffect(() => {
     async function init() {
       // Linking to firebase
+      setAllUsers(await getCollection<User>(Collection.USERS));
 
       const allComments: Comment[] = await getCollection<Comment>(Collection.COMMENTS);
       const filteredComments: Comment[] = allComments.filter(c => c.questionId === question.id);
-
-      for (const comment of filteredComments) {
-        const userData = await getDocumentByRef<User>(comment.userId);
-        comment.userId = userData.email;
-      }
-
       setComments(filteredComments);
 
-      setCurrentUserDoc(await getDocumentById(Collection.USERS, user.uid, false));
       setIsLoading(false);
     }
 
     init();
-  }, [question.id, comments]);
+  }, [refresh]);
 
   async function handleSendComment() {
     if (!commentToSend) return alert("Please enter a comment!");
 
     const newComment: Comment = {
       questionId: question.id!,
-      userId: currentUserDoc.ref,
+      userId: user.uid,
       message: commentToSend,
       upVotes: [],
     };
 
-    setComments([...comments, newComment]);
-    await storeDocument(Collection.COMMENTS, newComment);
     setCommentToSend("");
+    await storeDocument(Collection.COMMENTS, newComment);
+    setRefresh(!refresh);
+  }
+
+  async function handleUpvote(comment: Comment) {
+    // Toggle vote
+    if (comment.upVotes.includes(user.uid)) {
+      comment.upVotes = comment.upVotes.filter((userId) => userId !== user.uid);
+    } else {
+      comment.upVotes.push(user.uid);
+    }
+
+    await storeDocument(Collection.COMMENTS, comment);
+    setRefresh(!refresh);
   }
 
   return (
@@ -127,7 +135,9 @@ export default function LevelDiscussion({ question }: Props) {
       />
       <Box sx={{ flexGrow: 1 }}></Box>
 
-      {!isLoading && (
+      {isLoading ? (
+        <Typography>Loading...</Typography>
+      ) : (
         <Stack alignItems="flex-start" className={styles["comment-section"]}>
           <Typography className={styles["comment-title"]} sx={{ width: 1 }}>
             Comments
@@ -161,46 +171,57 @@ export default function LevelDiscussion({ question }: Props) {
             </Button>
           </Stack>
 
-          {/*{comments.map((comment) => (*/}
-          {/*  <Stack*/}
-          {/*    key={comment.id}*/}
-          {/*    className={styles["comment-read"]}*/}
-          {/*    sx={{ width: 1 }}*/}
-          {/*  >*/}
-          {/*    <Typography sx={{ textAlign: "left", py: 2, px: 2 }}>*/}
-          {/*      {comment.userId}*/}
-          {/*    </Typography>*/}
+          {comments.map((comment) => (
+            <Stack
+              key={comment.id}
+              className={styles["comment-read"]}
+              sx={{ width: 1 }}
+            >
+              <Typography sx={{ textAlign: "left", py: 2, px: 2 }}>
+                {/*{allUsers.find((u: User) => u.id === comment.userId)!.email}*/}
+              </Typography>
 
-          {/*    <Stack*/}
-          {/*      className={styles["comment-sender"]}*/}
-          {/*      direction="row"*/}
-          {/*      sx={{ width: 1 }}*/}
-          {/*    >*/}
-          {/*      <TextField*/}
-          {/*        className={styles["comment-box"]}*/}
-          {/*        sx={{ width: 1, marginRight: 4 }}*/}
-          {/*        multiline*/}
-          {/*        rows={4}*/}
-          {/*        value={comment.message}*/}
-          {/*        InputProps={{*/}
-          {/*          readOnly: true,*/}
-          {/*          style: { color: "white" },*/}
-          {/*        }}*/}
-          {/*      />*/}
+              <Stack
+                className={styles["comment-sender"]}
+                direction="row"
+                sx={{ width: 1 }}
+              >
+                <TextField
+                  className={styles["comment-box"]}
+                  sx={{ width: 1, marginRight: 4 }}
+                  multiline
+                  rows={4}
+                  value={comment.message}
+                  InputProps={{
+                    readOnly: true,
+                    style: { color: "white" },
+                  }}
+                />
 
-          {/*      <ThumbUpIcon*/}
-          {/*        className={styles["comment-vote"]}*/}
-          {/*        sx={{ pr: 4 }}*/}
-          {/*        onClick={() => {*/}
-          {/*          comment.upVotes++;*/}
-          {/*          setDummyComments([...dummyComments]);*/}
-          {/*        }}*/}
-          {/*      />*/}
+                {
+                  comment.upVotes.includes(user.uid) ? (
+                    <ThumbUpIcon
+                      className={styles["comment-vote"]}
+                      sx={{ pr: 4 }}
+                      onClick={() => {
+                        handleUpvote(comment);
+                      }}
+                    />
+                  ) : (
+                    <ThumbUpAltOutlinedIcon
+                      className={styles["comment-vote"]}
+                      sx={{ pr: 4 }}
+                      onClick={() => {
+                        handleUpvote(comment);
+                      }}
+                    />
+                  )
+                }
 
-          {/*      <Typography>{comment.upVotes.length}</Typography>*/}
-          {/*    </Stack>*/}
-          {/*  </Stack>*/}
-          {/*))}*/}
+                <Typography>{comment.upVotes.length}</Typography>
+              </Stack>
+            </Stack>
+          ))}
         </Stack>
       )}
     </Stack>
