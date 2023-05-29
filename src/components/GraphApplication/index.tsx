@@ -5,16 +5,20 @@ import { ReactFlowProvider } from "reactflow";
 
 import { useState, useEffect } from "react";
 import { Box, Stack } from "@mui/material";
-import { Edge } from "../../models/types";
+import { Node, Edge } from "../../models/types";
 import HelpBar from "../../HelpBar/HelpBar";
 
 export default function GraphApplication({
   initialGraph,
   goalGraph,
+  isScaffolded,
+  answers,
   setComplete,
 }: {
   initialGraph: Graph;
   goalGraph: Graph;
+  isScaffolded: boolean; 
+  answers: string[];
   setComplete: (complete: boolean) => void;
 }) {
   const { nodes: initialNodes, edges: initialEdges } = initialGraph;
@@ -23,12 +27,24 @@ export default function GraphApplication({
   const [nodes, setNodes] = useState<string[]>(initialNodes);
   const [edges, setEdges] = useState<Edge[]>(initialEdges);
   const [remote, setRemote] = useState<Set<string>>(new Set(nodes));
-  const [HEAD, setHEAD] = useState<string>("1");
+  const [HEAD, setHEAD] = useState<string>(initialNodes[initialNodes.length - 1]);
+  const scaffolding = isScaffolded;
 
+
+  const [branch, setBranch] = useState<string>("main");
+  const [branchHEADS, setBranchHEADS] = useState<Map<string, string>>(
+    new Map([["main", '1']])
+  );
+  const [branchNodes, setBranchNodes] = useState<Map<string, string[]>>(
+    new Map([
+      ['main', ['1']]
+    ])
+  );
+  
   useEffect(() => {
-    if (nodes == goalNodes && edges == goalEdges) {
+    if (nodes.length === goalNodes.length && edges.length === goalEdges.length && nodes.every((value, index) => value === goalNodes[index]) && JSON.stringify(edges) === JSON.stringify(goalEdges)) {
       setComplete(true);
-    }
+    } 
   }, [nodes]);
 
   return (
@@ -36,7 +52,7 @@ export default function GraphApplication({
 
       <Box sx={{ height: "50%" }}>
         <ReactFlowProvider>
-          <GitGraph nodes={nodes} edges={edges} remote={remote} HEAD={HEAD} />
+          <GitGraph nodes={nodes} edges={edges} remote={remote} HEAD={HEAD} branch={branch}/>
         </ReactFlowProvider>
       </Box>
       <HelpBar/>
@@ -46,10 +62,18 @@ export default function GraphApplication({
           setEdges={setEdges}
           setRemote={setRemote}
           setHEAD={setHEAD}
+          setBranch={setBranch}
+          setBranchHEADS={setBranchHEADS}
+          setBranchNodes={setBranchNodes}
           nodes={nodes}
           edges={edges}
           HEAD={HEAD}
           remote={remote}
+          isScaffolded={scaffolding}
+          answers={answers}
+          branch={branch}
+          branchHEADS={branchHEADS}
+          branchNodes={branchNodes}
         />
       </Box>
     </Stack>
