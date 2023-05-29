@@ -16,9 +16,10 @@ import "reactflow/dist/style.css";
 
 import { getLayoutedElements } from "./Layout.ts";
 import CommitNode from "./CommitNode.tsx";
+import RoundCustomNode from "./RoundCustomNode";
 
 const nodeTypes = {
-  commit: CommitNode,
+  circle: RoundCustomNode
 };
 
 interface GraphState {
@@ -44,7 +45,7 @@ const GitGraph = ({ nodes, edges, remote, HEAD }: GraphState) => {
 
     setNodes([...layoutNodes]);
     setEdges([...layoutEdges]);
-  }, [nodes, edges]);
+  }, [nodes, edges, remote, HEAD]);
 
   useEffect(() => {
     reactFlowInstance.fitView();
@@ -67,26 +68,23 @@ const GitGraph = ({ nodes, edges, remote, HEAD }: GraphState) => {
     setNodes((prevNodes) => [...prevNodes, newNode]);
   };
 
-  const convertToFlowFormat = (
-    nodesInput: string[],
-    edgesInput: FirebaseEdge[]
-  ) => {
+  const convertToFlowFormat = (nodesInput: string[], edgesInput: FirebaseEdge[]) => {
     // Convert nodes
-    const nodes: Node[] = nodesInput.map((nodeId) => ({
+    const nodes: Node[] = nodesInput.map(nodeId => ({
       id: nodeId,
-      data: { label: `Node ${nodeId}` },
+      data: { label: nodeId===HEAD?"HEAD":`Node ${nodeId}`, color: remote.has(nodeId)?"#A610BD":null },
       position: { x: 1, y: 1 },
-      type: "commit",
+      type: "circle"
     }));
-
+  
     // Convert edges
     const edges: Edge[] = edgesInput.map((edge, index) => ({
       ...edge,
       id: `e${edge.source}-${edge.target}`,
     }));
-
+  
     return { nodes, edges };
-  };
+  }
 
   return (
     <ReactFlow
