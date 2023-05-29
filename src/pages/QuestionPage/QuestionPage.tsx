@@ -11,6 +11,14 @@ import {
   initialNodes,
 } from "../../components/GitGraph/initial-firebase-nodes-edges";
 
+import {
+  gitCommitPushNodes,
+  gitCommitPushEdges,
+  gitCommitPushNodesGoal,
+  gitCommitPushEdgesGoal,
+  gitCommitPushAnswers
+} from "../../components/GitGraph/git-commit-push-nodes-edges";
+
 const QuestionPage = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isComplete, setComplete] = useState(false);
@@ -52,8 +60,11 @@ const QuestionPage = () => {
           </Grid>
           <Grid item xs={8} sx={{height: '100%'}}>
             <GraphApplication
-              initialGraph={{ nodes: initialNodes, edges: initialEdges }}
-              goalGraph={{ nodes: [], edges: [] }}
+              initialGraph={{ nodes: gitCommitPushNodes, edges: gitCommitPushEdges }}
+              goalGraph={{ nodes: gitCommitPushNodesGoal, edges: gitCommitPushEdgesGoal }}
+              // TODO NEED TO GET SCAFFOLDING VAL
+              isScaffolded={true}
+              answers={gitCommitPushAnswers}
               setComplete={setComplete}
             />
           </Grid>

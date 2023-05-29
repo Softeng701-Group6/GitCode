@@ -1,18 +1,13 @@
-import {
-  Button,
-  TextField,
-  Typography,
-  Container,
-  Grid,
-  Box,
-} from "@mui/material";
+import { Box, Button, Container, Grid, TextField, Typography, } from "@mui/material";
 import React, { useState } from "react";
-import { useNavigate, Link } from "react-router-dom";
-import { auth, firestore, googleProvider } from "../../firebase/firebase";
+import { Link, useNavigate } from "react-router-dom";
+import { auth, googleProvider } from "../../firebase/firebase";
 import { signInWithEmailAndPassword, signInWithPopup } from "firebase/auth";
 import GoogleIcon from "@mui/icons-material/Google";
 import styles from "../../pages/SignUpPage/SignUpPage.module.css";
-import { doc, getDoc, setDoc } from "firebase/firestore";
+import { isDocumentExists, storeDocument } from "../../firebase/firestoreUtils.ts";
+import { Collection } from "../../firebase/firebaseEnums.ts";
+import { User } from "../../models/types.ts";
 
 const LoginPage = () => {
   const navigate = useNavigate();
@@ -28,21 +23,18 @@ const LoginPage = () => {
         throw new Error("Failed to authenticate user");
       }
 
-      const userDocRef = doc(firestore, "users", user.uid);
-      const userDocSnap = await getDoc(userDocRef);
-
-      if (!userDocSnap.exists()) {
-        const newUser = {
-          email: user.email,
+      if (!(await isDocumentExists(Collection.USERS, user.uid))) {
+        const newUser: User = {
+          id: user.uid,
           name: "",
+          email: user.email!,
           expProgress: "0",
           level: "1",
           profileImg: "",
           completedQuestions: [],
           attemptedQuestions: [],
         };
-
-        await setDoc(userDocRef, newUser);
+        await storeDocument(Collection.USERS, newUser);
       }
 
       navigate("/home");
@@ -55,21 +47,18 @@ const LoginPage = () => {
     try {
       const { user } = await signInWithPopup(auth, googleProvider);
 
-      const userDocRef = doc(firestore, "users", user.uid);
-      const userDocSnap = await getDoc(userDocRef);
-
-      if (!userDocSnap.exists()) {
-        const newUser = {
-          email: user.email,
+      if (!(await isDocumentExists(Collection.USERS, user.uid))) {
+        const newUser: User = {
+          id: user.uid,
           name: "",
+          email: user.email!,
           expProgress: "0",
           level: "1",
           profileImg: "",
           completedQuestions: [],
           attemptedQuestions: [],
         };
-
-        await setDoc(userDocRef, newUser);
+        await storeDocument(Collection.USERS, newUser);
       }
 
       navigate("/home");
@@ -79,8 +68,8 @@ const LoginPage = () => {
   };
 
   return (
-    <Box sx={{display: 'flex', flexDirection: 'column', justifyContent: 'center', height: '100vh'}}>
-      <Container component="main" maxWidth="xs" sx={{textAlign: 'center'}}>
+    <Box sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', height: '100vh' }}>
+      <Container component="main" maxWidth="xs" sx={{ textAlign: 'center' }}>
         <Box className={styles["input-container"]}>
           <Typography variant="h1" className={styles["heading"]}>
             {" "}
@@ -133,7 +122,7 @@ const LoginPage = () => {
                   onClick={handleGoogleSignin}
                   className={styles["button"]}
                 >
-                  <GoogleIcon className={styles["google-icon"]} /> SIGN IN WITH
+                  <GoogleIcon className={styles["google-icon"]}/> SIGN IN WITH
                   GOOGLE
                 </Button>
               </Grid>

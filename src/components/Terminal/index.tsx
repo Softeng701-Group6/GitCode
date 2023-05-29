@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { Edge } from "../../models/types";
-import { Box, TextField } from "@mui/material";
+import { Box, Stack, TextField, Typography } from "@mui/material";
 import "./TerminalStyle.css";
 
 interface GraphSetter {
@@ -8,10 +8,18 @@ interface GraphSetter {
   setEdges: (edges: Edge[]) => void;
   setRemote: (nodes: Set<string>) => void;
   setHEAD: (head: string) => void;
+  setBranch: (branch: string) => void;
+  setBranchHEADS: (map: Map<string, string>) => void;
+  setBranchNodes: (map: Map<string, string[]>) => void;
   nodes: string[];
   edges: Edge[];
   remote: Set<string>;
   HEAD: string;
+  isScaffolded: boolean;
+  answers: string[];
+  branch: string;
+  branchHEADS: Map<string, string>;
+  branchNodes: Map<string, string[]>;
 }
 
 export default function Terminal({
@@ -19,48 +27,94 @@ export default function Terminal({
   setEdges,
   setRemote,
   setHEAD,
+  setBranch,
+  setBranchHEADS,
+  setBranchNodes,
   nodes,
   edges,
   remote,
   HEAD,
+  isScaffolded,
+  answers,
+  branch,
+  branchHEADS,
+  branchNodes
 }: GraphSetter) {
   const [command, setCommand] = useState<string>("");
-  const [commandHistory, setCommandHistory] = useState<string[]>([]); //Array of strings [command1, command2, command3
+  const [commandHistory, setCommandHistory] = useState<string[]>([]); 
+  const [commandHistoryColours, setCommandHistoryColours] = useState<string[]>([]); // TODO Need to add a colour for each command
+  const [answerLine, setAnswerLine] = useState<number>(0); // TODO Need to add a line for the answer
   const [isSubmitted, setIsSubmitted] = useState<boolean>(false);
 
   //This function will handle the command input and pass it to the graph component
   const handleCommand = (commandInput: string) => {
-    console.log("Handling the command here");
     console.log(commandInput);
-
     const commandArray = commandInput.split(" ");
+    let isValidCommand = isScaffolded ? false : true;
 
-    console.log(commandArray);
-
-    //Need to pass the props through to the parent component
+    //Checks if the first word is git
     if (commandArray[0] !== "git") {
       console.log("Invalid command");
-      //Nothing will happen if it's an invalid command
+      if(isScaffolded){
+        setCommandHistoryColours([...commandHistoryColours, "red"]);
+      }
     } 
 
+    //Logic to deal with colours
+    if(isScaffolded && answerLine < answers.length){
+      const answerCommandArray = answers[answerLine].split(" ");
+      if(commandArray[0] !== answerCommandArray[0]){
+        setCommandHistoryColours([...commandHistoryColours, "red"]);
+      } else {
+        if(commandArray[1] !== answerCommandArray[1]){
+          setCommandHistoryColours([...commandHistoryColours, "red"]);
+        } else {
+          setCommandHistoryColours([...commandHistoryColours, "green"]);
+          setAnswerLine(answerLine + 1);
+          isValidCommand = true;
+        }
+      }
+    } else if (isScaffolded && answerLine >= answers.length){
+      setCommandHistoryColours([...commandHistoryColours, "red"]);
+    }
 
-    if (commandArray[1] === "commit") {
-      //TODO Need to do more checks on the command still
-      //TODO What to do with commit message?
-      console.log("Committing the graph");
-      //TODO Need to name the commit with something reasonable
-      // Probably gonna be a hash of length 6
-      const newNode: string = `${nodes.length + 1}`;
-      const newEdge: Edge = { source: `${HEAD}`, target: newNode };
+    if (isValidCommand) {
+    switch(commandArray[1]){
 
-      setNodes([...nodes, newNode]);
-      setEdges([...edges, newEdge]);
+      case 'commit':
+        const newNode: string = `${nodes.length + 1}`;
+        const newEdge: Edge = { source: `${HEAD}`, target: newNode, branch: branch };
+  
+        setNodes([...nodes, newNode]);
+        setEdges([...edges, newEdge]);
+  
+        setHEAD(newNode);
+        setBranchHEADS(new Map(branchHEADS).set(branch, newNode));
 
-      setHEAD(newNode);
+        const newBranchNodes = new Map<string, string[]>(branchNodes);
+        newBranchNodes.get(branch)!.push(newNode);
+        setBranchNodes(newBranchNodes);
+        break;
+      case 'push':
+        setRemote(new Set([...remote, ...branchNodes.get(branch)!]));
+        break;
+      case 'branch':
+        const name = commandArray[2];
+        setBranchHEADS(new Map(branchHEADS).set(name, HEAD));
+        setBranchNodes(new Map(branchNodes).set(name, []));
+        break;
+      case 'checkout':
+        const branchName = commandArray[2];
 
-    } else if (commandArray[1] === "push") {
-      console.log("Pushing the graph");
-      setRemote(new Set(nodes));
+        if (branchHEADS.has(branchName)){
+          setBranch(branchName);
+          setHEAD(branchHEADS.get(branchName)!);
+        }
+
+        break;
+      case 'pull':
+        break;
+    }
     }
   };
 
@@ -84,7 +138,6 @@ export default function Terminal({
   let messagesEnd: HTMLDivElement | null;
 
   return (
-    // <h1>Terminal Component</h1>
       <Box
         sx={{
           backgroundColor: "#262626",
@@ -105,7 +158,11 @@ export default function Terminal({
           }}
         >
           {commandHistory.map((command, index) => {
-            return <p key={`command-${index}`}>{command}</p>;
+            if(isScaffolded){
+              return <p key={`command-${index}`} style={{color: commandHistoryColours[index]}}>C:\GitCode{`>`} {command}</p>;
+            } else {
+              return <p key={`command-${index}`} >C:\GitCode{`>`} {command}</p>;
+            }
           })}
           <div
             style={{ float: "left", clear: "both" }}
@@ -114,29 +171,34 @@ export default function Terminal({
             }}
           ></div>
         </Box>
-        <TextField
-          variant="standard"
-          fullWidth
-          value={command}
-          inputProps={{
-            style: { fontFamily: "Cascadia Code, Courier, monospace" },
-          }}
-          sx={{
-            // input: { color: "white", borderColor: "white" },
-            // fieldset: { borderColor: "white", color: "white" },
-            // "& .MuiInput-underline:after": { borderColor: "black" },
-            // "& .MuiFilledInput-underline:after": { borderColor: "black" },
-            flexGrow: 0
-          }}
-          onKeyDown={(ev) => {
-            if (ev.key === "Enter") {
-              setIsSubmitted(true);
-            }
-          }}
-          onChange={(ev) => {
-            setCommand(ev.target.value);
-          }}
-        ></TextField>
+        <Stack direction='row' alignItems='center' spacing={2}>
+          <Typography sx={{fontFamily: "Cascadia Code, Courier, monospace", padding: '4px 0px 5px 0px', color: 'white'}}>
+            C:\GitCode{`>`}
+          </Typography>
+          <TextField
+            variant="standard"
+            fullWidth
+            value={command}
+            inputProps={{
+              style: { fontFamily: "Cascadia Code, Courier, monospace", color: 'white' },
+            }}
+            sx={{
+              input: { color: "white", borderColor: "white" },
+              fieldset: { borderColor: "white", color: "white" },
+              "& .MuiInput-underline:after": { borderColor: "black" },
+              "& .MuiFilledInput-underline:after": { borderColor: "black" },
+              flexGrow: 0,
+            }}
+            onKeyDown={(ev) => {
+              if (ev.key === "Enter") {
+                setIsSubmitted(true);
+              }
+            }}
+            onChange={(ev) => {
+              setCommand(ev.target.value);
+            }}
+          />
+        </Stack>
       </Box>
   );
 }

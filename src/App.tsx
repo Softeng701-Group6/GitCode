@@ -11,6 +11,8 @@ import ProtectedRoute from "./components/ProtectedRoute/index.tsx";
 import { useState } from "react";
 import { auth } from "./firebase/firebase.ts";
 import { User as FirebaseUser } from "firebase/auth";
+import { LevelContextProvider } from "./context/LevelContext.tsx";
+import LevelContextLayout from "./components/LevelContextLayout.tsx";
 
 function App() {
   const [user, setUser] = useState<FirebaseUser | null>(null);
@@ -29,22 +31,24 @@ function App() {
           <Route path="/" element={<LandingPage/>}/>
           <Route path="/login" element={<LoginPage/>}/>
           <Route path="/signup" element={<SignupPage/>}/>
-          <Route
-            path="/home"
-            element={
-              <ProtectedRoute user={user}>
-                <LevelSelectPage/>
-              </ProtectedRoute>
-            }
-          />
-          <Route
-            path="/question"
-            element={
-              <ProtectedRoute user={user}>
-                <QuestionPage/>
-              </ProtectedRoute>
-            }
-          />
+          <Route element={<LevelContextLayout />}>
+            <Route
+              path="/home"
+              element={
+                <ProtectedRoute user={user}>
+                  <LevelSelectPage/>
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/question"
+              element={
+                <ProtectedRoute user={user}>
+                  <QuestionPage/>
+                </ProtectedRoute>
+              }
+            />
+          </Route>
         </Routes>
       </ThemeProvider>
   );
