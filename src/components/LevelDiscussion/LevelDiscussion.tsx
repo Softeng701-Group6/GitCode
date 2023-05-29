@@ -14,15 +14,14 @@ import { useContext, useEffect, useState } from "react";
 import { getCollection, storeDocument } from "../../firebase/firestoreUtils.ts";
 import { Collection } from "../../firebase/firebaseEnums.ts";
 import { UserContext } from "../../context/UserContext.ts";
+import { LevelContext } from "../../context/LevelContext.tsx";
 
-interface Props {
-  question: Question;
-}
 
-export default function LevelDiscussion({ question }: Props) {
-  const discussion = question.discussion;
-  const [refresh, setRefresh] = useState<boolean>(true);
+export default function LevelDiscussion() {
+  const { selectedQuestion } = useContext(LevelContext);
   const user = useContext(UserContext)!;
+
+  const [refresh, setRefresh] = useState<boolean>(true);
   const [commentToSend, setCommentToSend] = useState<string>("");
   const [comments, setComments] = useState<Comment[]>([]);
   const [isLoading, setIsLoading] = useState<boolean>(true);
@@ -34,7 +33,7 @@ export default function LevelDiscussion({ question }: Props) {
       setAllUsers(await getCollection<User>(Collection.USERS));
 
       const allComments: Comment[] = await getCollection<Comment>(Collection.COMMENTS);
-      const filteredComments: Comment[] = allComments.filter(c => c.questionId === question.id);
+      const filteredComments: Comment[] = allComments.filter(c => c.questionId === selectedQuestion.id);
       setComments(filteredComments);
 
       setIsLoading(false);
@@ -47,7 +46,7 @@ export default function LevelDiscussion({ question }: Props) {
     if (!commentToSend) return alert("Please enter a comment!");
 
     const newComment: Comment = {
-      questionId: question.id!,
+      questionId: selectedQuestion.id!,
       userId: user.uid,
       message: commentToSend,
       upVotes: [],
@@ -80,7 +79,7 @@ export default function LevelDiscussion({ question }: Props) {
       </Typography>
       <Stack>
         <Typography sx={{ textAlign: "left", py: 2 }}>
-          {discussion.statement}
+          {selectedQuestion.discussion.statement}
         </Typography>
         <Stack
           direction="column"
@@ -96,13 +95,13 @@ export default function LevelDiscussion({ question }: Props) {
             backgroundColor: "#1E1E1E",
           }}
         >
-          {discussion.commands.map((cmd) => (
+          {selectedQuestion.discussion.commands.map((cmd) => (
             <Typography sx={{ textAlign: "left" }} key={cmd}>
               {cmd}
             </Typography>
           ))}
         </Stack>
-        {discussion.answers.map((ans) => (
+        {selectedQuestion.discussion.answers.map((ans) => (
           <Stack key={ans.step} sx={{ py: 2 }}>
             <Typography sx={{ textAlign: "left", py: 2 }}>
               {ans.step}
@@ -117,6 +116,7 @@ export default function LevelDiscussion({ question }: Props) {
           </Stack>
         ))}
 
+        {/* Footer */}
         <Typography sx={{ textAlign: "left", py: 2 }}>
           For more information, Checkout Atlassian's Page{" "}
           <a href="https://www.atlassian.com/git/tutorials/learn-git-with-bitbucket-cloud">
@@ -126,6 +126,7 @@ export default function LevelDiscussion({ question }: Props) {
         <Typography variant="h3" sx={{ textAlign: "left", py: 2 }}>
           Post your answers below, Is there another way to get the solution?
         </Typography>
+
       </Stack>
 
       <Divider

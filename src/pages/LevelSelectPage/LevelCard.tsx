@@ -1,34 +1,23 @@
 import { Box, Stack, Typography } from "@mui/material";
-import StarBorderIcon from '@mui/icons-material/StarBorder';
-import StarIcon from '@mui/icons-material/Star';
+import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 import { ReactElement, useState } from "react";
-import { yellow } from "@mui/material/colors";
+import { green } from "@mui/material/colors";
 import Frame from "../../components/Frame";
-
-const starIconStyle = {
-  fontSize: 30,
-  color: yellow[600]
-}
+import styles from "./LevelCard.module.css";
 
 interface Props {
   level: string
   difficulty: string
   tags?: ReactElement[]
+  selected: boolean
+  completed?: boolean
+  onClick: () => void
 }
 
-export default function LevelCard({level, difficulty, tags}: Props) {
-
-  const [isCompleted, setCompleted] = useState(false);
-  const [starred, setStarred] = useState(false);
-
-  function toggleStarred() {
-    setStarred(!starred);
-  }
+export default function LevelCard({level, difficulty, tags, selected, completed=false, onClick}: Props) {
 
   return (
-    <Frame sx={{
-      marginBottom: 2
-    }}>
+    <Frame onClick={onClick} className={`${styles.container} ${selected ? styles.selected : ""}`}>
       <Stack direction="row" sx={{
         display: "flex",
         position: "relative",
@@ -48,12 +37,15 @@ export default function LevelCard({level, difficulty, tags}: Props) {
           </Stack>
         </Stack>
 
-        <Box onClick={toggleStarred} sx={{
+        <Box sx={{
           position: "absolute",
           right: 0
-        }}>{starred ? 
-          <StarBorderIcon sx={starIconStyle}/> :
-          <StarIcon sx={starIconStyle} />}
+        }}>{completed &&
+          <CheckCircleIcon sx={{
+            fontSize: 30,
+            color: green[500]
+          }}/>
+        }
         </Box>
         
         

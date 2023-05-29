@@ -1,0 +1,9 @@
+.container {
+  margin-bottom: 8px;
+  border: 2px solid transparent;
+}
+
+.selected {
+  border-color: #9985EA;
+  box-sizing: content-box;
+}

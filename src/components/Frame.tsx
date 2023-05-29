@@ -1,5 +1,5 @@
 import { Card, CardContent, CardProps, SxProps, styled } from "@mui/material";
-import { ReactElement, ReactPropTypes } from "react";
+import { ReactElement } from "react";
 
 const CardContentNoPadding = styled(CardContent)(`
   &:last-child {
@@ -12,9 +12,9 @@ interface Props extends CardProps {
   children?: ReactElement | ReactElement[]
 }
 
-export default function Frame({className, sx, children}: Props) {
+export default function Frame({sx, children, className, onClick}: Props) {
   return (
-    <Card className={className} sx={{
+    <Card className={className} onClick={onClick}  sx={{
       background: "background.paper",
       borderRadius: 2,
       color: "white",
