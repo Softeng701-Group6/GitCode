@@ -10,7 +10,6 @@ import {
   initialEdges,
   initialNodes,
 } from "../../components/GitGraph/initial-firebase-nodes-edges";
-import HintToolTip from "../../HelpBar/HintToolTip";
 
 const QuestionPage = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -58,7 +57,6 @@ const QuestionPage = () => {
               goalGraph={{ nodes: [], edges: [] }}
               setComplete={setComplete}
             />
-            {/* <HintToolTip/> */}
           </Grid>
         </Grid>
       </div>
