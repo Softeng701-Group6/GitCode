@@ -7,7 +7,7 @@ import { Question } from "../../models/types";
 import styles from "./LevelDetailsPanel.module.css";
 
 interface Props {
-  question: Question | undefined;
+  question: Question;
 }
 
 export default function LevelDetailsPanel({question}: Props) {
@@ -41,11 +41,11 @@ export default function LevelDetailsPanel({question}: Props) {
             DISCUSSION
           </button>
         </span>
-        {/* Place description/ discussion component here */}
+        
         {selected ? (
-          <LevelDescription title="Description" content="Content"/>
+          <LevelDescription />
         ) : question ? (
-          <LevelDiscussion question={question}/>
+          <LevelDiscussion />
         ) : (
           <div>Loading...</div>
         )}
