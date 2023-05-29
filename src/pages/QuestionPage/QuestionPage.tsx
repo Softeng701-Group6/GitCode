@@ -28,6 +28,7 @@ const QuestionPage = () => {
     <div style={{ display: "flex", flexDirection: "column", height: "100vh" }}>
       <NavigationBar />
       <div style={{ display: "flex", flexDirection: "column", flexGrow: 1 }}>
+
         <Grid className={styles["main-grid"]} container spacing={2}>
           <Grid item xs={4} sx={{height: '100%'}}>
             <QuestionDescription
@@ -52,12 +53,12 @@ const QuestionPage = () => {
             </QuestionDescription>
           </Grid>
           <Grid item xs={8} sx={{height: '100%'}}>
-            <HintToolTip/>
-            <GraphApplication
+              <GraphApplication
               initialGraph={{ nodes: initialNodes, edges: initialEdges }}
               goalGraph={{ nodes: [], edges: [] }}
               setComplete={setComplete}
             />
+            <HintToolTip/>
           </Grid>
         </Grid>
       </div>
