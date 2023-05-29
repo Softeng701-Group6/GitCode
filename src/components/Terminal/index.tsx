@@ -12,6 +12,8 @@ interface GraphSetter {
   edges: Edge[];
   remote: Set<string>;
   HEAD: string;
+  isScaffolded: boolean;
+  answers: string[];
 }
 
 export default function Terminal({
@@ -23,43 +25,61 @@ export default function Terminal({
   edges,
   remote,
   HEAD,
+  isScaffolded,
+  answers,
 }: GraphSetter) {
   const [command, setCommand] = useState<string>("");
-  const [commandHistory, setCommandHistory] = useState<string[]>([]); //Array of strings [command1, command2, command3
+  const [commandHistory, setCommandHistory] = useState<string[]>([]); 
+  const [commandHistoryColours, setCommandHistoryColours] = useState<string[]>([]); // TODO Need to add a colour for each command
+  const [answerLine, setAnswerLine] = useState<number>(0); // TODO Need to add a line for the answer
   const [isSubmitted, setIsSubmitted] = useState<boolean>(false);
+  // TODO Need to add a boolean to check if the graph is in scaffolding mode or not 
 
   //This function will handle the command input and pass it to the graph component
   const handleCommand = (commandInput: string) => {
-    console.log("Handling the command here");
     console.log(commandInput);
-
     const commandArray = commandInput.split(" ");
 
-    console.log(commandArray);
-
-    //Need to pass the props through to the parent component
     if (commandArray[0] !== "git") {
       console.log("Invalid command");
-      //Nothing will happen if it's an invalid command
+      if(isScaffolded){
+        setCommandHistoryColours([...commandHistoryColours, "red"]);
+      }
+    } 
+
+    //Logic to deal with colours
+    if(isScaffolded && answerLine < answers.length){
+      const answerCommandArray = answers[answerLine].split(" ");
+      if(commandArray[0] !== answerCommandArray[0]){
+        setCommandHistoryColours([...commandHistoryColours, "red"]);
+      } else {
+        if(commandArray[1] !== answerCommandArray[1]){
+          setCommandHistoryColours([...commandHistoryColours, "red"]);
+        } else {
+          setCommandHistoryColours([...commandHistoryColours, "green"]);
+          setAnswerLine(answerLine + 1);
+        }
+      }
+    } else if (isScaffolded && answerLine >= answers.length){
+      setCommandHistoryColours([...commandHistoryColours, "red"]);
     }
 
     if (commandArray[1] === "commit") {
-      //TODO Need to do more checks on the command still
       //TODO What to do with commit message?
       console.log("Committing the graph");
-      //TODO Need to name the commit with something reasonable
       // Probably gonna be a hash of length 6
       const newNode: string = `${nodes.length + 1}`;
       const newEdge: Edge = { source: `${HEAD}`, target: newNode };
 
       setNodes([...nodes, newNode]);
       setEdges([...edges, newEdge]);
-
       setHEAD(newNode);
-    } else if (commandArray[0] === "push") {
+
+    } else if (commandArray[1] === "push") {
       console.log("Pushing the graph");
       setRemote(new Set(nodes));
-    }
+    } 
+    
   };
 
   //Whenever command changes
@@ -80,23 +100,6 @@ export default function Terminal({
   };
 
   let messagesEnd: HTMLDivElement | null;
-
-  // useEffect(() => {
-  //   const interval = setInterval(() => {
-  //     const newNode: string = `${nodes.length + 1}`;
-
-  //     const newEdge: Edge = { source: newNode, target: `${nodes.length}` };
-
-  //     console.log(nodes);
-
-  //     setNodes([...nodes, newNode]);
-  //     setEdges([...edges, newEdge]);
-  //   }, [100000]);
-
-  //   return () => {
-  //     clearInterval(interval);
-  //   };
-  // }, [setNodes, nodes]);
 
   return (
     <div>
@@ -119,8 +122,12 @@ export default function Terminal({
             backgroundColor: "#363636",
           }}
         >
-          {commandHistory.map((command) => {
-            return <p>C:\GitCode{`>`} {command}</p>;
+          {commandHistory.map((command, index) => {
+            if(isScaffolded){
+              return <p style={{color: commandHistoryColours[index]}}>C:\GitCode{`>`} {command}</p>;
+            } else {
+              return <p>C:\GitCode{`>`} {command}</p>;
+            }
           })}
           <div
             style={{ float: "left", clear: "both" }}
@@ -138,7 +145,7 @@ export default function Terminal({
             fullWidth
             value={command}
             inputProps={{
-              style: { fontFamily: "Cascadia Code, Courier, monospace" },
+              style: { fontFamily: "Cascadia Code, Courier, monospace", color: 'white' },
             }}
             sx={{
               input: { color: "white", borderColor: "white" },

@@ -10,10 +10,12 @@ import { Edge } from "../../models/types";
 export default function GraphApplication({
   initialGraph,
   goalGraph,
+  scaffoldedData,
   setComplete,
 }: {
   initialGraph: Graph;
   goalGraph: Graph;
+  scaffoldedData: {isScaffolded: boolean, answers: string[]};
   setComplete: (complete: boolean) => void;
 }) {
   const { nodes: initialNodes, edges: initialEdges } = initialGraph;
@@ -22,12 +24,13 @@ export default function GraphApplication({
   const [nodes, setNodes] = useState<string[]>(initialNodes);
   const [edges, setEdges] = useState<Edge[]>(initialEdges);
   const [remote, setRemote] = useState<Set<string>>(new Set());
-  const [HEAD, setHEAD] = useState<string>("1");
+  const [HEAD, setHEAD] = useState<string>(initialNodes[initialNodes.length - 1]);
+  const isScaffolded = scaffoldedData.isScaffolded;
 
   useEffect(() => {
-    if (nodes == goalNodes && edges == goalEdges) {
+    if (nodes.length === goalNodes.length && edges.length === goalEdges.length && nodes.every((value, index) => value === goalNodes[index]) && JSON.stringify(edges) === JSON.stringify(goalEdges)) {
       setComplete(true);
-    }
+    } 
   }, [nodes]);
 
   return (
@@ -47,6 +50,8 @@ export default function GraphApplication({
           edges={edges}
           HEAD={HEAD}
           remote={remote}
+          isScaffolded={isScaffolded}
+          answers={scaffoldedData.answers}
         />
       </Box>
     </Stack>

@@ -5,6 +5,13 @@ import {
   initialEdges,
   initialNodes,
 } from "../../components/GitGraph/initial-firebase-nodes-edges";
+import {
+  gitCommitPushNodes,
+  gitCommitPushEdges,
+  gitCommitPushNodesGoal,
+  gitCommitPushEdgesGoal,
+  gitCommitPushAnswers
+} from "../../components/GitGraph/git-commit-push-nodes-edges";
 
 export default function GraphApplicationTest() {
   const [isComplete, setComplete] = useState(false);
@@ -12,8 +19,10 @@ export default function GraphApplicationTest() {
   return (
     <Box sx={{ border: "5px solid white", height: "100vh" }}>
       <GraphApplication
-        initialGraph={{ nodes: initialNodes, edges: initialEdges }}
-        goalGraph={{ nodes: [], edges: [] }}
+        initialGraph={{ nodes: gitCommitPushNodes, edges: gitCommitPushEdges }}
+        goalGraph={{ nodes: gitCommitPushNodesGoal, edges: gitCommitPushEdgesGoal }}
+        // TODO NEED TO GET SCAFFOLDING VAL
+        scaffoldedData={{isScaffolded: true, answers: gitCommitPushAnswers}}
         setComplete={setComplete}
       />
     </Box>

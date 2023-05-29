@@ -2,6 +2,7 @@ p {
     margin: 0px 0px 0px 0px;
     text-align: left;
     font-family: "Cascadia Code", Courier, monospace;
+    color: white;
 }
 
 .MuiBox-root::-webkit-scrollbar {

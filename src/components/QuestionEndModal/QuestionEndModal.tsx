@@ -1,5 +1,5 @@
 import Modal from "@mui/material/Modal";
-import Box from "@mui/material/Box";
+import {Box} from "@mui/material";
 import Typography from "@mui/material/Typography";
 import styles from "./QuestionEndModal.module.css";
 import tick from "../../assets/green_check.png";
