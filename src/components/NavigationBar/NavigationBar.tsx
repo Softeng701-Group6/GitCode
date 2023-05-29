@@ -32,6 +32,7 @@ export default function NavigationBar() {
             className={styles["title"]}
             sx={{ fontSize: 32, fontWeight: "bold", py: 4, paddingLeft: 4 }}
           >
+
             Git
           </Typography>
           <Typography
@@ -43,9 +44,6 @@ export default function NavigationBar() {
           >
             Code.
           </Typography>
-          {/*<Box sx={{ m: 3 }} />
-          <Button onClick={() => navigate('login')} className={styles['loginButton']}>Login</Button>
-  <Button onClick={() => navigate('signup')} className={styles['signupButton']}>Sign Up</Button>*/}
           <Box sx={{ flexGrow: 1 }}></Box>
           <Box sx={{ flexGrow: 0 }}>
             <Tooltip title="Open profile settings">
