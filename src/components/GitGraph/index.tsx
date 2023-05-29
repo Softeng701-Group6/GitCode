@@ -27,9 +27,10 @@ interface GraphState {
   edges: FirebaseEdge[];
   remote: Set<string>;
   HEAD: string;
+  branch: string;
 }
 
-const GitGraph = ({ nodes, edges, remote, HEAD }: GraphState) => {
+const GitGraph = ({ nodes, edges, remote, HEAD, branch }: GraphState) => {
   const [UINodes, setNodes, onNodesChange] = useNodesState([]);
   const [UIEdges, setEdges, onEdgesChange] = useEdgesState([]);
   const reactFlowInstance = useReactFlow();
@@ -81,6 +82,7 @@ const GitGraph = ({ nodes, edges, remote, HEAD }: GraphState) => {
     const edges: Edge[] = edgesInput.map((edge, index) => ({
       ...edge,
       id: `e${edge.source}-${edge.target}`,
+      animated: edge.branch === branch
     }));
   
     return { nodes, edges };
