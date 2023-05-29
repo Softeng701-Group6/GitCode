@@ -14,11 +14,12 @@ import { Question } from "../../models/types.ts";
 import { useLocation } from "react-router-dom";
 import LevelCardList from "./LevelCardList.tsx";
 import LevelDetailsPanel from "./LevelDetailsPanel.tsx";
+import { useLocalStorage } from "../../hooks/useLocalStorage.tsx";
 
 export default function LevelSelectPage() {
 
   const [allQuestions, setAllQuestions] = useState<Question[]>([]);
-  const [selectedQuestion, setQuestion] = useState<Question>();
+  const [selectedQuestionId, setQuestionId] = useLocalStorage("selectedQuestionId");
   const [isLoading, setIsLoading] = useState<boolean>(true);
 
   useEffect(() => {
@@ -30,7 +31,7 @@ export default function LevelSelectPage() {
       // setIsLoading(false);
 
       setAllQuestions(DUMMY_DATA_QUESTIONS);
-      setQuestion(DUMMY_DATA_QUESTIONS[0])
+      setQuestionId(DUMMY_DATA_QUESTIONS[0].id)
     }
 
     init();
@@ -49,7 +50,7 @@ export default function LevelSelectPage() {
           <LevelCardList questions={allQuestions}/>
         </Grid>
         <Grid item xs={8}>
-          <LevelDetailsPanel question={selectedQuestion}/>
+          <LevelDetailsPanel question={selectedQuestionId}/>
         </Grid>
       </Grid>
     </div>

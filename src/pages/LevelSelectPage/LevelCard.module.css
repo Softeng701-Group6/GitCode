@@ -1,0 +1,9 @@
+.container {
+  margin-bottom: 2;
+  border: 2px solid transparent;
+}
+
+.selected {
+  border-color: white;
+  box-sizing: content-box;
+}
