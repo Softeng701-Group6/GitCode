@@ -118,7 +118,7 @@ export const DUMMY_DATA_QUESTIONS: Question[] = [
     initialGraph: null,
     goalGraph: null,
     difficulty: Difficulty.MEDIUM,
-    tags: [Tags.commit, Tags.push],
+    tags: [Tags.checkout, Tags.branch],
   }
 ]
 
