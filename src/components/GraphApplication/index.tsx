@@ -10,19 +10,25 @@ import { Node, Edge } from "../../models/types";
 export default function GraphApplication({
   initialGraph,
   goalGraph,
+  isScaffolded,
+  answers,
   setComplete,
 }: {
   initialGraph: Graph;
   goalGraph: Graph;
+  isScaffolded: boolean; 
+  answers: string[];
   setComplete: (complete: boolean) => void;
 }) {
   const { nodes: initialNodes, edges: initialEdges } = initialGraph;
   const { nodes: goalNodes, edges: goalEdges } = goalGraph;
 
-  const [nodes, setNodes] = useState<string[]>(['1']);
-  const [edges, setEdges] = useState<Edge[]>([]);
-  const [remote, setRemote] = useState<Set<string>>(new Set(['1']));
-  const [HEAD, setHEAD] = useState<string>("1");
+  const [nodes, setNodes] = useState<string[]>(initialNodes);
+  const [edges, setEdges] = useState<Edge[]>(initialEdges);
+  const [remote, setRemote] = useState<Set<string>>(new Set(nodes));
+  const [HEAD, setHEAD] = useState<string>(initialNodes[initialNodes.length - 1]);
+  const scaffolding = isScaffolded;
+
 
   const [branch, setBranch] = useState<string>("main");
   const [branchHEADS, setBranchHEADS] = useState<Map<string, string>>(
@@ -35,9 +41,9 @@ export default function GraphApplication({
   );
   
   useEffect(() => {
-    if (nodes == goalNodes && edges == goalEdges) {
+    if (nodes.length === goalNodes.length && edges.length === goalEdges.length && nodes.every((value, index) => value === goalNodes[index]) && JSON.stringify(edges) === JSON.stringify(goalEdges)) {
       setComplete(true);
-    }
+    } 
   }, [nodes]);
 
   return (
@@ -60,6 +66,8 @@ export default function GraphApplication({
           edges={edges}
           HEAD={HEAD}
           remote={remote}
+          isScaffolded={scaffolding}
+          answers={answers}
           branch={branch}
           branchHEADS={branchHEADS}
           branchNodes={branchNodes}
