@@ -8,10 +8,14 @@ import {
 } from "@mui/material";
 import { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
-import { auth, googleProvider } from "../../firebase/firebase";
+import { auth, firestore, googleProvider } from "../../firebase/firebase";
 import { createUserWithEmailAndPassword, signInWithPopup } from "firebase/auth";
 import GoogleIcon from "@mui/icons-material/Google";
 import styles from "./SignUpPage.module.css";
+import { doc, getDoc, setDoc } from "firebase/firestore";
+import { User } from "../../models/types";
+import { storeDocument } from "../../firebase/firestoreUtils";
+import { Collection } from "../../firebase/enums";
 
 const Signuppage = () => {
   const navigate = useNavigate();
@@ -19,14 +23,30 @@ const Signuppage = () => {
   const [password, setPassword] = useState("");
   const [passwordVerify, setPasswordVerify] = useState("");
 
-  const handleSignup = async (event: any) => {
+  const handleSignup = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     if (password !== passwordVerify) {
       alert("Passwords do not match");
       return;
     }
     try {
-      await createUserWithEmailAndPassword(auth, email, password);
+      const userCredential = await createUserWithEmailAndPassword(
+        auth,
+        email,
+        password
+      );
+      const user = userCredential.user;
+      const userDoc = doc(firestore, "users", user.uid);
+      const newUser: User = {
+        name: "New User",
+        email: email,
+        expProgress: "0",
+        level: "1",
+        profileImg: "",
+        completedQuestions: [],
+        attemptedQuestions: [],
+      };
+      await setDoc(userDoc, newUser);
       navigate("/home");
     } catch (error: any) {
       alert(error.message);
@@ -35,8 +55,26 @@ const Signuppage = () => {
 
   const handleGoogleSignup = async () => {
     try {
-      await signInWithPopup(auth, googleProvider);
-      navigate("/home");
+      const userCredential = await signInWithPopup(auth, googleProvider);
+      const user = userCredential.user;
+      const newUser: User = {
+        name: "New User",
+        email: email,
+        expProgress: "0",
+        level: "1",
+        profileImg: "",
+        completedQuestions: [],
+        attemptedQuestions: [],
+      };
+
+      const userDoc = doc(firestore, "users", user.uid);
+
+      if ((await getDoc(userDoc)).exists()) {
+        navigate("/home");
+      } else {
+        await storeDocument(Collection.USERS, newUser);
+        navigate("/home");
+      }
     } catch (error: any) {
       alert(error.message);
     }
