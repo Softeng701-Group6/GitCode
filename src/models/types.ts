@@ -62,6 +62,7 @@ export interface Node {
 export interface Edge {
   source: string;
   target: string;
+  branch: string;
 }
 
 export interface Graph extends GeneralObject {
