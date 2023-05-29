@@ -13,14 +13,12 @@ import { useEffect, useState } from "react";
 import { Question } from "../../models/types.ts";
 import { useLocation } from "react-router-dom";
 import LevelCardList from "./LevelCardList.tsx";
+import LevelDetailsPanel from "./LevelDetailsPanel.tsx";
 
 export default function LevelSelectPage() {
-  const location = useLocation();
-  const [selected, setSelected] = React.useState(
-    location.state?.tab === "discussion" ? false : true
-  );
 
   const [allQuestions, setAllQuestions] = useState<Question[]>([]);
+  const [selectedQuestion, setQuestion] = useState<Question>();
   const [isLoading, setIsLoading] = useState<boolean>(true);
 
   useEffect(() => {
@@ -32,6 +30,7 @@ export default function LevelSelectPage() {
       // setIsLoading(false);
 
       setAllQuestions(DUMMY_DATA_QUESTIONS);
+      setQuestion(DUMMY_DATA_QUESTIONS[0])
     }
 
     init();
@@ -50,40 +49,7 @@ export default function LevelSelectPage() {
           <LevelCardList questions={allQuestions}/>
         </Grid>
         <Grid item xs={8}>
-          <Frame
-            sx={{
-              height: 1,
-            }}
-          >
-            <div>
-              <span>
-                <button
-                  className={selected ? styles.selected : styles.unselected}
-                  onClick={() => {
-                    setSelected(true);
-                  }}
-                >
-                  DESCRIPTION
-                </button>
-                <button
-                  className={!selected ? styles.selected : styles.unselected}
-                  onClick={() => {
-                    setSelected(false);
-                  }}
-                >
-                  DISCUSSION
-                </button>
-              </span>
-              {/* Place description/ discussion component here */}
-              {selected ? (
-                <LevelDescription title="Description" content="Content"/>
-              ) : allQuestions[0] ? (
-                <LevelDiscussion question={allQuestions[0]}/>
-              ) : (
-                <div>Loading...</div>
-              )}
-            </div>
-          </Frame>
+          <LevelDetailsPanel question={selectedQuestion}/>
         </Grid>
       </Grid>
     </div>
