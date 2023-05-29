@@ -15,5 +15,13 @@ export const Tags = {
   push: {
     name: "push",
     color: Colors.green[600],
+  } as Tag,
+  checkout: {
+    name: "checkout",
+    color: Colors.blue[700],
+  } as Tag,
+  branch: {
+    name: "branch",
+    color: Colors.cyan[600],
   } as Tag
 }
