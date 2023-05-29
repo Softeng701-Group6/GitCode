@@ -7,17 +7,16 @@ import {
   Typography,
 } from "@mui/material";
 import ThumbUpIcon from "@mui/icons-material/ThumbUp";
-import ThumbUpAltOutlinedIcon from '@mui/icons-material/ThumbUpAltOutlined';
+import ThumbUpAltOutlinedIcon from "@mui/icons-material/ThumbUpAltOutlined";
 import styles from "./LevelDiscussion.module.css";
 import { Comment, Question, User } from "../../models/types.ts";
 import { useContext, useEffect, useState } from "react";
 import HiddenDiscussion from "./HiddenDiscussion.tsx";
 import { UserContext } from "../../context/UserContext";
 import { getCollection, storeDocument } from "../../firebase/firestoreUtils.ts";
-import { Collection } from "../../firebase/enums.ts";
+import { Collection } from "../../firebase/firebaseEnums.ts";
+
 import { LevelContext } from "../../context/LevelContext.tsx";
-
-
 
 export default function LevelDiscussion() {
   const { selectedQuestion } = useContext(LevelContext);
@@ -26,7 +25,6 @@ export default function LevelDiscussion() {
   const [refresh, setRefresh] = useState<boolean>(true);
   const [commentToSend, setCommentToSend] = useState<string>("");
   const [levelComplete, setLevelComplete] = useState(Boolean);
-  // const [isLevelCompleted, setIsLevelCompleted] = useState(false);
   const [comments, setComments] = useState<Comment[]>([]);
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [allUsers, setAllUsers] = useState<User[]>([]);
@@ -36,9 +34,14 @@ export default function LevelDiscussion() {
     // Linking to firebase
     setAllUsers(await getCollection<User>(Collection.USERS));
 
-    const allComments: Comment[] = await getCollection<Comment>(Collection.COMMENTS);
-    const filteredComments: Comment[] = allComments.filter(c => c.questionId === selectedQuestion.id);
+    const allComments: Comment[] = await getCollection<Comment>(
+      Collection.COMMENTS
+    );
+    const filteredComments: Comment[] = allComments.filter(
+      (c) => c.questionId === selectedQuestion.id
+    );
     setComments(filteredComments);
+    isLevelCompleted();
   }
 
   // When changing question, show is loading...
@@ -81,14 +84,17 @@ export default function LevelDiscussion() {
   }
 
   async function isLevelCompleted() {
-    const user = useContext(UserContext)?.uid;
+    const userId = user.uid;
     const users = await getCollection<User>(Collection.USERS);
-    const userObj = users.find(userItem => userItem.id == user)
+    const userObj = users.find((userItem) => userItem.id == userId);
     if (userObj) {
-      if (selectedQuestion.title in userObj.attemptedQuestions) 
+      if (userObj.attemptedQuestions.includes(selectedQuestion.id!)) {
         setLevelComplete(true);
+      }
+      else {
+        setLevelComplete(false);
+      }
     }
-    return setLevelComplete(false);
 
   }
 
@@ -100,65 +106,60 @@ export default function LevelDiscussion() {
       >
         Model Answer
       </Typography>
-      <Stack className={styles["container"]}>
-      <Typography
-        className={styles["title"]}
-        sx={{ fontWeight: "bold", fontSize: 32 }}
-      >
-        Model Answer
-      </Typography>
-      <Stack>
-        <Typography sx={{ textAlign: "left", py: 2 }}>
-          {selectedQuestion.discussion.statement}
-        </Typography>
-        <Stack
-          direction="column"
-          spacing={2}
-          sx={{
-            my: 4,
-            borderRadius: 1,
-            alignItems: "flex-start",
-            marginRight: 4,
-            width: 0.92,
-            px: 4,
-            py: 4,
-            backgroundColor: "#1E1E1E",
-          }}
-        >
-          {selectedQuestion.discussion.commands.map((cmd) => (
-            <Typography sx={{ textAlign: "left" }} key={cmd}>
-              {cmd}
-            </Typography>
-          ))}
-        </Stack>
-        {selectedQuestion.discussion.answers.map((ans) => (
-          <Stack key={ans.step} sx={{ py: 2 }}>
-            <Typography sx={{ textAlign: "left", py: 2 }}>
-              {ans.step}
-            </Typography>
-            <ul>
-              {ans.explanation.map((line, index) => (
-                <li key={index}>
-                  <Typography sx={{ textAlign: "left" }}>{line}</Typography>
-                </li>
-              ))}
-            </ul>
+      {levelComplete ? (
+        <Stack>
+          <Typography sx={{ textAlign: "left", py: 2 }}>
+            {selectedQuestion.discussion.statement}
+          </Typography>
+          <Stack
+            direction="column"
+            spacing={2}
+            sx={{
+              my: 4,
+              borderRadius: 1,
+              alignItems: "flex-start",
+              marginRight: 4,
+              width: 0.92,
+              px: 4,
+              py: 4,
+              backgroundColor: "#1E1E1E",
+            }}
+          >
+            {selectedQuestion.discussion.commands.map((cmd) => (
+              <Typography sx={{ textAlign: "left" }} key={cmd}>
+                {cmd}
+              </Typography>
+            ))}
           </Stack>
-        ))}
+          {selectedQuestion.discussion.answers.map((ans) => (
+            <Stack key={ans.step} sx={{ py: 2 }}>
+              <Typography sx={{ textAlign: "left", py: 2 }}>
+                {ans.step}
+              </Typography>
+              <ul>
+                {ans.explanation.map((line, index) => (
+                  <li key={index}>
+                    <Typography sx={{ textAlign: "left" }}>{line}</Typography>
+                  </li>
+                ))}
+              </ul>
+            </Stack>
+          ))}
 
-        {/* Footer */}
-        <Typography sx={{ textAlign: "left", py: 2 }}>
-          For more information, Checkout Atlassian's Page{" "}
-          <a href="https://www.atlassian.com/git/tutorials/learn-git-with-bitbucket-cloud">
-            here
-          </a>
-        </Typography>
-        <Typography variant="h3" sx={{ textAlign: "left", py: 2 }}>
-          Post your answers below, Is there another way to get the solution?
-        </Typography>
-
-      </Stack>
-
+          {/* Footer */}
+          <Typography sx={{ textAlign: "left", py: 2 }}>
+            For more information, Checkout Atlassian's Page{" "}
+            <a href="https://www.atlassian.com/git/tutorials/learn-git-with-bitbucket-cloud">
+              here
+            </a>
+          </Typography>
+          <Typography variant="h3" sx={{ textAlign: "left", py: 2 }}>
+            Post your answers below, Is there another way to get the solution?
+          </Typography>
+        </Stack>
+      ) : (
+        <HiddenDiscussion />
+      )}
       <Divider
         className={styles["divider"]}
         sx={{ marginTop: 4 }}
@@ -229,25 +230,23 @@ export default function LevelDiscussion() {
                   }}
                 />
 
-                {
-                  comment.upVotes.includes(user.uid) ? (
-                    <ThumbUpIcon
-                      className={styles["comment-vote"]}
-                      sx={{ pr: 4 }}
-                      onClick={() => {
-                        handleUpvote(comment);
-                      }}
-                    />
-                  ) : (
-                    <ThumbUpAltOutlinedIcon
-                      className={styles["comment-vote"]}
-                      sx={{ pr: 4 }}
-                      onClick={() => {
-                        handleUpvote(comment);
-                      }}
-                    />
-                  )
-                }
+                {comment.upVotes.includes(user.uid) ? (
+                  <ThumbUpIcon
+                    className={styles["comment-vote"]}
+                    sx={{ pr: 4 }}
+                    onClick={() => {
+                      handleUpvote(comment);
+                    }}
+                  />
+                ) : (
+                  <ThumbUpAltOutlinedIcon
+                    className={styles["comment-vote"]}
+                    sx={{ pr: 4 }}
+                    onClick={() => {
+                      handleUpvote(comment);
+                    }}
+                  />
+                )}
 
                 <Typography>{comment.upVotes.length}</Typography>
               </Stack>
