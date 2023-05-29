@@ -178,7 +178,7 @@ export default function LevelDiscussion({ question }: Props) {
               sx={{ width: 1 }}
             >
               <Typography sx={{ textAlign: "left", py: 2, px: 2 }}>
-                {/*{allUsers.find((u: User) => u.id === comment.userId)!.email}*/}
+                {allUsers.find((u: User) => u.id === comment.userId)!.email}
               </Typography>
 
               <Stack
