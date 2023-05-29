@@ -2,7 +2,8 @@ import { Stack } from "@mui/material";
 import { Question } from "../../models/types";
 import LevelCard from "./LevelCard";
 import Tag from "../../components/Tag";
-import { useLocalStorage } from "../../hooks/useLocalStorage";
+import { useContext } from "react";
+import { LevelContext } from "../../context/LevelContext";
 
 interface Props {
   questions: Question[]
@@ -10,10 +11,10 @@ interface Props {
 
 export default function LevelCardList({questions}: Props) {
 
-  const [selectedQuestionId, setQuestionId] = useLocalStorage("selectedQuestionId");
+  const { selectedQuestion, setQuestion } = useContext(LevelContext);
 
   function handleClick(question: Question) {
-    setQuestionId(question.id);
+    setQuestion(question);
   }
 
   return (
@@ -23,7 +24,7 @@ export default function LevelCardList({questions}: Props) {
           key={index}
           level={`${index + 1}. ${question.title}`}
           difficulty={question.difficulty}
-          selected={question.id == selectedQuestionId}
+          selected={question.id == selectedQuestion.id}
           onClick={() => handleClick(question)}
 
           tags={question.tags.map((tag, index) => {

@@ -1,4 +1,4 @@
-import React, { ReactElement, useState } from 'react';
+import React, { ReactElement, useEffect, useState } from 'react';
 import { Question } from '../models/types';
 import { DUMMY_DATA_QUESTIONS } from '../data/dummyData';
 
@@ -15,7 +15,7 @@ type Props = {
 
 function LevelContextProvider({children}: Props) {
   const [selectedQuestion, setSelectedQuestion] = useState<Question>(DUMMY_DATA_QUESTIONS[0]);
-
+  
   const setQuestion = (question: Question) => {
     setSelectedQuestion(question);
   };
