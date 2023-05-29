@@ -1,4 +1,3 @@
-import { DocumentReference } from "firebase/firestore";
 import { Difficulty } from "./enums.ts";
 
 export interface GeneralObject {

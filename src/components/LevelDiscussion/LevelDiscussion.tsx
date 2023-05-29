@@ -9,7 +9,7 @@ import {
 import ThumbUpIcon from "@mui/icons-material/ThumbUp";
 import ThumbUpAltOutlinedIcon from '@mui/icons-material/ThumbUpAltOutlined';
 import styles from "./LevelDiscussion.module.css";
-import { Comment, Question, User } from "../../models/types.ts";
+import { Comment, User } from "../../models/types.ts";
 import { useContext, useEffect, useState } from "react";
 import { getCollection, storeDocument } from "../../firebase/firestoreUtils.ts";
 import { Collection } from "../../firebase/firebaseEnums.ts";

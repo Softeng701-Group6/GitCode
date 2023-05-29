@@ -3,7 +3,6 @@ import { useLocation } from "react-router-dom";
 import Frame from "../../components/Frame";
 import LevelDescription from "../../components/LevelDescription/LevelDescription";
 import LevelDiscussion from "../../components/LevelDiscussion/LevelDiscussion";
-import { Question } from "../../models/types";
 import styles from "./LevelDetailsPanel.module.css";
 import { LevelContext } from "../../context/LevelContext";
 
@@ -42,9 +41,9 @@ export default function LevelDetailsPanel() {
         </span>
 
         {selected ? (
-          <LevelDescription />
+          <LevelDescription/>
         ) : selectedQuestion ? (
-          <LevelDiscussion />
+          <LevelDiscussion/>
         ) : (
           <div>Loading...</div>
         )}
