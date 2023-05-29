@@ -12,6 +12,7 @@ import { DUMMY_DATA_QUESTIONS } from "../../data/dummyData.ts";
 import { useEffect, useState } from "react";
 import { Question } from "../../models/types.ts";
 import { useLocation } from "react-router-dom";
+import LevelCardList from "./LevelCardList.tsx";
 
 export default function LevelSelectPage() {
   const location = useLocation();
@@ -46,22 +47,7 @@ export default function LevelSelectPage() {
         sx={{height: 0.85}}
       >
         <Grid item xs={4}>
-          <Stack direction="column">
-            {allQuestions.map((question, index) => (
-              <LevelCard
-                key={index}
-                level={`${index + 1}. ${question.title}`}
-                difficulty={question.difficulty}
-                tags={question.tags.map((tag, index) => {
-                  return (
-                    <Tag key={index} color={tag.color}>
-                      {tag.name}
-                    </Tag>
-                  );
-                })}
-              />  
-            ))}
-          </Stack>
+          <LevelCardList questions={allQuestions}/>
         </Grid>
         <Grid item xs={8}>
           <Frame
