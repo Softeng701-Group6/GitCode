@@ -1,4 +1,4 @@
-import { Switch, SwitchProps, Tooltip, styled, switchClasses } from "@mui/material";
+import { Switch, Tooltip } from "@mui/material";
 import { useState } from "react";
 
 interface helpBarProp {
@@ -15,7 +15,7 @@ export default function DirectedModeSwitch({onToggle}: helpBarProp) {
     }
 
     return(
-        <Tooltip title= {checked ? "Scaffolded mode" : "Free mode"}>
+        <Tooltip title= {checked ? "Scaffolded mode (Correct commands only)" : "Free mode"}>
             <Switch sx={{
                 borderRadius: 2,
                 "& .MuiSwitch-switchBase.Mui-checked": {
@@ -24,7 +24,6 @@ export default function DirectedModeSwitch({onToggle}: helpBarProp) {
                 "& .MuiSwitch-switchBase.Mui-checked+.MuiSwitch-track": {
                   backgroundColor: '#7A4CC5'
                 },
-
             }} onChange={handleSwitch}/>
         </Tooltip>
         
