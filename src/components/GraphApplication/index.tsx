@@ -6,6 +6,7 @@ import { ReactFlowProvider } from "reactflow";
 import { useState, useEffect } from "react";
 import { Box, Stack } from "@mui/material";
 import { Edge } from "../../models/types";
+import HintToolTip from "../HintToolTip/HintToolTip";
 
 export default function GraphApplication({
   initialGraph,
@@ -50,5 +51,6 @@ export default function GraphApplication({
         />
       </Box>
     </Stack>
+    
   );
 }
