@@ -15,7 +15,6 @@ import HiddenDiscussion from "./HiddenDiscussion.tsx";
 import { UserContext } from "../../context/UserContext";
 import { getCollection, storeDocument } from "../../firebase/firestoreUtils.ts";
 import { Collection } from "../../firebase/firebaseEnums.ts";
-
 import { LevelContext } from "../../context/LevelContext.tsx";
 
 export default function LevelDiscussion() {
@@ -31,6 +30,7 @@ export default function LevelDiscussion() {
 
   // Refresh the comments to get the latest
   async function init() {
+    isLevelCompleted();
     // Linking to firebase
     setAllUsers(await getCollection<User>(Collection.USERS));
 
@@ -41,7 +41,6 @@ export default function LevelDiscussion() {
       (c) => c.questionId === selectedQuestion.id
     );
     setComments(filteredComments);
-    isLevelCompleted();
   }
 
   // When changing question, show is loading...
