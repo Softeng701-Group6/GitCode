@@ -6,7 +6,7 @@ import { signInWithEmailAndPassword, signInWithPopup } from "firebase/auth";
 import GoogleIcon from "@mui/icons-material/Google";
 import styles from "../../pages/SignUpPage/SignUpPage.module.css";
 import { isDocumentExists, storeDocument } from "../../firebase/firestoreUtils.ts";
-import { Collection } from "../../firebase/enums.ts";
+import { Collection } from "../../firebase/firebaseEnums.ts";
 import { User } from "../../models/types.ts";
 
 const LoginPage = () => {
@@ -122,7 +122,7 @@ const LoginPage = () => {
                   onClick={handleGoogleSignin}
                   className={styles["button"]}
                 >
-                  <GoogleIcon className={styles["google-icon"]} /> SIGN IN WITH
+                  <GoogleIcon className={styles["google-icon"]}/> SIGN IN WITH
                   GOOGLE
                 </Button>
               </Grid>
