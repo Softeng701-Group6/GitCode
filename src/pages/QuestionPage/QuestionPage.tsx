@@ -1,7 +1,7 @@
 import { useState } from "react";
 import NavigationBar from "../../components/NavigationBar/NavigationBar";
 import QuestionEndModal from "../../components/QuestionEndModal/QuestionEndModal";
-import { Grid, Typography } from "@mui/material";
+import { Grid, Typography} from "@mui/material";
 import QuestionDescription from "./QuestionDescription";
 import styles from "./QuestionPage.module.css";
 import GraphApplication from "../../components/GraphApplication";
@@ -31,10 +31,11 @@ const QuestionPage = () => {
     setIsModalOpen(false);
   };
 
-  return (
+  return(
     <div style={{ display: "flex", flexDirection: "column", height: "100vh" }}>
       <NavigationBar />
       <div style={{ display: "flex", flexDirection: "column", flexGrow: 1 }}>
+
         <Grid className={styles["main-grid"]} container spacing={2}>
           <Grid item xs={4} sx={{height: '100%'}}>
             <QuestionDescription
@@ -62,8 +63,6 @@ const QuestionPage = () => {
             <GraphApplication
               initialGraph={{ nodes: gitCommitPushNodes, edges: gitCommitPushEdges }}
               goalGraph={{ nodes: gitCommitPushNodesGoal, edges: gitCommitPushEdgesGoal }}
-              // TODO NEED TO GET SCAFFOLDING VAL
-              isScaffolded={true}
               answers={gitCommitPushAnswers}
               setComplete={setComplete}
             />
@@ -74,5 +73,6 @@ const QuestionPage = () => {
     </div>
   );
 };
+
 
 export default QuestionPage;
