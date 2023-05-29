@@ -1,4 +1,5 @@
 import { DocumentReference } from "firebase/firestore";
+import { Difficulty } from "../firebase/enums.ts";
 
 export interface GeneralObject {
   id?: string;
@@ -52,6 +53,8 @@ export interface Question extends GeneralObject {
   // commentIds: DocumentReference[];  // Reference to Comment
   initialGraph: Graph | null; // Reference to Graph
   goalGraph: Graph | null; // Reference to Graph
+  difficulty: Difficulty;
+  tags: string[];
 }
 
 export interface Node {
