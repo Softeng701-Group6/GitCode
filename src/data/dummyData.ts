@@ -1,4 +1,5 @@
 import { Graph, Question } from "../models/types.ts";
+import { Difficulty } from "../firebase/enums.ts";
 
 export const DUMMY_DATA_QUESTIONS: Question[] = [
   {
@@ -56,7 +57,13 @@ export const DUMMY_DATA_QUESTIONS: Question[] = [
     },
     // commentIds: [],
     initialGraph: null,
-    goalGraph: null
+    goalGraph: null,
+    difficulty: Difficulty.EASY,
+    tags: ["commit", "push"]
+  },
+  {
+    title: "Checkout and Branch",
+    // The rest of the info
   }
 ]
 
@@ -65,8 +72,8 @@ export const DUMMY_DATA_GRAPHS: Graph[] = [
     name: `${DUMMY_DATA_QUESTIONS[0].title} - Initial Graph`,
     nodes: ["C1", "C2", "C3"],
     edges: [
-      {source: "C1", target: "C2"},
-      {source: "C1", target: "C3"}
+      { source: "C1", target: "C2" },
+      { source: "C1", target: "C3" }
     ],
     headNode: "C1"
   },
@@ -74,8 +81,8 @@ export const DUMMY_DATA_GRAPHS: Graph[] = [
     name: `${DUMMY_DATA_QUESTIONS[0].title} - Goal Graph`,
     nodes: ["C1", "C2", "C3"],
     edges: [
-      {source: "C1", target: "C2"},
-      {source: "C1", target: "C3"}
+      { source: "C1", target: "C2" },
+      { source: "C1", target: "C3" }
     ],
     headNode: "C1"
   }
