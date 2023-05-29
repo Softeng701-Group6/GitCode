@@ -1,10 +1,10 @@
 .hintIcon{
     position: absolute; 
-    left: 96%; 
-    top: 52%;
-    background-color: #7A4CC5; 
-    color: white; 
-    z-index: 10;
+    left: 95%; 
+    top: 55%;
+    background-color: #7A4CC5  !important; 
+    color: white  !important;
+    z-index: 10 !important;
     width: 45px; 
 }
 

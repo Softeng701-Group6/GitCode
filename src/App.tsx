@@ -5,7 +5,6 @@ import { defaultTheme } from "./themes/defaultTheme";
 import SignupPage from "./pages/SignUpPage/SignUpPage";
 import LoginPage from "./pages/LoginPage/LoginPage";
 import LevelSelectPage from "./pages/LevelSelectPage/LevelSelectPage";
-import TestPage from "./components/TestPage.tsx";
 import LandingPage from "./pages/LandingPage/landingpage";
 import QuestionPage from "./pages/QuestionPage/QuestionPage.tsx";
 import ProtectedRoute from "./components/ProtectedRoute/index.tsx";
@@ -25,18 +24,16 @@ function App() {
   if (isLoading) return <h1>Loading...</h1>;
 
   return (
-    <div>
       <ThemeProvider theme={defaultTheme}>
         <Routes>
-          <Route path="/" element={<LandingPage />} />
-          <Route path="/login" element={<LoginPage />} />
-          <Route path="/signup" element={<SignupPage />} />
-          <Route path="/test" element={<TestPage />} />
+          <Route path="/" element={<LandingPage/>}/>
+          <Route path="/login" element={<LoginPage/>}/>
+          <Route path="/signup" element={<SignupPage/>}/>
           <Route
             path="/home"
             element={
               <ProtectedRoute user={user}>
-                <LevelSelectPage />
+                <LevelSelectPage/>
               </ProtectedRoute>
             }
           />
@@ -44,13 +41,12 @@ function App() {
             path="/question"
             element={
               <ProtectedRoute user={user}>
-                <QuestionPage />
+                <QuestionPage/>
               </ProtectedRoute>
             }
           />
         </Routes>
       </ThemeProvider>
-    </div>
   );
 }
 
