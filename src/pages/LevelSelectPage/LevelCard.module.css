@@ -1,9 +1,9 @@
 .container {
-  margin-bottom: 2;
+  margin-bottom: 8px;
   border: 2px solid transparent;
 }
 
 .selected {
-  border-color: white;
+  border-color: #9985EA;
   box-sizing: content-box;
 }
