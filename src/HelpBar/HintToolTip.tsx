@@ -27,6 +27,7 @@ export default function HintToolTip() {
     function Hint(){
         return(
             <div className={style.innerHint}>
+                <h2>Hint {hintNum+1}</h2>
                 <h3>{hints[hintNum]}</h3>
                 <p>Click to switch hint</p>
             </div>       
@@ -34,7 +35,7 @@ export default function HintToolTip() {
     }
 
     return (
-        <CustomWidthTooltip arrow title={<Hint/>} placement="top-start" >
+        <CustomWidthTooltip arrow title={<Hint/>} placement="left" >
             <IconButton onClick={handleClick} className={style.hintIcon}>?</IconButton>
         </CustomWidthTooltip>
     )

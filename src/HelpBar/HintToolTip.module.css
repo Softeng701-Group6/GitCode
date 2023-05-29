@@ -1,7 +1,4 @@
 .hintIcon{
-    position: absolute; 
-    left: 95%; 
-    top: -49%;
     background-color: #7A4CC5  !important; 
     color: white  !important;
     z-index: 10 !important;

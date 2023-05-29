@@ -6,7 +6,8 @@ import { ReactFlowProvider } from "reactflow";
 import { useState, useEffect } from "react";
 import { Box, Stack } from "@mui/material";
 import { Edge } from "../../models/types";
-import HintToolTip from "../HintToolTip/HintToolTip";
+import HintToolTip from "../../HelpBar/HintToolTip";
+import HelpBar from "../../HelpBar/HelpBar";
 
 export default function GraphApplication({
   initialGraph,
@@ -33,11 +34,13 @@ export default function GraphApplication({
 
   return (
     <Stack sx={{ height: "100%" }}>
+
       <Box sx={{ height: "50%" }}>
         <ReactFlowProvider>
           <GitGraph nodes={nodes} edges={edges} remote={remote} HEAD={HEAD} />
         </ReactFlowProvider>
       </Box>
+      <HelpBar/>
       <Box sx={{ height: "50%" }}>
         <Terminal
           setNodes={setNodes}
