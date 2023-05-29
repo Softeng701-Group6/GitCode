@@ -114,6 +114,14 @@ export default function Terminal({
         break;
       case 'pull':
         break;
+      case "checkout":
+        break;
+      
+      case "branch":
+        break;
+      case "push":
+        setRemote(new Set(nodes));
+        break;
     }
     }
   };
