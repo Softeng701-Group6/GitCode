@@ -39,7 +39,9 @@ export default function Terminal({
   const handleCommand = (commandInput: string) => {
     console.log(commandInput);
     const commandArray = commandInput.split(" ");
+    let isValidCommand = false;
 
+    //Checks if the first word is git
     if (commandArray[0] !== "git") {
       console.log("Invalid command");
       if(isScaffolded){
@@ -58,13 +60,15 @@ export default function Terminal({
         } else {
           setCommandHistoryColours([...commandHistoryColours, "green"]);
           setAnswerLine(answerLine + 1);
+          isValidCommand = true;
         }
       }
     } else if (isScaffolded && answerLine >= answers.length){
       setCommandHistoryColours([...commandHistoryColours, "red"]);
     }
 
-    if (commandArray[1] === "commit") {
+    //Assuming all checks are passing above, then we can start adding to the graph
+    if (commandArray[1] === "commit" && isValidCommand) {
       //TODO What to do with commit message?
       console.log("Committing the graph");
       // Probably gonna be a hash of length 6
@@ -75,7 +79,7 @@ export default function Terminal({
       setEdges([...edges, newEdge]);
       setHEAD(newNode);
 
-    } else if (commandArray[1] === "push") {
+    } else if (commandArray[1] === "push" && isValidCommand) {
       console.log("Pushing the graph");
       setRemote(new Set(nodes));
     } 
