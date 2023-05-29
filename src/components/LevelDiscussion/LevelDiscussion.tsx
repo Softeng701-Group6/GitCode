@@ -8,17 +8,17 @@ import {
 } from "@mui/material";
 import ThumbUpIcon from "@mui/icons-material/ThumbUp";
 import styles from "./LevelDiscussion.module.css";
-import { Question } from "../../models/types.ts";
-import { useState } from "react";
+import { useContext, useState } from "react";
+import { LevelContext } from "../../context/LevelContext.tsx";
 
-interface Props {
-  question: Question;
-}
 
-export default function LevelDiscussion({ question }: Props) {
-  const discussion = question.discussion;
+export default function LevelDiscussion() {
+
+  const { selectedQuestion } = useContext(LevelContext);
+
   const [commentToSend, setCommentToSend] = useState<string>("");
 
+  // TODO: replace with DB call
   const [dummyComments, setDummyComments] = useState([
     {
       id: "1",
@@ -55,7 +55,7 @@ export default function LevelDiscussion({ question }: Props) {
       </Typography>
       <Stack>
         <Typography sx={{ textAlign: "left", py: 2 }}>
-          {discussion.statement}
+          {selectedQuestion.discussion.statement}
         </Typography>
         <Stack
           direction="column"
@@ -71,13 +71,13 @@ export default function LevelDiscussion({ question }: Props) {
             backgroundColor: "#1E1E1E",
           }}
         >
-          {discussion.commands.map((cmd) => (
+          {selectedQuestion.discussion.commands.map((cmd) => (
             <Typography sx={{ textAlign: "left" }} key={cmd}>
               {cmd}
             </Typography>
           ))}
         </Stack>
-        {discussion.answers.map((ans) => (
+        {selectedQuestion.discussion.answers.map((ans) => (
           <Stack key={ans.step} sx={{ py: 2 }}>
             <Typography sx={{ textAlign: "left", py: 2 }}>
               {ans.step}
@@ -92,6 +92,7 @@ export default function LevelDiscussion({ question }: Props) {
           </Stack>
         ))}
 
+        {/* Footer */}
         <Typography sx={{ textAlign: "left", py: 2 }}>
           For more information, Checkout Atlassian's Page{" "}
           <a href="https://www.atlassian.com/git/tutorials/learn-git-with-bitbucket-cloud">
@@ -101,6 +102,7 @@ export default function LevelDiscussion({ question }: Props) {
         <Typography variant="h3" sx={{ textAlign: "left", py: 2 }}>
           Post your answers below, Is there another way to get the solution?
         </Typography>
+
       </Stack>
 
       <Divider
