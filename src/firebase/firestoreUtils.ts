@@ -1,5 +1,5 @@
 import { GeneralObject } from "../models/types.ts";
-import { collection, doc, getDoc, getDocs, setDoc } from "firebase/firestore";
+import { collection, doc, DocumentReference, getDoc, getDocs, setDoc } from "firebase/firestore";
 import { firestore } from "./firebase.ts";
 import { Collection } from "./firebaseEnums.ts";
 
@@ -41,11 +41,14 @@ export async function getCollection<T extends GeneralObject>(collectionName: str
 }
 
 /**
+ * Get a document by its ID
+ * Can either get the data only or the whole document
  *
  * @param collectionName
  * @param id
+ * @param dataOnly
  */
-export async function getDocument<T extends GeneralObject>(collectionName: Collection, id: string): Promise<T> {
+export async function getDocumentById<T extends GeneralObject>(collectionName: Collection, id: string, dataOnly = true): Promise<T | any> {
   const docRef = doc(firestore, collectionName, id);
   const docSnap = await getDoc(docRef);
 
@@ -53,10 +56,38 @@ export async function getDocument<T extends GeneralObject>(collectionName: Colle
     throw new Error("Document does not exist");
   }
 
-  const data: T = docSnap.data() as T;
-  data.id = docSnap.id;
+  if (dataOnly) {
+    const data: T = docSnap.data() as T;
+    data.id = docSnap.id;
 
-  return data;
+    return data;
+  } else {
+    return docSnap;
+  }
+}
+
+/**
+ * Get a document by its reference
+ * Can either get the data only or the whole document
+ *
+ * @param ref
+ * @param dataOnly
+ */
+export async function getDocumentByRef<T extends GeneralObject>(ref: DocumentReference, dataOnly = true): Promise<T | any> {
+  const docSnap = await getDoc(ref);
+
+  if (!docSnap.exists()) {
+    throw new Error("Document does not exist");
+  }
+
+  if (dataOnly) {
+    const data: T = docSnap.data() as T;
+    data.id = docSnap.id;
+
+    return data;
+  } else {
+    return docSnap;
+  }
 }
 
 /**
