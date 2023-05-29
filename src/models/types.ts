@@ -1,5 +1,5 @@
 import { DocumentReference } from "firebase/firestore";
-import { Difficulty, Tags } from "../firebase/firebaseEnums.ts";
+import { Difficulty } from "./enums.ts";
 
 export interface GeneralObject {
   id?: string;
