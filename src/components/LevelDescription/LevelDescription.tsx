@@ -3,14 +3,8 @@ import styles from "./LevelDescription.module.css";
 import { useNavigate } from "react-router-dom";
 import GreenButton from "../GreenButton/GreenButton";
 import { UserContext } from "../../context/UserContext";
-import { doc, getDoc, updateDoc, arrayUnion } from "firebase/firestore";
+import { doc, updateDoc, arrayUnion } from "firebase/firestore";
 import { useContext } from "react";
-import {
-  getCollection,
-  isDocumentExists,
-  storeDocument,
-} from "../../firebase/firestoreUtils";
-import { User } from "../../models/types";
 import { Collection } from "../../firebase/firebaseEnums";
 import { LevelContext } from "../../context/LevelContext";
 import { firestore } from "../../firebase/firebase.ts";
