@@ -6,7 +6,7 @@ import {
   terminate
 } from "firebase/firestore";
 import { firestore } from "../firebase.ts";
-import { Collection } from "../enums.ts";
+import { Collection } from "../firebaseEnums.ts";
 import { DUMMY_DATA_GRAPHS } from "../../data/dummyData.ts";
 import { storeDocument } from "../firestoreUtils.ts";
 
