@@ -58,7 +58,7 @@ export default function Terminal({
 
       setHEAD(newNode);
 
-    } else if (commandArray[0] === "push") {
+    } else if (commandArray[1] === "push") {
       console.log("Pushing the graph");
       setRemote(new Set(nodes));
     }
