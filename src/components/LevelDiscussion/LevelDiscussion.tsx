@@ -27,22 +27,27 @@ export default function LevelDiscussion() {
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [allUsers, setAllUsers] = useState<User[]>([]);
 
+  // Refresh the comments to get the latest
+  async function init() {
+    // Linking to firebase
+    setAllUsers(await getCollection<User>(Collection.USERS));
+
+    const allComments: Comment[] = await getCollection<Comment>(Collection.COMMENTS);
+    const filteredComments: Comment[] = allComments.filter(c => c.questionId === selectedQuestion.id);
+    setComments(filteredComments);
+  }
+
+  // When changing question, show is loading...
   useEffect(() => {
-    async function init() {
-      setIsLoading(true);
+    setIsLoading(true);
 
-      // Linking to firebase
-      setAllUsers(await getCollection<User>(Collection.USERS));
+    init().then(() => setIsLoading(false));
+  }, [selectedQuestion.id]);
 
-      const allComments: Comment[] = await getCollection<Comment>(Collection.COMMENTS);
-      const filteredComments: Comment[] = allComments.filter(c => c.questionId === selectedQuestion.id);
-      setComments(filteredComments);
-
-      setIsLoading(false);
-    }
-
+  // When refresh, only refresh the questions
+  useEffect(() => {
     init();
-  }, [selectedQuestion.id, refresh]);
+  }, [refresh]);
 
   async function handleSendComment() {
     if (!commentToSend) return alert("Please enter a comment!");
