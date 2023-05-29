@@ -63,8 +63,6 @@ const QuestionPage = () => {
             <GraphApplication
               initialGraph={{ nodes: gitCommitPushNodes, edges: gitCommitPushEdges }}
               goalGraph={{ nodes: gitCommitPushNodesGoal, edges: gitCommitPushEdgesGoal }}
-              // TODO NEED TO GET SCAFFOLDING VAL
-              isScaffolded={true}
               answers={gitCommitPushAnswers}
               setComplete={setComplete}
             />
