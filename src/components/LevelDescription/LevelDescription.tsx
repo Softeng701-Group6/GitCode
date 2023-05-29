@@ -5,10 +5,11 @@ import GreenButton from "../GreenButton/GreenButton";
 import { UserContext } from "../../context/UserContext";
 import { doc, getDoc, updateDoc, arrayUnion } from "firebase/firestore";
 import { useContext } from "react";
-import { getCollection } from "../../firebase/firestoreUtils";
+import { getCollection, isDocumentExists, storeDocument } from "../../firebase/firestoreUtils";
 import { User } from "../../models/types";
-import { Collection } from "../../firebase/enums";
+import { Collection } from "../../firebase/firebaseEnums";
 import { LevelContext } from "../../context/LevelContext";
+import { firestore } from "../../firebase/firebase.ts";
 
 
 /*To go in the LevelSelectPage 
@@ -16,17 +17,24 @@ import { LevelContext } from "../../context/LevelContext";
 export default function LevelDescription() {
   const navigate = useNavigate();
   const { selectedQuestion } = useContext(LevelContext);
+  const user = useContext(UserContext)!;
 
   async function startProblem() {
-    const user = useContext(UserContext)?.uid;
-    const users = await getCollection<User>(Collection.USERS);
-    const userObj = users.find(userItem => userItem.id == user)
-
-    if (userObj) {
-      await updateDoc(userObj, {
-        attemptedQuestions: arrayUnion("title"),
+    const userId = user.uid;
+    // const users = await getCollection<User>(Collection.USERS);
+    // const userObj = users.find(userItem => userItem.id == userId)
+    const CollectionUpdate = doc(firestore, Collection.USERS, userId);
+    // console.log(isDocumentExists(Collection.USERS, userId));
+    try {
+      await updateDoc(CollectionUpdate, {
+        attemptedQuestions: arrayUnion(selectedQuestion.id),
       });
+      console.log("Attempted array field updated with new question id");
+    } catch (error) {
+      console.error("Error updating array field:", error);
     }
+    // console.log(userObj?.attemptedQuestions);
+
     navigate("../question");
   }
 
