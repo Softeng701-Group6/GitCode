@@ -33,13 +33,12 @@ export default function Terminal({
   const [commandHistoryColours, setCommandHistoryColours] = useState<string[]>([]); // TODO Need to add a colour for each command
   const [answerLine, setAnswerLine] = useState<number>(0); // TODO Need to add a line for the answer
   const [isSubmitted, setIsSubmitted] = useState<boolean>(false);
-  // TODO Need to add a boolean to check if the graph is in scaffolding mode or not 
 
   //This function will handle the command input and pass it to the graph component
   const handleCommand = (commandInput: string) => {
     console.log(commandInput);
     const commandArray = commandInput.split(" ");
-    let isValidCommand = false;
+    let isValidCommand = isScaffolded ? false : true;
 
     //Checks if the first word is git
     if (commandArray[0] !== "git") {
