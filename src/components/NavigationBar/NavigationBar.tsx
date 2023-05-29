@@ -18,7 +18,7 @@ export default function NavigationBar() {
   const navigate = useNavigate();
 
   const handleLogout = () => {
-    navigate("/logout");
+    navigate("/");
   };
 
   return (
