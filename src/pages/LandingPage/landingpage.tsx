@@ -22,7 +22,6 @@ const LandingPage = () => {
           <Grid
             item
             xs={2}
-            direction="row"
             justifyContent="flex-start"
             alignItems="flex-start"
           >
