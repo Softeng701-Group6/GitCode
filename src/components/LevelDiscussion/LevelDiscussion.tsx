@@ -29,6 +29,8 @@ export default function LevelDiscussion() {
 
   useEffect(() => {
     async function init() {
+      setIsLoading(true);
+
       // Linking to firebase
       setAllUsers(await getCollection<User>(Collection.USERS));
 
@@ -40,7 +42,7 @@ export default function LevelDiscussion() {
     }
 
     init();
-  }, [refresh]);
+  }, [selectedQuestion.id, refresh]);
 
   async function handleSendComment() {
     if (!commentToSend) return alert("Please enter a comment!");
