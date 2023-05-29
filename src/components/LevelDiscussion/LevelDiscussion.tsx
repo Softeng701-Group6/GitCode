@@ -90,12 +90,10 @@ export default function LevelDiscussion() {
     if (userObj) {
       if (userObj.attemptedQuestions.includes(selectedQuestion.id!)) {
         setLevelComplete(true);
-      }
-      else {
+      } else {
         setLevelComplete(false);
       }
     }
-
   }
 
   return (
