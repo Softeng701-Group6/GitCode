@@ -1,5 +1,6 @@
 import React, { ReactNode, MouseEvent } from "react";
-import Button, { ButtonProps } from "@mui/material/Button";
+import { ButtonProps } from "@mui/material/Button/Button";
+import { Button } from "@mui/material";
 import styles from "./GreenButton.module.css";
 
 interface GreenButtonProps extends ButtonProps {
