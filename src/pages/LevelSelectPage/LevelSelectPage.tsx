@@ -13,17 +13,6 @@ import { useEffect, useState } from "react";
 import { Question } from "../../models/types.ts";
 import { useLocation } from "react-router-dom";
 
-const tags = [
-  {
-    name: "commit",
-    color: purple[400],
-  },
-  {
-    name: "push",
-    color: green[600],
-  },
-];
-
 export default function LevelSelectPage() {
   const location = useLocation();
   const [selected, setSelected] = React.useState(
@@ -58,28 +47,20 @@ export default function LevelSelectPage() {
       >
         <Grid item xs={4}>
           <Stack direction="column">
-            <LevelCard
-              level="1. Commit and Push"
-              difficulty="Easy"
-              tags={tags.map((tag, index) => {
-                return (
-                  <Tag key={index} color={tag.color}>
-                    {tag.name}
-                  </Tag>
-                );
-              })}
-            />
-            <LevelCard
-              level="2. Checkout and Branch"
-              difficulty="Easy"
-              tags={tags.map((tag, index) => {
-                return (
-                  <Tag key={index} color={tag.color}>
-                    {tag.name}
-                  </Tag>
-                );
-              })}
-            />
+            {allQuestions.map((question, index) => (
+              <LevelCard
+                key={index}
+                level={`${index + 1}. ${question.title}`}
+                difficulty={question.difficulty}
+                tags={question.tags.map((tag, index) => {
+                  return (
+                    <Tag key={index} color={tag.color}>
+                      {tag.name}
+                    </Tag>
+                  );
+                })}
+              />  
+            ))}
           </Stack>
         </Grid>
         <Grid item xs={8}>
