@@ -4,6 +4,7 @@ import StarIcon from '@mui/icons-material/Star';
 import { ReactElement, useState } from "react";
 import { yellow } from "@mui/material/colors";
 import Frame from "../../components/Frame";
+import styles from "./LevelCard.module.css";
 
 const starIconStyle = {
   fontSize: 30,
@@ -14,11 +15,12 @@ interface Props {
   level: string
   difficulty: string
   tags?: ReactElement[]
+  selected: boolean
+  onClick: () => void
 }
 
-export default function LevelCard({level, difficulty, tags}: Props) {
+export default function LevelCard({level, difficulty, tags, selected, onClick}: Props) {
 
-  const [isCompleted, setCompleted] = useState(false);
   const [starred, setStarred] = useState(false);
 
   function toggleStarred() {
@@ -26,9 +28,7 @@ export default function LevelCard({level, difficulty, tags}: Props) {
   }
 
   return (
-    <Frame sx={{
-      marginBottom: 2
-    }}>
+    <Frame onClick={onClick} className={`${styles.container} ${selected ? styles.selected : ""}`}>
       <Stack direction="row" sx={{
         display: "flex",
         position: "relative",
