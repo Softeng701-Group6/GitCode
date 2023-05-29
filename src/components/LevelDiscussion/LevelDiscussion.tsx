@@ -7,42 +7,73 @@ import {
   Typography,
 } from "@mui/material";
 import ThumbUpIcon from "@mui/icons-material/ThumbUp";
+import ThumbUpAltOutlinedIcon from '@mui/icons-material/ThumbUpAltOutlined';
 import styles from "./LevelDiscussion.module.css";
-import { useContext, useState } from "react";
+import { Comment, User } from "../../models/types.ts";
+import { useContext, useEffect, useState } from "react";
+import { getCollection, storeDocument } from "../../firebase/firestoreUtils.ts";
+import { Collection } from "../../firebase/firebaseEnums.ts";
+import { UserContext } from "../../context/UserContext.ts";
 import { LevelContext } from "../../context/LevelContext.tsx";
 
 
 export default function LevelDiscussion() {
-
   const { selectedQuestion } = useContext(LevelContext);
+  const user = useContext(UserContext)!;
 
+  const [refresh, setRefresh] = useState<boolean>(true);
   const [commentToSend, setCommentToSend] = useState<string>("");
+  const [comments, setComments] = useState<Comment[]>([]);
+  const [isLoading, setIsLoading] = useState<boolean>(true);
+  const [allUsers, setAllUsers] = useState<User[]>([]);
 
-  // TODO: replace with DB call
-  const [dummyComments, setDummyComments] = useState([
-    {
-      id: "1",
-      userId: "User 1",
-      message: "Interesting question",
-      upVotes: 3,
-    },
-    {
-      id: "2",
-      userId: "User 2",
-      message: "This is hard",
-      upVotes: 9,
-    },
-  ]);
+  // Refresh the comments to get the latest
+  async function init() {
+    // Linking to firebase
+    setAllUsers(await getCollection<User>(Collection.USERS));
 
-  function handleSendComment() {
-    const newComment = {
-      id: `${dummyComments.length + 1}`,
-      userId: `User ${dummyComments.length + 1}`,
+    const allComments: Comment[] = await getCollection<Comment>(Collection.COMMENTS);
+    const filteredComments: Comment[] = allComments.filter(c => c.questionId === selectedQuestion.id);
+    setComments(filteredComments);
+  }
+
+  // When changing question, show is loading...
+  useEffect(() => {
+    setIsLoading(true);
+
+    init().then(() => setIsLoading(false));
+  }, [selectedQuestion.id]);
+
+  // When refresh, only refresh the questions
+  useEffect(() => {
+    init();
+  }, [refresh]);
+
+  async function handleSendComment() {
+    if (!commentToSend) return alert("Please enter a comment!");
+
+    const newComment: Comment = {
+      questionId: selectedQuestion.id!,
+      userId: user.uid,
       message: commentToSend,
-      upVotes: 0,
+      upVotes: [],
     };
 
-    setDummyComments([newComment, ...dummyComments]);
+    setCommentToSend("");
+    await storeDocument(Collection.COMMENTS, newComment);
+    setRefresh(!refresh);
+  }
+
+  async function handleUpvote(comment: Comment) {
+    // Toggle vote
+    if (comment.upVotes.includes(user.uid)) {
+      comment.upVotes = comment.upVotes.filter((userId) => userId !== user.uid);
+    } else {
+      comment.upVotes.push(user.uid);
+    }
+
+    await storeDocument(Collection.COMMENTS, comment);
+    setRefresh(!refresh);
   }
 
   return (
@@ -112,80 +143,95 @@ export default function LevelDiscussion() {
       />
       <Box sx={{ flexGrow: 1 }}></Box>
 
-      <Stack alignItems="flex-start" className={styles["comment-section"]}>
-        <Typography className={styles["comment-title"]} sx={{ width: 1 }}>
-          Comments
-        </Typography>
+      {isLoading ? (
+        <Typography>Loading...</Typography>
+      ) : (
+        <Stack alignItems="flex-start" className={styles["comment-section"]}>
+          <Typography className={styles["comment-title"]} sx={{ width: 1 }}>
+            Comments
+          </Typography>
 
-        <Stack
-          className={styles["comment-sender"]}
-          direction="row"
-          sx={{ width: 1 }}
-        >
-          <TextField
-            className={styles["comment-box"]}
-            multiline
-            sx={{ width: 0.95 }}
-            rows={4}
-            value={commentToSend}
-            InputProps={{
-              style: { color: "white" },
-            }}
-            onChange={(event) => setCommentToSend(event.target.value)}
-            onKeyDown={(event) =>
-              event.key === "Enter" ? handleSendComment() : null
-            }
-          />
-          <Button
-            variant="outlined"
-            className={styles["comment-sender-button"]}
-            onClick={handleSendComment}
-          >
-            Send
-          </Button>
-        </Stack>
-
-        {dummyComments.map((comment) => (
           <Stack
-            key={comment.id}
-            className={styles["comment-read"]}
+            className={styles["comment-sender"]}
+            direction="row"
             sx={{ width: 1 }}
           >
-            <Typography sx={{ textAlign: "left", py: 2, px: 2 }}>
-              {comment.userId}
-            </Typography>
+            <TextField
+              className={styles["comment-box"]}
+              multiline
+              sx={{ width: 0.95 }}
+              rows={4}
+              value={commentToSend}
+              InputProps={{
+                style: { color: "white" },
+              }}
+              onChange={(event) => setCommentToSend(event.target.value)}
+              onKeyDown={(event) =>
+                event.key === "Enter" ? handleSendComment() : null
+              }
+            />
+            <Button
+              variant="outlined"
+              className={styles["comment-sender-button"]}
+              onClick={handleSendComment}
+            >
+              Send
+            </Button>
+          </Stack>
 
+          {comments.map((comment) => (
             <Stack
-              className={styles["comment-sender"]}
-              direction="row"
+              key={comment.id}
+              className={styles["comment-read"]}
               sx={{ width: 1 }}
             >
-              <TextField
-                className={styles["comment-box"]}
-                sx={{ width: 1, marginRight: 4 }}
-                multiline
-                rows={4}
-                value={comment.message}
-                InputProps={{
-                  readOnly: true,
-                  style: { color: "white" },
-                }}
-              />
+              <Typography sx={{ textAlign: "left", py: 2, px: 2 }}>
+                {allUsers.find((u: User) => u.id === comment.userId)!.email}
+              </Typography>
 
-              <ThumbUpIcon
-                className={styles["comment-vote"]}
-                sx={{ pr: 4 }}
-                onClick={() => {
-                  comment.upVotes++;
-                  setDummyComments([...dummyComments]);
-                }}
-              />
+              <Stack
+                className={styles["comment-sender"]}
+                direction="row"
+                sx={{ width: 1 }}
+              >
+                <TextField
+                  className={styles["comment-box"]}
+                  sx={{ width: 1, marginRight: 4 }}
+                  multiline
+                  rows={4}
+                  value={comment.message}
+                  InputProps={{
+                    readOnly: true,
+                    style: { color: "white" },
+                  }}
+                />
 
-              <Typography>{comment.upVotes}</Typography>
+                {
+                  comment.upVotes.includes(user.uid) ? (
+                    <ThumbUpIcon
+                      className={styles["comment-vote"]}
+                      sx={{ pr: 4 }}
+                      onClick={() => {
+                        handleUpvote(comment);
+                      }}
+                    />
+                  ) : (
+                    <ThumbUpAltOutlinedIcon
+                      className={styles["comment-vote"]}
+                      sx={{ pr: 4 }}
+                      onClick={() => {
+                        handleUpvote(comment);
+                      }}
+                    />
+                  )
+                }
+
+                <Typography>{comment.upVotes.length}</Typography>
+              </Stack>
             </Stack>
-          </Stack>
-        ))}
-      </Stack>
+          ))}
+        </Stack>
+      )}
     </Stack>
   );
 }
