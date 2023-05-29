@@ -1,16 +1,15 @@
-import React from "react";
+import React, { useContext } from "react";
 import { useLocation } from "react-router-dom";
 import Frame from "../../components/Frame";
 import LevelDescription from "../../components/LevelDescription/LevelDescription";
 import LevelDiscussion from "../../components/LevelDiscussion/LevelDiscussion";
 import { Question } from "../../models/types";
 import styles from "./LevelDetailsPanel.module.css";
+import { LevelContext } from "../../context/LevelContext";
 
-interface Props {
-  question: Question;
-}
+export default function LevelDetailsPanel() {
 
-export default function LevelDetailsPanel({question}: Props) {
+  const { selectedQuestion } = useContext(LevelContext);
 
   const location = useLocation();
   const [selected, setSelected] = React.useState(
@@ -41,10 +40,10 @@ export default function LevelDetailsPanel({question}: Props) {
             DISCUSSION
           </button>
         </span>
-        
+
         {selected ? (
           <LevelDescription />
-        ) : question ? (
+        ) : selectedQuestion ? (
           <LevelDiscussion />
         ) : (
           <div>Loading...</div>
