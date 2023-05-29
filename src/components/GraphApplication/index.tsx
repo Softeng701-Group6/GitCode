@@ -5,7 +5,7 @@ import { ReactFlowProvider } from "reactflow";
 
 import { useState, useEffect } from "react";
 import { Box, Stack } from "@mui/material";
-import { Edge } from "../../models/types";
+import { Node, Edge } from "../../models/types";
 
 export default function GraphApplication({
   initialGraph,
@@ -19,11 +19,16 @@ export default function GraphApplication({
   const { nodes: initialNodes, edges: initialEdges } = initialGraph;
   const { nodes: goalNodes, edges: goalEdges } = goalGraph;
 
-  const [nodes, setNodes] = useState<string[]>(initialNodes);
-  const [edges, setEdges] = useState<Edge[]>(initialEdges);
-  const [remote, setRemote] = useState<Set<string>>(new Set(nodes));
+  const [nodes, setNodes] = useState<string[]>(['1']);
+  const [edges, setEdges] = useState<Edge[]>([]);
+  const [remote, setRemote] = useState<Set<string>>(new Set(['1']));
   const [HEAD, setHEAD] = useState<string>("1");
 
+  const [branch, setBranch] = useState<string>("main");
+  const [branchHEADS, setBranchHEADS] = useState<Map<string, string>>(
+    new Map([["main", '1']])
+  );
+  
   useEffect(() => {
     if (nodes == goalNodes && edges == goalEdges) {
       setComplete(true);
@@ -34,7 +39,7 @@ export default function GraphApplication({
     <Stack sx={{ height: "100%" }}>
       <Box sx={{ height: "50%" }}>
         <ReactFlowProvider>
-          <GitGraph nodes={nodes} edges={edges} remote={remote} HEAD={HEAD} />
+          <GitGraph nodes={nodes} edges={edges} remote={remote} HEAD={HEAD} branch={branch}/>
         </ReactFlowProvider>
       </Box>
       <Box sx={{ height: "50%" }}>
@@ -43,10 +48,14 @@ export default function GraphApplication({
           setEdges={setEdges}
           setRemote={setRemote}
           setHEAD={setHEAD}
+          setBranch={setBranch}
+          setBranchHEADS={setBranchHEADS}
           nodes={nodes}
           edges={edges}
           HEAD={HEAD}
           remote={remote}
+          branch={branch}
+          branchHEADS={branchHEADS}
         />
       </Box>
     </Stack>
