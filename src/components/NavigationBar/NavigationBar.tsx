@@ -2,33 +2,22 @@ import React from "react";
 import {
   AppBar,
   Box,
-  Button,
   IconButton,
   LinearProgress,
-  Menu,
-  MenuItem,
   Toolbar,
   Tooltip,
   Typography,
 } from "@mui/material";
 import { useNavigate } from "react-router-dom";
-import AccountCircleOutlinedIcon from "@mui/icons-material/AccountCircleOutlined";
+import LogoutIcon from "@mui/icons-material/logout";
 import styles from "./NavigationBar.module.css";
 
 export default function NavigationBar() {
   var experience: number = 2;
-
   const navigate = useNavigate();
-  const [anchorElUser, setAnchorElUser] = React.useState<null | HTMLElement>(
-    null
-  );
 
-  const handleOpenUserMenu = (event: React.MouseEvent<HTMLElement>) => {
-    setAnchorElUser(event.currentTarget);
-  };
-
-  const handleCloseUserMenu = () => {
-    setAnchorElUser(null);
+  const handleLogout = () => {
+    navigate("/logout");
   };
 
   return (
@@ -59,8 +48,8 @@ export default function NavigationBar() {
           <Box sx={{ flexGrow: 1 }}></Box>
           <Box sx={{ flexGrow: 0 }}>
             <Tooltip title="Open profile settings">
-              <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                <AccountCircleOutlinedIcon
+              <IconButton onClick={handleLogout} sx={{ p: 0 }}>
+                <LogoutIcon
                   className={styles["userIcon"]}
                   sx={{ fontSize: 48 }}
                 />
