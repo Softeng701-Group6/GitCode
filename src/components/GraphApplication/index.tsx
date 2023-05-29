@@ -21,7 +21,7 @@ export default function GraphApplication({
 
   const [nodes, setNodes] = useState<string[]>(initialNodes);
   const [edges, setEdges] = useState<Edge[]>(initialEdges);
-  const [remote, setRemote] = useState<Set<string>>(new Set());
+  const [remote, setRemote] = useState<Set<string>>(new Set(nodes));
   const [HEAD, setHEAD] = useState<string>("1");
 
   useEffect(() => {

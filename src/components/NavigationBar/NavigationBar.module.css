@@ -1,7 +1,7 @@
 .root {
     display: flex;
     flex-direction: column;
-    /* min-height: 100vh; */
+    flex-grow: 0;
   }
   
   .appBar {
@@ -53,7 +53,7 @@
   }
   
   .userMenu {
-    margin-top: 45px;
+    /* margin-top: 45px; */
   }
   
   .menuItem {
