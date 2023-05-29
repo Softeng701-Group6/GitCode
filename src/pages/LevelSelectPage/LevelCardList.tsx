@@ -22,7 +22,7 @@ export default function LevelCardList({questions}: Props) {
       {questions.map((question, index) => (
         <LevelCard
           key={index}
-          level={`${index + 1}. ${question.title}`}
+          level={`${question.title}`}
           difficulty={question.difficulty}
           selected={question.id == selectedQuestion.id}
           onClick={() => handleClick(question)}

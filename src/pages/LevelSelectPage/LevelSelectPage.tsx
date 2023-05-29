@@ -42,7 +42,7 @@ export default function LevelSelectPage() {
           <LevelCardList questions={allQuestions}/>
         </Grid>
         <Grid item xs={8}>
-          <LevelDetailsPanel question={selectedQuestion ? selectedQuestion : DUMMY_DATA_QUESTIONS[0]}/>
+          <LevelDetailsPanel />
         </Grid>
       </Grid>
     </div>
