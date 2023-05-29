@@ -25,6 +25,9 @@ export default function LevelCardList({questions}: Props) {
           level={`${question.title}`}
           difficulty={question.difficulty}
           selected={question.id == selectedQuestion.id}
+
+          // TODO: check current user's completed questions and mark accordingly
+          completed={true}
           onClick={() => handleClick(question)}
 
           tags={question.tags.map((tag, index) => {
