@@ -23,9 +23,10 @@ export default function GraphApplication({
 
   const [nodes, setNodes] = useState<string[]>(initialNodes);
   const [edges, setEdges] = useState<Edge[]>(initialEdges);
-  const [remote, setRemote] = useState<Set<string>>(new Set());
+  const [remote, setRemote] = useState<Set<string>>(new Set(nodes));
   const [HEAD, setHEAD] = useState<string>(initialNodes[initialNodes.length - 1]);
   const isScaffolded = scaffoldedData.isScaffolded;
+
 
   useEffect(() => {
     if (nodes.length === goalNodes.length && edges.length === goalEdges.length && nodes.every((value, index) => value === goalNodes[index]) && JSON.stringify(edges) === JSON.stringify(goalEdges)) {

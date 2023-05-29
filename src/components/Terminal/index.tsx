@@ -106,31 +106,30 @@ export default function Terminal({
   let messagesEnd: HTMLDivElement | null;
 
   return (
-    <div>
-      {/* // The Terminal Container */}
       <Box
         sx={{
           backgroundColor: "#262626",
-          border: "1px solid white",
-          maxHeight: "90%",
+          height: '100%',
           width: "100%",
+          display: 'flex',
+          flexDirection: 'column',
         }}
       >
         {/* // The Terminal header, where the text will be shown */}
         <Box
           sx={{
             overflow: "auto",
-            minHeight: "400px",
             display: "flex",
             flexDirection: "column",
             backgroundColor: "#363636",
+            flexGrow: 1
           }}
         >
           {commandHistory.map((command, index) => {
             if(isScaffolded){
-              return <p style={{color: commandHistoryColours[index]}}>C:\GitCode{`>`} {command}</p>;
+              return <p key={`command-${index}`} style={{color: commandHistoryColours[index]}}>C:\GitCode{`>`} {command}</p>;
             } else {
-              return <p>C:\GitCode{`>`} {command}</p>;
+              return <p key={`command-${index}`} >C:\GitCode{`>`} {command}</p>;
             }
           })}
           <div
@@ -156,6 +155,7 @@ export default function Terminal({
               fieldset: { borderColor: "white", color: "white" },
               "& .MuiInput-underline:after": { borderColor: "black" },
               "& .MuiFilledInput-underline:after": { borderColor: "black" },
+              flexGrow: 0,
             }}
             onKeyDown={(ev) => {
               if (ev.key === "Enter") {
@@ -168,6 +168,5 @@ export default function Terminal({
           />
         </Stack>
       </Box>
-    </div>
   );
 }
