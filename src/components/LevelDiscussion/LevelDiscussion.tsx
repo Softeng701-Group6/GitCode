@@ -8,9 +8,12 @@ import {
 } from "@mui/material";
 import ThumbUpIcon from "@mui/icons-material/ThumbUp";
 import styles from "./LevelDiscussion.module.css";
-import { Question } from "../../models/types.ts";
-import { useState } from "react";
+import { Question, User } from "../../models/types.ts";
+import { useContext, useState } from "react";
 import HiddenDiscussion from "./HiddenDiscussion.tsx";
+import { UserContext } from "../../context/UserContext";
+import { getCollection } from "../../firebase/firestoreUtils.ts";
+import { Collection } from "../../firebase/enums.ts";
 
 interface Props {
   question: Question;
@@ -19,7 +22,7 @@ interface Props {
 export default function LevelDiscussion({ question }: Props) {
   const discussion = question.discussion;
   const [commentToSend, setCommentToSend] = useState<string>("");
-  // const [levelComplete, setLevelComplete] = useState(Boolean);
+  const [levelComplete, setLevelComplete] = useState(Boolean);
   // const [isLevelCompleted, setIsLevelCompleted] = useState(false);
 
   const [dummyComments, setDummyComments] = useState([
@@ -37,10 +40,16 @@ export default function LevelDiscussion({ question }: Props) {
     },
   ]);
 
-  function isLevelCompleted() {
-    if (question.title in user.attemptedquestions) {
-      return true;
+  async function isLevelCompleted() {
+    const user = useContext(UserContext)?.uid;
+    const users = await getCollection<User>(Collection.USERS);
+    const userObj = users.find(userItem => userItem.id == user)
+    if (userObj) {
+      if (question.title in userObj.attemptedQuestions) 
+        setLevelComplete(true);
     }
+    return setLevelComplete(false);
+
   }
 
   function handleSendComment() {
@@ -62,7 +71,7 @@ export default function LevelDiscussion({ question }: Props) {
       >
         Model Answer
       </Typography>
-      {isLevelCompleted() ? (
+      { levelComplete ? (
         <Stack>
           <Typography sx={{ textAlign: "left", py: 2 }}>
             {discussion.statement}
