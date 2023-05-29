@@ -10,12 +10,14 @@ interface GraphSetter {
   setHEAD: (head: string) => void;
   setBranch: (branch: string) => void;
   setBranchHEADS: (map: Map<string, string>) => void;
+  setBranchNodes: (map: Map<string, string[]>) => void;
   nodes: string[];
   edges: Edge[];
   remote: Set<string>;
   HEAD: string;
   branch: string;
   branchHEADS: Map<string, string>;
+  branchNodes: Map<string, string[]>;
 }
 
 export default function Terminal({
@@ -25,12 +27,14 @@ export default function Terminal({
   setHEAD,
   setBranch,
   setBranchHEADS,
+  setBranchNodes,
   nodes,
   edges,
   remote,
   HEAD,
   branch,
-  branchHEADS
+  branchHEADS,
+  branchNodes
 }: GraphSetter) {
   const [command, setCommand] = useState<string>("");
   const [commandHistory, setCommandHistory] = useState<string[]>([]); //Array of strings [command1, command2, command3
@@ -62,14 +66,18 @@ export default function Terminal({
   
         setHEAD(newNode);
         setBranchHEADS(new Map(branchHEADS).set(branch, newNode));
+
+        const newBranchNodes = new Map<string, string[]>(branchNodes);
+        newBranchNodes.get(branch)!.push(newNode);
+        setBranchNodes(newBranchNodes);
         break;
       case 'push':
-        setRemote(new Set(nodes));
-
+        setRemote(new Set([...remote, ...branchNodes.get(branch)!]));
         break;
       case 'branch':
         const name = commandArray[2];
         setBranchHEADS(new Map(branchHEADS).set(name, HEAD));
+        setBranchNodes(new Map(branchNodes).set(name, []));
         break;
       case 'checkout':
         const branchName = commandArray[2];
