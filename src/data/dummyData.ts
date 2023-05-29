@@ -3,6 +3,7 @@ import { Graph, Question } from "../models/types.ts";
 
 export const DUMMY_DATA_QUESTIONS: Question[] = [
   {
+    id: "Commit and Push",
     title: "Commit and Push",
     hints: [
       "Once your changes are staged, it's time to commit them. Use the git commit command along with a descriptive commit message to document the purpose and nature of your changes. A well-written commit message is essential for clear communication within a development team.",
