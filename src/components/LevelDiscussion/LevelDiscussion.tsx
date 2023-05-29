@@ -8,8 +8,11 @@ import {
 } from "@mui/material";
 import ThumbUpIcon from "@mui/icons-material/ThumbUp";
 import styles from "./LevelDiscussion.module.css";
-import { Question } from "../../models/types.ts";
-import { useState } from "react";
+import { Comment, Question, User } from "../../models/types.ts";
+import { useContext, useEffect, useState } from "react";
+import { getCollection, getDocumentById, getDocumentByRef, storeDocument } from "../../firebase/firestoreUtils.ts";
+import { Collection } from "../../firebase/firebaseEnums.ts";
+import { UserContext } from "../../context/UserContext.ts";
 
 interface Props {
   question: Question;
@@ -17,32 +20,46 @@ interface Props {
 
 export default function LevelDiscussion({ question }: Props) {
   const discussion = question.discussion;
+  const user = useContext(UserContext)!;
+  const [currentUserDoc, setCurrentUserDoc] = useState<any>(null);
   const [commentToSend, setCommentToSend] = useState<string>("");
+  const [comments, setComments] = useState<Comment[]>([]);
+  const [isLoading, setIsLoading] = useState<boolean>(true);
 
-  const [dummyComments, setDummyComments] = useState([
-    {
-      id: "1",
-      userId: "User 1",
-      message: "Interesting question",
-      upVotes: 3,
-    },
-    {
-      id: "2",
-      userId: "User 2",
-      message: "This is hard",
-      upVotes: 9,
-    },
-  ]);
+  useEffect(() => {
+    async function init() {
+      // Linking to firebase
 
-  function handleSendComment() {
-    const newComment = {
-      id: `${dummyComments.length + 1}`,
-      userId: `User ${dummyComments.length + 1}`,
+      const allComments: Comment[] = await getCollection<Comment>(Collection.COMMENTS);
+      const filteredComments: Comment[] = allComments.filter(c => c.questionId === question.id);
+
+      for (const comment of filteredComments) {
+        const userData = await getDocumentByRef<User>(comment.userId);
+        comment.userId = userData.email;
+      }
+
+      setComments(filteredComments);
+
+      setCurrentUserDoc(await getDocumentById(Collection.USERS, user.uid, false));
+      setIsLoading(false);
+    }
+
+    init();
+  }, [question.id, comments]);
+
+  async function handleSendComment() {
+    if (!commentToSend) return alert("Please enter a comment!");
+
+    const newComment: Comment = {
+      questionId: question.id!,
+      userId: currentUserDoc.ref,
       message: commentToSend,
-      upVotes: 0,
+      upVotes: [],
     };
 
-    setDummyComments([newComment, ...dummyComments]);
+    setComments([...comments, newComment]);
+    await storeDocument(Collection.COMMENTS, newComment);
+    setCommentToSend("");
   }
 
   return (
@@ -110,80 +127,82 @@ export default function LevelDiscussion({ question }: Props) {
       />
       <Box sx={{ flexGrow: 1 }}></Box>
 
-      <Stack alignItems="flex-start" className={styles["comment-section"]}>
-        <Typography className={styles["comment-title"]} sx={{ width: 1 }}>
-          Comments
-        </Typography>
+      {!isLoading && (
+        <Stack alignItems="flex-start" className={styles["comment-section"]}>
+          <Typography className={styles["comment-title"]} sx={{ width: 1 }}>
+            Comments
+          </Typography>
 
-        <Stack
-          className={styles["comment-sender"]}
-          direction="row"
-          sx={{ width: 1 }}
-        >
-          <TextField
-            className={styles["comment-box"]}
-            multiline
-            sx={{ width: 0.95 }}
-            rows={4}
-            value={commentToSend}
-            InputProps={{
-              style: { color: "white" },
-            }}
-            onChange={(event) => setCommentToSend(event.target.value)}
-            onKeyDown={(event) =>
-              event.key === "Enter" ? handleSendComment() : null
-            }
-          />
-          <Button
-            variant="outlined"
-            className={styles["comment-sender-button"]}
-            onClick={handleSendComment}
-          >
-            Send
-          </Button>
-        </Stack>
-
-        {dummyComments.map((comment) => (
           <Stack
-            key={comment.id}
-            className={styles["comment-read"]}
+            className={styles["comment-sender"]}
+            direction="row"
             sx={{ width: 1 }}
           >
-            <Typography sx={{ textAlign: "left", py: 2, px: 2 }}>
-              {comment.userId}
-            </Typography>
-
-            <Stack
-              className={styles["comment-sender"]}
-              direction="row"
-              sx={{ width: 1 }}
+            <TextField
+              className={styles["comment-box"]}
+              multiline
+              sx={{ width: 0.95 }}
+              rows={4}
+              value={commentToSend}
+              InputProps={{
+                style: { color: "white" },
+              }}
+              onChange={(event) => setCommentToSend(event.target.value)}
+              onKeyDown={(event) =>
+                event.key === "Enter" ? handleSendComment() : null
+              }
+            />
+            <Button
+              variant="outlined"
+              className={styles["comment-sender-button"]}
+              onClick={handleSendComment}
             >
-              <TextField
-                className={styles["comment-box"]}
-                sx={{ width: 1, marginRight: 4 }}
-                multiline
-                rows={4}
-                value={comment.message}
-                InputProps={{
-                  readOnly: true,
-                  style: { color: "white" },
-                }}
-              />
-
-              <ThumbUpIcon
-                className={styles["comment-vote"]}
-                sx={{ pr: 4 }}
-                onClick={() => {
-                  comment.upVotes++;
-                  setDummyComments([...dummyComments]);
-                }}
-              />
-
-              <Typography>{comment.upVotes}</Typography>
-            </Stack>
+              Send
+            </Button>
           </Stack>
-        ))}
-      </Stack>
+
+          {/*{comments.map((comment) => (*/}
+          {/*  <Stack*/}
+          {/*    key={comment.id}*/}
+          {/*    className={styles["comment-read"]}*/}
+          {/*    sx={{ width: 1 }}*/}
+          {/*  >*/}
+          {/*    <Typography sx={{ textAlign: "left", py: 2, px: 2 }}>*/}
+          {/*      {comment.userId}*/}
+          {/*    </Typography>*/}
+
+          {/*    <Stack*/}
+          {/*      className={styles["comment-sender"]}*/}
+          {/*      direction="row"*/}
+          {/*      sx={{ width: 1 }}*/}
+          {/*    >*/}
+          {/*      <TextField*/}
+          {/*        className={styles["comment-box"]}*/}
+          {/*        sx={{ width: 1, marginRight: 4 }}*/}
+          {/*        multiline*/}
+          {/*        rows={4}*/}
+          {/*        value={comment.message}*/}
+          {/*        InputProps={{*/}
+          {/*          readOnly: true,*/}
+          {/*          style: { color: "white" },*/}
+          {/*        }}*/}
+          {/*      />*/}
+
+          {/*      <ThumbUpIcon*/}
+          {/*        className={styles["comment-vote"]}*/}
+          {/*        sx={{ pr: 4 }}*/}
+          {/*        onClick={() => {*/}
+          {/*          comment.upVotes++;*/}
+          {/*          setDummyComments([...dummyComments]);*/}
+          {/*        }}*/}
+          {/*      />*/}
+
+          {/*      <Typography>{comment.upVotes.length}</Typography>*/}
+          {/*    </Stack>*/}
+          {/*  </Stack>*/}
+          {/*))}*/}
+        </Stack>
+      )}
     </Stack>
   );
 }
