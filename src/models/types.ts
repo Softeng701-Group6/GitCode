@@ -54,6 +54,11 @@ export interface Question extends GeneralObject {
   goalGraph: Graph | null; // Reference to Graph
 }
 
+export interface Node {
+  name: string;
+  branch: string;
+}
+
 export interface Edge {
   source: string;
   target: string;
@@ -61,7 +66,7 @@ export interface Edge {
 
 export interface Graph extends GeneralObject {
   name: string;
-  nodes: string[];
+  nodes: Node[];
   edges: Edge[];
   headNode: string | null;
 }
