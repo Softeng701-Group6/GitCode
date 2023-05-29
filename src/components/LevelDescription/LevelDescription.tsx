@@ -5,12 +5,15 @@ import GreenButton from "../GreenButton/GreenButton";
 import { UserContext } from "../../context/UserContext";
 import { doc, getDoc, updateDoc, arrayUnion } from "firebase/firestore";
 import { useContext } from "react";
-import { getCollection, isDocumentExists, storeDocument } from "../../firebase/firestoreUtils";
+import {
+  getCollection,
+  isDocumentExists,
+  storeDocument,
+} from "../../firebase/firestoreUtils";
 import { User } from "../../models/types";
 import { Collection } from "../../firebase/firebaseEnums";
 import { LevelContext } from "../../context/LevelContext";
 import { firestore } from "../../firebase/firebase.ts";
-
 
 /*To go in the LevelSelectPage 
 <LevelDescription title='1. Commit and Push' content = '1. Sed luctus venenatis massa. Nam sagittis neque nec purus aliquam, a tempus velit hendrerit. Pellentesque ac risus aliquet, egestas orci vitae, feugiat tellus. 2. Morbi id tortor id enim consectetur consectetur. Praesent orci erat, consectetur quis efficitur pretium, auctor blandit lorem. Donec lobortis arcu ac dui luctus tincidunt. 3. Proin scelerisque arcu sapien, eu tristique lorem dictum eget. Suspendisse mollis tempor ligula nec iaculis. Quisque maximus interdum nunc, ut convallis quam pretium vitae. Duis posuere neque urna, id auctor arcu consectetur id. Ut mollis lectus tortor, eu tempus quam vestibulum at. Integer in leo non nisi scelerisque molestie. Nullam ut volutpat ante. 4. Duis ultrices erat urna, eu semper augue euismod eget. Nulla ac elit nunc. Mauris non diam quam. Nullam consectetur ipsum non metus blandit bibendum'/> */
@@ -21,10 +24,7 @@ export default function LevelDescription() {
 
   async function startProblem() {
     const userId = user.uid;
-    // const users = await getCollection<User>(Collection.USERS);
-    // const userObj = users.find(userItem => userItem.id == userId)
     const CollectionUpdate = doc(firestore, Collection.USERS, userId);
-    // console.log(isDocumentExists(Collection.USERS, userId));
     try {
       await updateDoc(CollectionUpdate, {
         attemptedQuestions: arrayUnion(selectedQuestion.id),
@@ -33,7 +33,6 @@ export default function LevelDescription() {
     } catch (error) {
       console.error("Error updating array field:", error);
     }
-    // console.log(userObj?.attemptedQuestions);
 
     navigate("../question");
   }
@@ -47,11 +46,13 @@ export default function LevelDescription() {
         Learning Objectives
       </Typography>
       <ul>
-        {selectedQuestion.learningObjective.outcomeArray.map((outcome, index) => (
-          <li key={index}>
-            <Typography sx={{ textAlign: "left" }}>{outcome}</Typography>
-          </li>
-        ))}
+        {selectedQuestion.learningObjective.outcomeArray.map(
+          (outcome, index) => (
+            <li key={index}>
+              <Typography sx={{ textAlign: "left" }}>{outcome}</Typography>
+            </li>
+          )
+        )}
       </ul>
       <Divider className={styles["divider"]} variant="middle" />
       <Box sx={{ flexGrow: 1 }}></Box>
