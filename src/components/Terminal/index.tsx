@@ -104,8 +104,8 @@ export default function Terminal({
             flexGrow: 1
           }}
         >
-          {commandHistory.map((command) => {
-            return <p>{command}</p>;
+          {commandHistory.map((command, index) => {
+            return <p key={`command-${index}`}>{command}</p>;
           })}
           <div
             style={{ float: "left", clear: "both" }}

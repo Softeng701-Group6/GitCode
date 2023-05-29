@@ -8,7 +8,7 @@ import styles from "./LevelSelectPage.module.css";
 import NavigationBar from "../../components/NavigationBar/NavigationBar";
 import LevelDescription from "../../components/LevelDescription/LevelDescription";
 import LevelDiscussion from "../../components/LevelDiscussion/LevelDiscussion.tsx";
-import { DUMMY_DATA_QUESTIONS } from "../../firebase/db/dummyData.ts";
+import { DUMMY_DATA_QUESTIONS } from "../../data/dummyData.ts";
 import { useEffect, useState } from "react";
 import { Question } from "../../models/types.ts";
 import { useLocation } from "react-router-dom";
@@ -49,12 +49,12 @@ export default function LevelSelectPage() {
 
   return (
     <div>
-      <NavigationBar />
+      <NavigationBar/>
       <Grid
         className={styles.mainGrid}
         container
         spacing={2}
-        sx={{ height: 0.85 }}
+        sx={{height: 0.85}}
       >
         <Grid item xs={4}>
           <Stack direction="column">
@@ -109,9 +109,9 @@ export default function LevelSelectPage() {
               </span>
               {/* Place description/ discussion component here */}
               {selected ? (
-                <LevelDescription title="Description" content="Content" />
+                <LevelDescription title="Description" content="Content"/>
               ) : allQuestions[0] ? (
-                <LevelDiscussion question={allQuestions[0]} />
+                <LevelDiscussion question={allQuestions[0]}/>
               ) : (
                 <div>Loading...</div>
               )}
