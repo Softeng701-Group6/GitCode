@@ -23,7 +23,7 @@ export default function NavigationBar() {
 
   return (
     <Box className={styles.root}>
-      <AppBar position="absolute" style={{ background: "#252525" }}>
+      <AppBar position="static" style={{ background: "#252525" }}>
         <Toolbar className={styles["toolbar"]}>
           <Typography
             variant="h6"

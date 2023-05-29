@@ -8,12 +8,18 @@ interface GraphSetter {
   setEdges: (edges: Edge[]) => void;
   setRemote: (nodes: Set<string>) => void;
   setHEAD: (head: string) => void;
+  setBranch: (branch: string) => void;
+  setBranchHEADS: (map: Map<string, string>) => void;
+  setBranchNodes: (map: Map<string, string[]>) => void;
   nodes: string[];
   edges: Edge[];
   remote: Set<string>;
   HEAD: string;
   isScaffolded: boolean;
   answers: string[];
+  branch: string;
+  branchHEADS: Map<string, string>;
+  branchNodes: Map<string, string[]>;
 }
 
 export default function Terminal({
@@ -21,12 +27,18 @@ export default function Terminal({
   setEdges,
   setRemote,
   setHEAD,
+  setBranch,
+  setBranchHEADS,
+  setBranchNodes,
   nodes,
   edges,
   remote,
   HEAD,
   isScaffolded,
   answers,
+  branch,
+  branchHEADS,
+  branchNodes
 }: GraphSetter) {
   const [command, setCommand] = useState<string>("");
   const [commandHistory, setCommandHistory] = useState<string[]>([]); 
@@ -66,23 +78,44 @@ export default function Terminal({
       setCommandHistoryColours([...commandHistoryColours, "red"]);
     }
 
-    //Assuming all checks are passing above, then we can start adding to the graph
-    if (commandArray[1] === "commit" && isValidCommand) {
-      //TODO What to do with commit message?
-      console.log("Committing the graph");
-      // Probably gonna be a hash of length 6
-      const newNode: string = `${nodes.length + 1}`;
-      const newEdge: Edge = { source: `${HEAD}`, target: newNode };
+    if (isValidCommand) {
+    switch(commandArray[1]){
 
-      setNodes([...nodes, newNode]);
-      setEdges([...edges, newEdge]);
-      setHEAD(newNode);
+      case 'commit':
+        const newNode: string = `${nodes.length + 1}`;
+        const newEdge: Edge = { source: `${HEAD}`, target: newNode, branch: branch };
+  
+        setNodes([...nodes, newNode]);
+        setEdges([...edges, newEdge]);
+  
+        setHEAD(newNode);
+        setBranchHEADS(new Map(branchHEADS).set(branch, newNode));
 
-    } else if (commandArray[1] === "push" && isValidCommand) {
-      console.log("Pushing the graph");
-      setRemote(new Set(nodes));
-    } 
-    
+        const newBranchNodes = new Map<string, string[]>(branchNodes);
+        newBranchNodes.get(branch)!.push(newNode);
+        setBranchNodes(newBranchNodes);
+        break;
+      case 'push':
+        setRemote(new Set([...remote, ...branchNodes.get(branch)!]));
+        break;
+      case 'branch':
+        const name = commandArray[2];
+        setBranchHEADS(new Map(branchHEADS).set(name, HEAD));
+        setBranchNodes(new Map(branchNodes).set(name, []));
+        break;
+      case 'checkout':
+        const branchName = commandArray[2];
+
+        if (branchHEADS.has(branchName)){
+          setBranch(branchName);
+          setHEAD(branchHEADS.get(branchName)!);
+        }
+
+        break;
+      case 'pull':
+        break;
+    }
+    }
   };
 
   //Whenever command changes

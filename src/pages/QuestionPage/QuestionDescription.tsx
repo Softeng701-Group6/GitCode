@@ -7,7 +7,7 @@ import { grey } from "@mui/material/colors";
 import { useNavigate } from "react-router-dom";
 import styles from "./QuestionDescription.module.css";
 
-import defaultImg from "../../assets/ActivityCommitGraph.jpg";
+import defaultImg from "../../assets/ActivityCommitGraph.png";
 
 interface Props {
   title: string;
