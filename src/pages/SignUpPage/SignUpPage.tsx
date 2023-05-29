@@ -14,6 +14,8 @@ import GoogleIcon from "@mui/icons-material/Google";
 import styles from "./SignUpPage.module.css";
 import { doc, getDoc, setDoc } from "firebase/firestore";
 import { User } from "../../models/types";
+import { storeDocument } from "../../firebase/firestoreUtils";
+import { Collection } from "../../firebase/enums";
 
 const Signuppage = () => {
   const navigate = useNavigate();
@@ -70,7 +72,7 @@ const Signuppage = () => {
       if ((await getDoc(userDoc)).exists()) {
         navigate("/home");
       } else {
-        await setDoc(userDoc, newUser);
+        await storeDocument(Collection.USERS, newUser);
         navigate("/home");
       }
     } catch (error: any) {
