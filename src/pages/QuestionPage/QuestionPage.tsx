@@ -1,7 +1,7 @@
 import { useState } from "react";
 import NavigationBar from "../../components/NavigationBar/NavigationBar";
 import QuestionEndModal from "../../components/QuestionEndModal/QuestionEndModal";
-import { Grid, Typography } from "@mui/material";
+import { Grid, Typography} from "@mui/material";
 import QuestionDescription from "./QuestionDescription";
 import styles from "./QuestionPage.module.css";
 import GraphApplication from "../../components/GraphApplication";
@@ -10,6 +10,7 @@ import {
   initialEdges,
   initialNodes,
 } from "../../components/GitGraph/initial-firebase-nodes-edges";
+import HintToolTip from "../../components/HintToolTip/HintToolTip";
 
 const QuestionPage = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -39,7 +40,7 @@ const QuestionPage = () => {
               <ul>
                 <li>
                   All changes have already been added and staged, now we need to
-                  commit and push our changes onto main.
+                  commit and push our changes onto main.s
                 </li>
                 <li>
                   Use git commit commands in the terminal to complete this task
@@ -50,6 +51,7 @@ const QuestionPage = () => {
           </QuestionDescription>
         </Grid>
         <Grid item xs={8}>
+          <HintToolTip/>
           <GraphApplication
             initialGraph={{ nodes: initialNodes, edges: initialEdges }}
             goalGraph={{ nodes: [], edges: [] }}

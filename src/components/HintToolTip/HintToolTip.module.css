@@ -1,0 +1,17 @@
+.hintIcon{
+    position: absolute; 
+    left: 96%; 
+    top: 52%;
+    background-color: #7A4CC5; 
+    color: white; 
+    z-index: 10;
+    width: 45px; 
+}
+
+.innerHint h3{
+    text-align:justify
+}
+
+.innerHint p{
+    text-align: right;
+}
