@@ -28,6 +28,11 @@ export default function GraphApplication({
   const [branchHEADS, setBranchHEADS] = useState<Map<string, string>>(
     new Map([["main", '1']])
   );
+  const [branchNodes, setBranchNodes] = useState<Map<string, string[]>>(
+    new Map([
+      ['main', ['1']]
+    ])
+  );
   
   useEffect(() => {
     if (nodes == goalNodes && edges == goalEdges) {
@@ -50,12 +55,14 @@ export default function GraphApplication({
           setHEAD={setHEAD}
           setBranch={setBranch}
           setBranchHEADS={setBranchHEADS}
+          setBranchNodes={setBranchNodes}
           nodes={nodes}
           edges={edges}
           HEAD={HEAD}
           remote={remote}
           branch={branch}
           branchHEADS={branchHEADS}
+          branchNodes={branchNodes}
         />
       </Box>
     </Stack>
