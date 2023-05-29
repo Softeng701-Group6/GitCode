@@ -27,7 +27,7 @@ export default function GraphApplication({
   const [edges, setEdges] = useState<Edge[]>(initialEdges);
   const [remote, setRemote] = useState<Set<string>>(new Set(nodes));
   const [HEAD, setHEAD] = useState<string>(initialNodes[initialNodes.length - 1]);
-  const scaffolding = isScaffolded;
+  const scaffolding = false;
 
 
   const [branch, setBranch] = useState<string>("main");
