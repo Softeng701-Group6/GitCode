@@ -7,7 +7,7 @@ import GoogleIcon from "@mui/icons-material/Google";
 import styles from "./SignUpPage.module.css";
 import { User } from "../../models/types";
 import { isDocumentExists, storeDocument } from "../../firebase/firestoreUtils";
-import { Collection } from "../../firebase/enums";
+import { Collection } from "../../firebase/firebaseEnums.ts";
 
 const Signuppage = () => {
   const navigate = useNavigate();
@@ -150,7 +150,7 @@ const Signuppage = () => {
                   onClick={handleGoogleSignup}
                   className={styles["button"]}
                 >
-                  <GoogleIcon className={styles["google-icon"]} /> SIGN UP WITH
+                  <GoogleIcon className={styles["google-icon"]}/> SIGN UP WITH
                   GOOGLE
                 </Button>
               </Grid>

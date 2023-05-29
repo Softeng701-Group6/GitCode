@@ -1,5 +1,5 @@
 import { DocumentReference } from "firebase/firestore";
-import { Difficulty, Tags } from "../firebase/enums.ts";
+import { Difficulty, Tags } from "../firebase/firebaseEnums.ts";
 
 export interface GeneralObject {
   id?: string;
@@ -57,6 +57,11 @@ export interface Question extends GeneralObject {
   tags: Tag[];
 }
 
+export interface Tag {
+  name: string;
+  color: string;
+}
+
 export interface Node {
   name: string;
   branch: string;
@@ -72,9 +77,4 @@ export interface Graph extends GeneralObject {
   nodes: Node[];
   edges: Edge[];
   headNode: string | null;
-}
-
-export interface Tag {
-  name: string;
-  color: string;
 }

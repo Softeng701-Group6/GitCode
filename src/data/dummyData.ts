@@ -1,4 +1,4 @@
-import { Difficulty, Tags } from "../firebase/enums.ts";
+import { Difficulty, Tags } from "../firebase/firebaseEnums.ts";
 import { Graph, Question } from "../models/types.ts";
 
 export const DUMMY_DATA_QUESTIONS: Question[] = [
@@ -30,9 +30,6 @@ export const DUMMY_DATA_QUESTIONS: Question[] = [
         "Pushing Commits: Students will grasp the concept of pushing commits to a remote repository, gaining knowledge about the purpose of remotes and the git push command."
       ]
     },
-    difficulty: Difficulty.EASY,
-    tags: [Tags.commit, Tags.push],
-
     discussion: {
       statement: "To commit and push changes to a Git repository, you need to follow a series of commands. Let's go through each step, and then we'll provide explanations for each command:",
       commands: [
@@ -60,7 +57,9 @@ export const DUMMY_DATA_QUESTIONS: Question[] = [
     },
     // commentIds: [],
     initialGraph: null,
-    goalGraph: null
+    goalGraph: null,
+    difficulty: Difficulty.EASY,
+    tags: [Tags.commit, Tags.push],
   }
 ]
 

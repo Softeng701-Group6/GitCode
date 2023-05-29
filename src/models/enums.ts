@@ -1,15 +1,5 @@
 import * as Colors from "@mui/material/colors"
-import { Tag } from "../models/types";
-
-/**
- * Firestore collection names
- */
-export enum Collection {
-  USERS = "users",
-  COMMENTS = "comments",
-  QUESTIONS = "questions",
-  GRAPHS = "graphs",
-}
+import { Tag } from "./types.ts";
 
 export enum Difficulty {
   EASY = "EASY",

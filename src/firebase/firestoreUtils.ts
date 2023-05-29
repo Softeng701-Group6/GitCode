@@ -1,7 +1,7 @@
 import { GeneralObject } from "../models/types.ts";
 import { collection, doc, getDoc, getDocs, setDoc } from "firebase/firestore";
 import { firestore } from "./firebase.ts";
-import { Collection } from "./enums.ts";
+import { Collection } from "./firebaseEnums.ts";
 
 /**
  * Store the object (or document in Firestore) into the database
@@ -10,7 +10,7 @@ import { Collection } from "./enums.ts";
  * @param object Object to store
  */
 export async function storeDocument(collectionName: Collection, object: GeneralObject): Promise<void> {
-  const {id, ...data} = object;
+  const { id, ...data } = object;
   let docRef;
 
   // If ID is provided, then update the document
