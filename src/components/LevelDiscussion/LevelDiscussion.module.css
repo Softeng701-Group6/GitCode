@@ -66,3 +66,18 @@
     margin-top: 8px;
     margin-bottom: 8px;
 }
+
+.lock-icon {
+    color: #B3B3B3;
+    font-size: large;
+}
+
+.hidden { 
+    text-align: center;
+    display: flex;
+    -webkit-flex-direction: column;
+    -ms-flex-direction: column;
+    flex-direction: column;
+    align-items: center;
+    padding: 20%;
+}

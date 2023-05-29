@@ -10,6 +10,7 @@ import ThumbUpIcon from "@mui/icons-material/ThumbUp";
 import styles from "./LevelDiscussion.module.css";
 import { Question } from "../../models/types.ts";
 import { useState } from "react";
+import HiddenDiscussion from "./HiddenDiscussion.tsx";
 
 interface Props {
   question: Question;
@@ -18,6 +19,8 @@ interface Props {
 export default function LevelDiscussion({ question }: Props) {
   const discussion = question.discussion;
   const [commentToSend, setCommentToSend] = useState<string>("");
+  // const [levelComplete, setLevelComplete] = useState(Boolean);
+  // const [isLevelCompleted, setIsLevelCompleted] = useState(false);
 
   const [dummyComments, setDummyComments] = useState([
     {
@@ -33,6 +36,12 @@ export default function LevelDiscussion({ question }: Props) {
       upVotes: 9,
     },
   ]);
+
+  function isLevelCompleted() {
+    if (question.title in user.attemptedquestions) {
+      return true;
+    }
+  }
 
   function handleSendComment() {
     const newComment = {
@@ -53,55 +62,59 @@ export default function LevelDiscussion({ question }: Props) {
       >
         Model Answer
       </Typography>
-      <Stack>
-        <Typography sx={{ textAlign: "left", py: 2 }}>
-          {discussion.statement}
-        </Typography>
-        <Stack
-          direction="column"
-          spacing={2}
-          sx={{
-            my: 4,
-            borderRadius: 1,
-            alignItems: "flex-start",
-            marginRight: 4,
-            width: 0.92,
-            px: 4,
-            py: 4,
-            backgroundColor: "#1E1E1E",
-          }}
-        >
-          {discussion.commands.map((cmd) => (
-            <Typography sx={{ textAlign: "left" }} key={cmd}>
-              {cmd}
-            </Typography>
-          ))}
-        </Stack>
-        {discussion.answers.map((ans) => (
-          <Stack key={ans.step} sx={{ py: 2 }}>
-            <Typography sx={{ textAlign: "left", py: 2 }}>
-              {ans.step}
-            </Typography>
-            <ul>
-              {ans.explanation.map((line, index) => (
-                <li key={index}>
-                  <Typography sx={{ textAlign: "left" }}>{line}</Typography>
-                </li>
-              ))}
-            </ul>
+      {isLevelCompleted() ? (
+        <Stack>
+          <Typography sx={{ textAlign: "left", py: 2 }}>
+            {discussion.statement}
+          </Typography>
+          <Stack
+            direction="column"
+            spacing={2}
+            sx={{
+              my: 4,
+              borderRadius: 1,
+              alignItems: "flex-start",
+              marginRight: 4,
+              width: 0.92,
+              px: 4,
+              py: 4,
+              backgroundColor: "#1E1E1E",
+            }}
+          >
+            {discussion.commands.map((cmd) => (
+              <Typography sx={{ textAlign: "left" }} key={cmd}>
+                {cmd}
+              </Typography>
+            ))}
           </Stack>
-        ))}
+          {discussion.answers.map((ans) => (
+            <Stack key={ans.step} sx={{ py: 2 }}>
+              <Typography sx={{ textAlign: "left", py: 2 }}>
+                {ans.step}
+              </Typography>
+              <ul>
+                {ans.explanation.map((line, index) => (
+                  <li key={index}>
+                    <Typography sx={{ textAlign: "left" }}>{line}</Typography>
+                  </li>
+                ))}
+              </ul>
+            </Stack>
+          ))}
 
-        <Typography sx={{ textAlign: "left", py: 2 }}>
-          For more information, Checkout Atlassian's Page{" "}
-          <a href="https://www.atlassian.com/git/tutorials/learn-git-with-bitbucket-cloud">
-            here
-          </a>
-        </Typography>
-        <Typography variant="h3" sx={{ textAlign: "left", py: 2 }}>
-          Post your answers below, Is there another way to get the solution?
-        </Typography>
-      </Stack>
+          <Typography sx={{ textAlign: "left", py: 2 }}>
+            For more information, Checkout Atlassian's Page{" "}
+            <a href="https://www.atlassian.com/git/tutorials/learn-git-with-bitbucket-cloud">
+              here
+            </a>
+          </Typography>
+          <Typography variant="h3" sx={{ textAlign: "left", py: 2 }}>
+            Post your answers below, Is there another way to get the solution?
+          </Typography>
+        </Stack>
+      ) : (
+        <HiddenDiscussion />
+      )}
 
       <Divider
         className={styles["divider"]}
