@@ -17,4 +17,6 @@ const gitCommitPushEdgesGoal: Edge[] = [
 
 const gitCommitPushAnswers: string[] = ["git commit -m 'message'", "git push"];
 
-export { gitCommitPushNodes, gitCommitPushEdges, gitCommitPushNodesGoal, gitCommitPushEdgesGoal, gitCommitPushAnswers };
+const gitCommitPushCommandHistory: string[] = ["git init", "git commit -m 'message'"]
+
+export { gitCommitPushNodes, gitCommitPushEdges, gitCommitPushNodesGoal, gitCommitPushEdgesGoal, gitCommitPushAnswers, gitCommitPushCommandHistory };

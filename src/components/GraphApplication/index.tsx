@@ -12,11 +12,13 @@ export default function GraphApplication({
   initialGraph,
   goalGraph,
   answers,
+  history,
   setComplete,
 }: {
   initialGraph: Graph;
   goalGraph: Graph;
   answers: string[];
+  history: string[];
   setComplete: (complete: boolean) => void;
 }) {
   const { nodes: initialNodes, edges: initialEdges } = initialGraph;
@@ -27,6 +29,7 @@ export default function GraphApplication({
   const [remote, setRemote] = useState<Set<string>>(new Set(nodes));
   const [HEAD, setHEAD] = useState<string>(initialNodes[initialNodes.length - 1]);
   const [scaffolding, setScaffolding] = useState(false);
+  const [commandHistory, setCommandHistory] = useState<string[]>(history);
 
 
   const [branch, setBranch] = useState<string>("main");
