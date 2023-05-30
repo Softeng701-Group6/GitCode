@@ -5,7 +5,7 @@ import { ReactFlowProvider } from "reactflow";
 
 import { useState, useEffect } from "react";
 import { Box, Stack } from "@mui/material";
-import { Node, Edge } from "../../models/types";
+import { Edge } from "../../models/types";
 import HelpBar from "../../HelpBar/HelpBar";
 
 export default function GraphApplication({
@@ -19,45 +19,63 @@ export default function GraphApplication({
   answers: string[];
   setComplete: (complete: boolean) => void;
 }) {
-  const { nodes: initialNodes, edges: initialEdges } = initialGraph;
+  const {
+    nodes: initialNodes,
+    edges: initialEdges,
+    headNode: initialHead,
+    branch: initialBranch,
+    branchHeads: initialBranchHeads,
+    remoteNodes: initialRemoteNodes,
+    branchNodes: initialBranchNodes,
+  } = initialGraph;
+
   const { nodes: goalNodes, edges: goalEdges } = goalGraph;
 
   const [nodes, setNodes] = useState<string[]>(initialNodes);
   const [edges, setEdges] = useState<Edge[]>(initialEdges);
-  const [remote, setRemote] = useState<Set<string>>(new Set(nodes));
-  const [HEAD, setHEAD] = useState<string>(initialNodes[initialNodes.length - 1]);
+  const [remote, setRemote] = useState<Set<string>>(
+    new Set(initialRemoteNodes)
+  );
+  const [HEAD, setHEAD] = useState<string>(initialHead || '1');
   const [scaffolding, setScaffolding] = useState(false);
 
-
-  const [branch, setBranch] = useState<string>("main");
+  const [branch, setBranch] = useState<string>(initialBranch || 'main');
   const [branchHEADS, setBranchHEADS] = useState<Map<string, string>>(
-    new Map([["main", '1']])
+    initialBranchHeads || new Map([['main', '1']])
   );
   const [branchNodes, setBranchNodes] = useState<Map<string, string[]>>(
-    new Map([
-      ['main', ['1']]
-    ])
+    initialBranchNodes || new Map([['main', ['1']]])
   );
 
   const onToggle = (checked: boolean) => {
     setScaffolding(checked);
-  }
-  
+  };
+
   useEffect(() => {
-    if (nodes.length === goalNodes.length && edges.length === goalEdges.length && nodes.every((value, index) => value === goalNodes[index]) && JSON.stringify(edges) === JSON.stringify(goalEdges)) {
+    if (
+      nodes.length === goalNodes.length &&
+      edges.length === goalEdges.length &&
+      nodes.every((value, index) => value === goalNodes[index]) &&
+      JSON.stringify(edges) === JSON.stringify(goalEdges)
+    ) {
       setComplete(true);
-    } 
+    }
   }, [nodes]);
 
   return (
     <Stack sx={{ height: "100%" }}>
-
       <Box sx={{ height: "50%" }}>
         <ReactFlowProvider>
-          <GitGraph nodes={nodes} edges={edges} remote={remote} HEAD={HEAD} branch={branch}/>
+          <GitGraph
+            nodes={nodes}
+            edges={edges}
+            remote={remote}
+            HEAD={HEAD}
+            branch={branch}
+          />
         </ReactFlowProvider>
       </Box>
-      <HelpBar onToggle={onToggle}/>
+      <HelpBar onToggle={onToggle} />
       <Box sx={{ height: "50%" }}>
         <Terminal
           setNodes={setNodes}
@@ -79,6 +97,5 @@ export default function GraphApplication({
         />
       </Box>
     </Stack>
-    
   );
 }
