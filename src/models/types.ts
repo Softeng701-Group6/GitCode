@@ -15,9 +15,9 @@ export interface User extends GeneralObject {
 }
 
 interface Description {
-  description: string;
-  activityPlan: string;
-  activityArray: string[];
+  title: string;
+  activity: string;
+  plan: string[];
   desiredGraphImgUrl: string;
 }
 
