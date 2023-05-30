@@ -16,7 +16,8 @@ import {
   gitCommitPushEdges,
   gitCommitPushNodesGoal,
   gitCommitPushEdgesGoal,
-  gitCommitPushAnswers
+  gitCommitPushAnswers,
+  gitCommitPushCommandHistory
 } from "../../components/GitGraph/git-commit-push-nodes-edges";
 
 const QuestionPage = () => {
@@ -64,6 +65,7 @@ const QuestionPage = () => {
               initialGraph={{ nodes: gitCommitPushNodes, edges: gitCommitPushEdges }}
               goalGraph={{ nodes: gitCommitPushNodesGoal, edges: gitCommitPushEdgesGoal }}
               answers={gitCommitPushAnswers}
+              history={gitCommitPushCommandHistory}
               setComplete={setComplete}
             />
           </Grid>

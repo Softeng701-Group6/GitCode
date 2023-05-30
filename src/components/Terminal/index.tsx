@@ -46,6 +46,8 @@ export default function Terminal({
   const [answerLine, setAnswerLine] = useState<number>(0); // TODO Need to add a line for the answer
   const [isSubmitted, setIsSubmitted] = useState<boolean>(false);
 
+  // This assumes that the user won't switch between modes in the middle of a question
+
   //This function will handle the command input and pass it to the graph component
   const handleCommand = (commandInput: string) => {
     console.log(commandInput);
@@ -76,6 +78,9 @@ export default function Terminal({
       }
     } else if (isScaffolded && answerLine >= answers.length){
       setCommandHistoryColours([...commandHistoryColours, "red"]);
+    } else if (!isScaffolded && answerLine < answers.length){
+      // This is to deal with the case where the user has switched from scaffolded to free mode
+      setCommandHistoryColours([...commandHistoryColours, "white"]);
     }
 
     if (isValidCommand) {
