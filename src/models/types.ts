@@ -61,11 +61,6 @@ export interface Tag {
   color: string;
 }
 
-export interface Node {
-  name: string;
-  branch: string;
-}
-
 export interface Edge {
   source: string;
   target: string;
@@ -73,8 +68,11 @@ export interface Edge {
 }
 
 export interface Graph extends GeneralObject {
-  name: string;
-  nodes: Node[];
+  nodes: string[];
   edges: Edge[];
-  headNode: string | null;
+  headNode?: string;
+  branch?: string;
+  branchHeads?: Map<string, string>;
+  remoteNodes?: Set<string>;
+  branchNodes?: Map<string, string[]>;
 }
