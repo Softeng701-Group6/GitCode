@@ -17,12 +17,15 @@ export const DUMMY_DATA_QUESTIONS: Question[] = [
       "For more information, checkout the discussion page for this question"
     ],
     description: {
-      description: "Welcome to your first lesson on Git, the widely used version control system in the software development industry. In this lesson, we will delve into the fundamental concepts of Git commit and push, which form the backbone of collaborative code management.",
-      activityArray: [
-        "In this activity, we will guide you through the process of committing and pushing changes to a Git repository.",
+      title: "Lesson 1: Introduction to Git Commit and Push",
+      activity: "Committing and Pushing Changes",
+      plan: [
         "All changes have already been added and staged, now we need to commit and push our changes onto main.",
-      ]
+        "Use git commit commands in the terminal to complete this task and click submit to check!"
+      ],
+      desiredGraphImgUrl: "ActivityCommitGraph.png"
     },
+
     learningObjective: {
       objective: "By the end of this lesson, you will understand the importance of Git commit and push, and how they enable you to track and share changes in your codebase effectively.",
       outcomeArray: [
@@ -57,11 +60,38 @@ export const DUMMY_DATA_QUESTIONS: Question[] = [
       ]
     },
     // commentIds: [],
-    initialGraph: null,
-    goalGraph: null,
-    difficulty: Difficulty.EASY,
-    tags: [Tags.commit, Tags.push],
+    initialCommands: [
+      "git init",
+      "git commit"
+    ],
+
+    initialGraph: {
+      nodes: ['1'],
+      edges: [],
+      headNode: '1',
+      branch: 'main',
+      branchHeads: new Map([['main', '1']]),
+      remoteNodes: new Set(),
+      branchNodes: new Map([['main', ['1']]])
+    },
+    goalGraph: {
+      nodes: ['1', '2', '3', '4'],
+      edges: [
+        {source: '1', target: '2', branch: 'main'},
+        {source: '2', target: '3', branch: 'main'},
+        {source: '3', target: '4', branch: 'main'}
+      ]
+    },
+
+    difficulty: Difficulty.MEDIUM,
+    tags: [Tags.checkout, Tags.branch],
   },
+
+
+
+
+
+
   {
     id: "Checkout and Branching",
     title: "2. Checkout and Branching",
@@ -77,11 +107,13 @@ export const DUMMY_DATA_QUESTIONS: Question[] = [
       "For more information, checkout the discussion page for this question"
     ],
     description: {
-      description: "Welcome to your second lesson on Git. In this lesson, we will delve into more fundamental concepts of Git checkout and branch, which are essential for collaboration.",
-      activityArray: [
-        "In this activity, we will guide you through the process of checking out and branching in the Git repository.",
-        "All changes have already been added and staged, now we need to branch off main and checkout the newly created branch where we can continue to commit and push our changes.",
-      ]
+      title: "Lesson 2: Introduction to Git Checkout and Branching",
+      activity: "Checkout and Branch",
+      plan: [
+        "All changes have already been added and staged, now we need to commit and push our changes onto main.",
+        "Use git commit commands in the terminal to complete this task and click submit to check!"
+      ],
+      desiredGraphImgUrl: "ActivityCommitGraph.png"
     },
     learningObjective: {
       objective: "By the end of this lesson, you will understand the importance of Git checkout and branch, and how they enable you have multiple versions of your codebase, allowing collaborative work.",
@@ -119,8 +151,28 @@ export const DUMMY_DATA_QUESTIONS: Question[] = [
       ]
     },
     // commentIds: [],
-    initialGraph: null,
-    goalGraph: null,
+    initialCommands: [
+      "git init",
+      "git commit"
+    ],
+    
+    initialGraph: {
+      nodes: ['1'],
+      edges: [],
+      headNode: '1',
+      branch: 'main',
+      branchHeads: new Map([['main', '1']]),
+      remoteNodes: new Set(),
+      branchNodes: new Map([['main', ['1']]])
+    },
+    goalGraph: {
+      nodes: ['1', '2', '3', '4'],
+      edges: [
+        {source: '1', target: '2', branch: 'main'},
+        {source: '2', target: '3', branch: 'main'},
+        {source: '3', target: '4', branch: 'main'}
+      ]
+    },
     difficulty: Difficulty.MEDIUM,
     tags: [Tags.checkout, Tags.branch],
   }
