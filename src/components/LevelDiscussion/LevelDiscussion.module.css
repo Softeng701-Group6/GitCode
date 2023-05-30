@@ -69,7 +69,7 @@
 
 .lock-icon {
     color: #B3B3B3;
-    font-size: large;
+    font-size: 2rem !important;
 }
 
 .hidden { 
