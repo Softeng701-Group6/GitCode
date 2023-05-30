@@ -15,8 +15,10 @@ export interface User extends GeneralObject {
 }
 
 interface Description {
-  description: string;
-  activityArray: string[];
+  title: string;
+  activity: string;
+  plan: string[];
+  desiredGraphImgUrl: string;
 }
 
 interface learningObjective {
@@ -50,6 +52,7 @@ export interface Question extends GeneralObject {
   learningObjective: learningObjective;
   discussion: Discussion;
   // commentIds: DocumentReference[];  // Reference to Comment
+  initialCommands: string[];
   initialGraph: Graph | null; // Reference to Graph
   goalGraph: Graph | null; // Reference to Graph
   difficulty: Difficulty;
