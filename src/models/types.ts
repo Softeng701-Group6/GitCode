@@ -71,7 +71,7 @@ export interface Graph extends GeneralObject {
   nodes: string[];
   edges: Edge[];
   headNode?: string;
-  branch: string | 'main';
+  branch?: string;
   branchHeads?: Map<string, string>;
   remoteNodes?: string[];
   branchNodes?: Map<string, string[]>;

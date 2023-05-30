@@ -39,7 +39,7 @@ export default function GraphApplication({
   const [HEAD, setHEAD] = useState<string>(initialHead || '1');
   const [scaffolding, setScaffolding] = useState(false);
 
-  const [branch, setBranch] = useState<string>(initialBranch);
+  const [branch, setBranch] = useState<string>(initialBranch || 'main');
   const [branchHEADS, setBranchHEADS] = useState<Map<string, string>>(
     initialBranchHeads || new Map([['main', '1']])
   );
