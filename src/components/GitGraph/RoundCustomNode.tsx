@@ -13,8 +13,8 @@ interface NodeProps {
 // Define your node component
 const RoundCustomNode: React.FC<NodeProps> = ({ data }) => {
   return (
-    <div>
-      <p style={{textAlign: 'center', position: "absolute", top: '-30px', left: '-26px', width: '100px'}}>{data.branch ? data.branch : ''}</p>
+  <div>
+      <p style={{textAlign: 'center', position: "absolute", top: '-30px', left: '-100px', width: '250px', }}>{data.branch ? data.branch : ''}</p>
       <div
         style={{
           display: "flex",

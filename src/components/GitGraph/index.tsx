@@ -46,7 +46,7 @@ const GitGraph = ({ nodes, edges, remote, HEAD, branch }: GraphState) => {
 
     setNodes([...layoutNodes]);
     setEdges([...layoutEdges]);
-  }, [nodes, edges, remote, HEAD]);
+  }, [nodes, edges, remote, HEAD, branch]);
 
   useEffect(() => {
     reactFlowInstance.fitView();
