@@ -97,7 +97,7 @@ export default function Terminal({
           setBranchHEADS(new Map(branchHEADS).set(branch, newNode));
 
           const newBranchNodes = new Map<string, string[]>(branchNodes);
-          newBranchNodes.get(branch)!.push(newNode);
+          newBranchNodes.get(branch)?.push(newNode);
           setBranchNodes(newBranchNodes);
           break;
         case "push":
@@ -114,6 +114,11 @@ export default function Terminal({
           if (branchHEADS.has(branchName)) {
             setBranch(branchName);
             setHEAD(branchHEADS.get(branchName)!);
+          }
+          
+          if(nodes.includes(branchName)){
+            setHEAD(branchName);
+            setBranch('HEADLESS');
           }
 
           break;
