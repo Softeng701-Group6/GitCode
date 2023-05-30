@@ -13,7 +13,11 @@ import { Comment, Question, User } from "../../models/types.ts";
 import { useContext, useEffect, useState } from "react";
 import HiddenDiscussion from "./HiddenDiscussion.tsx";
 import { UserContext } from "../../context/UserContext";
-import { getCollection, storeDocument } from "../../firebase/firestoreUtils.ts";
+import {
+  getCollection,
+  getDocumentById,
+  storeDocument,
+} from "../../firebase/firestoreUtils.ts";
 import { Collection } from "../../firebase/firebaseEnums.ts";
 import { LevelContext } from "../../context/LevelContext.tsx";
 
@@ -23,14 +27,14 @@ export default function LevelDiscussion() {
 
   const [refresh, setRefresh] = useState<boolean>(true);
   const [commentToSend, setCommentToSend] = useState<string>("");
-  const [levelComplete, setLevelComplete] = useState(Boolean);
+  const [levelAttempted, setLevelAttempted] = useState(Boolean);
   const [comments, setComments] = useState<Comment[]>([]);
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [allUsers, setAllUsers] = useState<User[]>([]);
 
   // Refresh the comments to get the latest
   async function init() {
-    isLevelCompleted();
+    isLevelAttempted();
     // Linking to firebase
     setAllUsers(await getCollection<User>(Collection.USERS));
 
@@ -82,17 +86,11 @@ export default function LevelDiscussion() {
     setRefresh(!refresh);
   }
 
-  async function isLevelCompleted() {
-    const userId = user.uid;
-    const users = await getCollection<User>(Collection.USERS);
-    const userObj = users.find((userItem) => userItem.id == userId);
-    if (userObj) {
-      if (userObj.attemptedQuestions.includes(selectedQuestion.id!)) {
-        setLevelComplete(true);
-      } else {
-        setLevelComplete(false);
-      }
-    }
+  async function isLevelAttempted() {
+    const userObj = await getDocumentById(Collection.USERS, user.uid);
+    const attemptedArray = userObj.attemptedQuestions;
+    if (attemptedArray.includes(selectedQuestion.id!)) setLevelAttempted(true);
+    else setLevelAttempted(false);
   }
 
   return (
@@ -103,7 +101,8 @@ export default function LevelDiscussion() {
       >
         Model Answer
       </Typography>
-      {levelComplete ? (
+      { levelAttempted ? 
+      <Stack>
         <Stack>
           <Typography sx={{ textAlign: "left", py: 2 }}>
             {selectedQuestion.discussion.statement}
@@ -154,9 +153,7 @@ export default function LevelDiscussion() {
             Post your answers below, Is there another way to get the solution?
           </Typography>
         </Stack>
-      ) : (
-        <HiddenDiscussion />
-      )}
+
       <Divider
         className={styles["divider"]}
         sx={{ marginTop: 4 }}
@@ -251,6 +248,8 @@ export default function LevelDiscussion() {
           ))}
         </Stack>
       )}
+      </Stack>
+      : <HiddenDiscussion />}
     </Stack>
   );
 }
