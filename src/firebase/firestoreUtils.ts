@@ -41,6 +41,27 @@ export async function getCollection<T extends GeneralObject>(collectionName: str
 }
 
 /**
+ * Get a document by its ID
+ * Can either get the data only or the whole document
+ *
+ * @param collectionName
+ * @param id
+ */
+export async function getDocumentById<T extends GeneralObject>(collectionName: Collection, id: string): Promise<T> {
+  const docRef = doc(firestore, collectionName, id);
+  const docSnap = await getDoc(docRef);
+
+  if (!docSnap.exists()) {
+    throw new Error("Document does not exist");
+  }
+
+  const data: T = docSnap.data() as T;
+  data.id = docSnap.id;
+
+  return data;
+}
+
+/**
  * Check if the document exists in the database
  *
  * @param collectionName Collection name
