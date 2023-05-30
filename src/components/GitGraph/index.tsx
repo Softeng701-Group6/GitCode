@@ -46,7 +46,7 @@ const GitGraph = ({ nodes, edges, remote, HEAD, branch }: GraphState) => {
 
     setNodes([...layoutNodes]);
     setEdges([...layoutEdges]);
-  }, [nodes, edges, remote, HEAD]);
+  }, [nodes, edges, remote, HEAD, branch]);
 
   useEffect(() => {
     reactFlowInstance.fitView();
@@ -73,8 +73,9 @@ const GitGraph = ({ nodes, edges, remote, HEAD, branch }: GraphState) => {
     // Convert nodes
     const nodes: Node[] = nodesInput.map(nodeId => ({
       id: nodeId,
-      data: { label: nodeId===HEAD?"HEAD":`Node ${nodeId}`, color: remote.has(nodeId)?"#A610BD":null },
+      data: { label: nodeId===HEAD?'HEAD':`Node ${nodeId}`, color: remote.has(nodeId)?"#A610BD": (nodeId===HEAD ? '#326b23' : null), branch: nodeId===HEAD ? branch : null},
       position: { x: 1, y: 1 },
+      
       type: "circle"
     }));
   
@@ -82,7 +83,7 @@ const GitGraph = ({ nodes, edges, remote, HEAD, branch }: GraphState) => {
     const edges: Edge[] = edgesInput.map((edge, index) => ({
       ...edge,
       id: `e${edge.source}-${edge.target}`,
-      animated: edge.branch === branch
+      animated: edge.branch === branch,
     }));
   
     return { nodes, edges };
