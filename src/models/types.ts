@@ -1,5 +1,4 @@
-import { DocumentReference } from "firebase/firestore";
-import { Difficulty } from "./enums";
+import { Difficulty } from "./enums.ts";
 
 export interface GeneralObject {
   id?: string;
@@ -38,9 +37,9 @@ interface Answer {
 
 export interface Comment extends GeneralObject {
   questionId: string; // Reference to Question (hard coded)
-  userId: DocumentReference;  // Reference to User
+  userId: string;  // Reference to User
   message: string;
-  upVotes: DocumentReference[];  // Reference to User
+  upVotes: string[];  // Reference to User
 }
 
 export interface Question extends GeneralObject {
@@ -62,11 +61,6 @@ export interface Tag {
   color: string;
 }
 
-export interface Node {
-  name: string;
-  branch: string;
-}
-
 export interface Edge {
   source: string;
   target: string;
@@ -74,8 +68,11 @@ export interface Edge {
 }
 
 export interface Graph extends GeneralObject {
-  name: string;
-  nodes: Node[];
+  nodes: string[];
   edges: Edge[];
-  headNode: string | null;
+  headNode?: string;
+  branch?: string;
+  branchHeads?: Map<string, string>;
+  remoteNodes?: Set<string>;
+  branchNodes?: Map<string, string[]>;
 }
