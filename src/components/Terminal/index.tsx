@@ -38,11 +38,13 @@ export default function Terminal({
   answers,
   branch,
   branchHEADS,
-  branchNodes
+  branchNodes,
 }: GraphSetter) {
   const [command, setCommand] = useState<string>("");
-  const [commandHistory, setCommandHistory] = useState<string[]>([]); 
-  const [commandHistoryColours, setCommandHistoryColours] = useState<string[]>([]); // TODO Need to add a colour for each command
+  const [commandHistory, setCommandHistory] = useState<string[]>([]);
+  const [commandHistoryColours, setCommandHistoryColours] = useState<string[]>(
+    []
+  ); // TODO Need to add a colour for each command
   const [answerLine, setAnswerLine] = useState<number>(0); // TODO Need to add a line for the answer
   const [isSubmitted, setIsSubmitted] = useState<boolean>(false);
 
@@ -55,18 +57,18 @@ export default function Terminal({
     //Checks if the first word is git
     if (commandArray[0] !== "git") {
       console.log("Invalid command");
-      if(isScaffolded){
+      if (isScaffolded) {
         setCommandHistoryColours([...commandHistoryColours, "red"]);
       }
-    } 
+    }
 
     //Logic to deal with colours
-    if(isScaffolded && answerLine < answers.length){
+    if (isScaffolded && answerLine < answers.length) {
       const answerCommandArray = answers[answerLine].split(" ");
-      if(commandArray[0] !== answerCommandArray[0]){
+      if (commandArray[0] !== answerCommandArray[0]) {
         setCommandHistoryColours([...commandHistoryColours, "red"]);
       } else {
-        if(commandArray[1] !== answerCommandArray[1]){
+        if (commandArray[1] !== answerCommandArray[1]) {
           setCommandHistoryColours([...commandHistoryColours, "red"]);
         } else {
           setCommandHistoryColours([...commandHistoryColours, "green"]);
@@ -74,55 +76,58 @@ export default function Terminal({
           isValidCommand = true;
         }
       }
-    } else if (isScaffolded && answerLine >= answers.length){
+    } else if (isScaffolded && answerLine >= answers.length) {
       setCommandHistoryColours([...commandHistoryColours, "red"]);
     }
 
     if (isValidCommand) {
-    switch(commandArray[1]){
+      switch (commandArray[1]) {
+        case "commit":
+          const newNode: string = `${nodes.length + 1}`;
+          const newEdge: Edge = {
+            source: `${HEAD}`,
+            target: newNode,
+            branch: branch,
+          };
 
-      case 'commit':
-        const newNode: string = `${nodes.length + 1}`;
-        const newEdge: Edge = { source: `${HEAD}`, target: newNode, branch: branch };
-  
-        setNodes([...nodes, newNode]);
-        setEdges([...edges, newEdge]);
-  
-        setHEAD(newNode);
-        setBranchHEADS(new Map(branchHEADS).set(branch, newNode));
+          setNodes([...nodes, newNode]);
+          setEdges([...edges, newEdge]);
 
-        const newBranchNodes = new Map<string, string[]>(branchNodes);
-        newBranchNodes.get(branch)!.push(newNode);
-        setBranchNodes(newBranchNodes);
-        break;
-      case 'push':
-        setRemote(new Set([...remote, ...branchNodes.get(branch)!]));
-        break;
-      case 'branch':
-        const name = commandArray[2];
-        setBranchHEADS(new Map(branchHEADS).set(name, HEAD));
-        setBranchNodes(new Map(branchNodes).set(name, []));
-        break;
-      case 'checkout':
-        const branchName = commandArray[2];
+          setHEAD(newNode);
+          setBranchHEADS(new Map(branchHEADS).set(branch, newNode));
 
-        if (branchHEADS.has(branchName)){
-          setBranch(branchName);
-          setHEAD(branchHEADS.get(branchName)!);
-        }
+          const newBranchNodes = new Map<string, string[]>(branchNodes);
+          newBranchNodes.get(branch)!.push(newNode);
+          setBranchNodes(newBranchNodes);
+          break;
+        case "push":
+          setRemote(new Set([...remote, ...branchNodes.get(branch)!]));
+          break;
+        case "branch":
+          const name = commandArray[2];
+          setBranchHEADS(new Map(branchHEADS).set(name, HEAD));
+          setBranchNodes(new Map(branchNodes).set(name, []));
+          break;
+        case "checkout":
+          const branchName = commandArray[2];
 
-        break;
-      case 'pull':
-        break;
-      case "checkout":
-        break;
-      
-      case "branch":
-        break;
-      case "push":
-        setRemote(new Set(nodes));
-        break;
-    }
+          if (branchHEADS.has(branchName)) {
+            setBranch(branchName);
+            setHEAD(branchHEADS.get(branchName)!);
+          }
+
+          break;
+        case "pull":
+          break;
+        case "checkout":
+          break;
+
+        case "branch":
+          break;
+        case "push":
+          setRemote(new Set(nodes));
+          break;
+      }
     }
   };
 
@@ -146,67 +151,87 @@ export default function Terminal({
   let messagesEnd: HTMLDivElement | null;
 
   return (
+    <Box
+      sx={{
+        backgroundColor: "#262626",
+        height: "100%",
+        width: "100%",
+        display: "flex",
+        flexDirection: "column",
+      }}
+    >
+      {/* // The Terminal header, where the text will be shown */}
       <Box
         sx={{
-          backgroundColor: "#262626",
-          height: '100%',
-          width: "100%",
-          display: 'flex',
-          flexDirection: 'column',
+          overflow: "auto",
+          display: "flex",
+          flexDirection: "column",
+          backgroundColor: "#363636",
+          flexGrow: 1,
         }}
       >
-        {/* // The Terminal header, where the text will be shown */}
-        <Box
+        {commandHistory.map((command, index) => {
+          if (isScaffolded) {
+            return (
+              <p
+                key={`command-${index}`}
+                style={{ color: commandHistoryColours[index] }}
+              >
+                C:\GitCode{`>`} {command}
+              </p>
+            );
+          } else {
+            return (
+              <p key={`command-${index}`}>
+                C:\GitCode{`>`} {command}
+              </p>
+            );
+          }
+        })}
+        <div
+          style={{ float: "left", clear: "both" }}
+          ref={(el) => {
+            messagesEnd = el;
+          }}
+        ></div>
+      </Box>
+      <Stack direction="row" alignItems="center" spacing={2}>
+        <Typography
           sx={{
-            overflow: "auto",
-            display: "flex",
-            flexDirection: "column",
-            backgroundColor: "#363636",
-            flexGrow: 1
+            fontFamily: "Cascadia Code, Courier, monospace",
+            padding: "4px 0px 5px 0px",
+            color: "white",
           }}
         >
-          {commandHistory.map((command, index) => {
-            if(isScaffolded){
-              return <p key={`command-${index}`} style={{color: commandHistoryColours[index]}}>C:\GitCode{`>`} {command}</p>;
-            } else {
-              return <p key={`command-${index}`} >C:\GitCode{`>`} {command}</p>;
+          C:\GitCode{`>`}
+        </Typography>
+        <TextField
+          variant="standard"
+          fullWidth
+          value={command}
+          inputProps={{
+            style: {
+              fontFamily: "Cascadia Code, Courier, monospace",
+              color: "white",
+            },
+          }}
+          sx={{
+            input: { color: "white", borderColor: "white" },
+            fieldset: { borderColor: "white", color: "white" },
+            "& .MuiInput-underline:after": { borderColor: "black" },
+            "& .MuiFilledInput-underline:after": { borderColor: "black" },
+            flexGrow: 0,
+          }}
+          onKeyDown={(ev) => {
+            if (ev.key === "Enter") {
+              setIsSubmitted(true);
             }
-          })}
-          <div
-            style={{ float: "left", clear: "both" }}
-            ref={(el) => {
-              messagesEnd = el;
-            }}
-          ></div>
-        </Box>
-        <Stack direction='row' alignItems='center' spacing={2}>
-          <Typography sx={{fontFamily: "Cascadia Code, Courier, monospace", padding: '4px 0px 5px 0px', color: 'white'}}>
-            C:\GitCode{`>`}
-          </Typography>
-          <TextField
-            variant="standard"
-            fullWidth
-            value={command}
-            inputProps={{
-              style: { fontFamily: "Cascadia Code, Courier, monospace", color: 'white' },
-            }}
-            sx={{
-              input: { color: "white", borderColor: "white" },
-              fieldset: { borderColor: "white", color: "white" },
-              "& .MuiInput-underline:after": { borderColor: "black" },
-              "& .MuiFilledInput-underline:after": { borderColor: "black" },
-              flexGrow: 0,
-            }}
-            onKeyDown={(ev) => {
-              if (ev.key === "Enter") {
-                setIsSubmitted(true);
-              }
-            }}
-            onChange={(ev) => {
-              setCommand(ev.target.value);
-            }}
-          />
-        </Stack>
-      </Box>
+          }}
+          onChange={(ev) => {
+            setCommand(ev.target.value);
+          }}
+        />
+      </Stack>
+    </Box>
   );
 }
