@@ -66,50 +66,54 @@ export const DUMMY_DATA_QUESTIONS: Question[] = [
     id: "Checkout and Branching",
     title: "2. Checkout and Branching",
     hints: [
-      "Once your changes are staged, it's time to commit them. Use the git commit command along with a descriptive commit message to document the purpose and nature of your changes. A well-written commit message is essential for clear communication within a development team.",
-      "After committing your changes locally, it's time to share them with others by pushing the commits to a remote repository. Use the git push command to send your changes to the designated remote repository, allowing others to access and integrate your work.",
+      "When you want to work on a new feature and make commits that do not affect the main codebase, its time to create a new branch. Use the git branch command along with a descriptive branch name to document the purpose and nature of your new branch. Remember, clear communication is key within a development team, so having descriptive branch names describing its purpose is important.",
+      "After creating a new branch, it's time start working on it. Use the git checkout command to move your head pointer to the new branch, allowing code changes and commits to only occur on your new branch",
       "If you require further information, check out this git guide provided by Atlassian"
     ],
     summary: [
-      "You have successfully completed your first Git commit and push.",
+      "You have successfully completed your first Git checkout and branch.",
       "Take a moment to reflect on the importance of these actions in version control and collaborative development.",
-      "Remember, committing and pushing changes regularly helps maintain a reliable and traceable history of your project.",
+      "Remember, branching and checking out allows a way to work on a new feature without affecting the main code located in the codebase.",
       "For more information, checkout the discussion page for this question"
     ],
     description: {
-      description: "Welcome to your first lesson on Git, the widely used version control system in the software development industry. In this lesson, we will delve into the fundamental concepts of Git commit and push, which form the backbone of collaborative code management.",
+      description: "Welcome to your second lesson on Git. In this lesson, we will delve into more fundamental concepts of Git checkout and branch, which are essential for collaboration.",
       activityArray: [
-        "In this activity, we will guide you through the process of committing and pushing changes to a Git repository.",
-        "All changes have already been added and staged, now we need to commit and push our changes onto main.",
+        "In this activity, we will guide you through the process of checking out and branching in the Git repository.",
+        "All changes have already been added and staged, now we need to branch off main and checkout the newly created branch where we can continue to commit and push our changes.",
       ]
     },
     learningObjective: {
-      objective: "By the end of this lesson, you will understand the importance of Git commit and push, and how they enable you to track and share changes in your codebase effectively.",
+      objective: "By the end of this lesson, you will understand the importance of Git checkout and branch, and how they enable you have multiple versions of your codebase, allowing collaborative work.",
       outcomeArray: [
-        "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis posuere leo vitae nisi faucibus, vehicula suscipit ex posuere. Ut malesuada aliquam erat.",
-        "Sed porttitor, enim vitae molestie congue, lectus ex volutpat turpis, tincidunt ultrices velit lorem sed quam.",
-        "Cras nec velit sed urna rhoncus vehicula a eget lacus. Curabitur et tincidunt est. Maecenas non nunc nisl. Proin ac porta risus, non tincidunt sapien."
+        "Familiarity with Git Terminology: Students will become reacquainted with essential Git terminology, including \"checkout,\" and \"branch.\"",
+        "Creating branches: Students will revisit how to create a branch in Git.",
+        "Checking out branches: Students will grasp the concept of checking out branches of remote repository, gaining knowledge about the purpose of git checkout and branch command."
       ]
     },
     discussion: {
-      statement: "To commit and push changes to a Git repository, you need to follow a series of commands. Let's go through each step, and then we'll provide explanations for each command:",
+      statement: "To branch and checkout in a remote Git repository, you need to follow a series of commands. Let's go through each step, and then we'll provide explanations for each command:",
       commands: [
-        "git commit -m \"Enter your commit message here\"",
-        "git push origin main"
+        "git branch <branch_name>",
+        "git checkout <branch_name>"
       ],
       answers: [
         {
-          step: "Step 1: Test",
+          step: "Step 1: Create the branch",
           explanation: [
-            "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis posuere leo vitae nisi faucibus, vehicula suscipit ex posuere. Ut malesuada aliquam erat. Sed porttitor, enim vitae molestie congue, lectus ex volutpat turpis, tincidunt ultrices velit lorem sed quam. Cras nec velit sed urna rhoncus vehicula a eget lacus. Curabitur et tincidunt est. Maecenas non nunc nisl. Proin ac porta risus, non tincidunt sapien. Mauris vitae quam erat. Nam in efficitur risus. Cras sodales scelerisque felis eget rhoncus."
+            "A branch is a chronological chain of commits. Branching in Git is equivalent to having another independant line of development that you are able to work on. Changes can exist on this second line and will not be relfected the first line. This allows for multiple versions of your codebase to exist.",
+            "These multiple versions can allow multiple users to each work on the codebase at the same time without affecting each other. When you want to add a new feature or fix a bug, you create a new branch dedicated to your changes.",
+            "This helps you to avoid merging any unstable changes into your main codebase",
+            "We now have a new branch but before we start making new changes there is one more step"
           ]
         },
         {
-          step: "Step 2: Testing",
+          step: "Step 2: Checkout the branch",
           explanation: [
-            "Aenean maximus non nunc ac interdum. Cras in dictum orci, sed ultricies ex. In suscipit elementum sem quis efficitur. Praesent cursus varius lorem sed finibus.",
-            "Praesent laoreet sapien dolor, ut egestas neque dapibus et. Maecenas pretium sit amet ligula at accumsan. Nullam ultrices vel nisl laoreet luctus.",
-            "Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Curabitur vitae auctor purus. Curabitur neque urna, ultrices eget massa eget, semper cursus est. Morbi ac mauris augue."
+            "Once you have created a new branch, inorder to work on it you must use git checkout to switch from your current branch to the newly created one",
+            "In this command <branch_name> refers to the same <branch_name> that was used in creating the branch or it can also refer to any branch you wish to switch to",
+            "Branch and checkout can be used togther , reducing two commands to one, git checkout -b <new_branch> <existing_branch>. The -b flag indicates to git that you want to run git branch aswell as checking it out",
+            "Dont forget to push your branch to the remote repository so others can also see your work"
           ]
         }
       ]
