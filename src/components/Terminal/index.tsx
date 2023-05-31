@@ -106,7 +106,7 @@ export default function Terminal({
         case "branch":
           const name = commandArray[2];
           setBranchHEADS(new Map(branchHEADS).set(name, HEAD));
-          setBranchNodes(new Map(branchNodes).set(name, []));
+          setBranchNodes(new Map(branchNodes).set(name, [...branchNodes.get(branch) || []]));
           break;
         case "checkout":
           const branchName = commandArray[2];
@@ -115,22 +115,41 @@ export default function Terminal({
             setBranch(branchName);
             setHEAD(branchHEADS.get(branchName)!);
           }
-          
-          if(nodes.includes(branchName)){
+
+          if (nodes.includes(branchName)) {
             setHEAD(branchName);
-            setBranch('HEADLESS');
+            setBranch("HEADLESS");
           }
 
           break;
-        case "pull":
-          break;
-        case "checkout":
-          break;
+        case "merge":
+          const branchToMerge = commandArray[2];
 
-        case "branch":
-          break;
-        case "push":
-          setRemote(new Set(nodes));
+          if (branchHEADS.has(branchToMerge)) {
+            const newNode: string = `${nodes.length + 1}`;
+            const newEdge: Edge = {
+              source: `${HEAD}`,
+              target: newNode,
+              branch: branch,
+            };
+            const newEdgeOther: Edge = {
+              source: `${branchHEADS.get(branchToMerge)}`,
+              target: newNode,
+              branch: branchToMerge,
+            };
+
+            setNodes([...nodes, newNode]);
+            setEdges([...edges, newEdgeOther, newEdge]);
+
+            setHEAD(newNode);
+            setBranchHEADS(new Map(branchHEADS).set(branch, newNode));
+            setBranchHEADS(new Map(branchHEADS).set(branchToMerge, newNode));
+
+            const newBranchNodes = new Map<string, string[]>(branchNodes);
+            newBranchNodes.get(branch)?.push(newNode);
+            newBranchNodes.get(branchToMerge)?.push(newNode);
+            setBranchNodes(newBranchNodes);
+          }
           break;
       }
     }
