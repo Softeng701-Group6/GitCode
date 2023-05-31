@@ -27,7 +27,7 @@ export default function LevelDiscussion() {
 
   const [refresh, setRefresh] = useState<boolean>(true);
   const [commentToSend, setCommentToSend] = useState<string>("");
-  const [levelAttempted, setLevelAttempted] = useState(Boolean);
+  const [levelAttempted, setLevelAttempted] = useState<boolean>(false);
   const [comments, setComments] = useState<Comment[]>([]);
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [allUsers, setAllUsers] = useState<User[]>([]);
