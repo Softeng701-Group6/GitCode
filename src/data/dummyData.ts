@@ -83,8 +83,8 @@ export const DUMMY_DATA_QUESTIONS: Question[] = [
       ]
     },
 
-    difficulty: Difficulty.MEDIUM,
-    tags: [Tags.checkout, Tags.branch],
+    difficulty: Difficulty.EASY,
+    tags: [Tags.commit, Tags.push],
   },
 
 
@@ -175,7 +175,81 @@ export const DUMMY_DATA_QUESTIONS: Question[] = [
     },
     difficulty: Difficulty.MEDIUM,
     tags: [Tags.checkout, Tags.branch],
-  }
+  },
+
+  {
+    id: "Merging",
+    title: "3. Merging",
+    hints: [
+      "When you want to join multiple sequences of commits on two different branches into one unified history, its time to merge your branches. Use the git merge command along with the previous commands you have learnt. Remember, clear communication is key within a development team, so always inform team members when wanting to merge and combine multiple branches.",
+      "Merging will merge the name of the chosen branch, included in the command, into the receiving branch, branch you are currently on. If needed, use git checkout <branch_name> first  to switch to the branch that you want to receive the merge."
+    ],
+    summary: [
+      "You have successfully completed your first Git merge.",
+      "Take a moment to reflect on the importance of this action in version control and collaborative development.",
+      "Remember, merging out allows multiple individual development lines to combine their changes to the codebase.",
+      "For more information, checkout the discussion page for this question"
+    ],
+    description: {
+      title: "Lesson 3: Introduction to Git Merge",
+      activity: "Merge",
+      plan: [
+        "TODO!!!"
+      ],
+      desiredGraphImgUrl: "ActivityCommitGraph.png"
+    },
+    learningObjective: {
+      objective: "After completing this lesson, you will understand the importance of Git merge, and how it enables you converge your multile independant lines of development into one, allowing your team's collaborative work to come together.",
+      outcomeArray: [
+        "Familiarity with Git Terminology: Students will become reacquainted with essential Git terminology, including \"merge,\"",
+        "Merging branches: Students will revisit how to merge branches in Git.",
+      ]
+    },
+    discussion: {
+      statement: "To merge in a remote Git repository, you need to go through a series of commands. Let's go through the key step, and then we'll provide an explanation for the command:",
+      commands: [
+        "git merge <branch_name>"
+      ],
+      answers: [
+        {
+          step: "Step 1: Merge the branch",
+          explanation: [
+            "Merging in git will allow you to combine the individual lines of development that have been created by git branch. Merging will combine the commits and development history of each branch into one singular branch. This allows for the multiple versions of your codebase to be joined together into one version.",
+            "Git merge will take the branch <branch_name> and merge it into the branch that is currently checked out. If you are on the wrong branch curretly make sure to use git checkout <branch_name> to change your branch to the one you wish to merge the changes into. For more information on git checkout visit the previous level or git checkout Atlassian page",
+            "Make sure you converse with your development team before merging to ensure that everyone is ready for the changes to be made, as well to validate that the branches are error free before merging",
+            //To include if we want to mention merge conflicts 
+            //"Note: If the two branches you're trying to join together both modified the same parts of the same file in the code, a merge conflict will occur. In this Git will not be able to know which version you wish to keep. This will require you to manually resolve the conflict by removing one of the branches changes or accepting both of the changes"
+          ]
+        },
+      ]
+    },
+    // commentIds: [],
+    initialCommands: [
+      "git init",
+      "git commit"
+    ],
+    
+    initialGraph: {
+      nodes: ['1'],
+      edges: [],
+      headNode: '1',
+      branch: 'main',
+      branchHeads: new Map([['main', '1']]),
+      remoteNodes: new Set(),
+      branchNodes: new Map([['main', ['1']]])
+    },
+    goalGraph: {
+      nodes: ['1', '2', '3', '4'],
+      edges: [
+        {source: '1', target: '2', branch: 'main'},
+        {source: '2', target: '3', branch: 'main'},
+        {source: '3', target: '4', branch: 'main'}
+      ]
+    },
+    difficulty: Difficulty.MEDIUM,
+    tags: [Tags.checkout, Tags.branch],
+  },
+
 ]
 
 export const DUMMY_DATA_GRAPHS: Graph[] = [
