@@ -13,6 +13,13 @@
   background-color: #7A4CC5;
 }
 
+.unselected:hover{
+  background-color: #4d4c4c;
+}
+.selected:hover {
+  background-color: #8a5dd3;
+}
+
 .unselected:hover,
 .selected:hover {
   border-color: #fff;
