@@ -1,4 +1,5 @@
 import { Button, Stack, Typography } from "@mui/material";
+import { useContext } from "react";
 import Frame from "../../components/Frame";
 import GreenButton from "../../components/GreenButton/GreenButton";
 import ArrowBack from "@mui/icons-material/ArrowBack";
@@ -8,6 +9,7 @@ import { useNavigate } from "react-router-dom";
 import styles from "./QuestionDescription.module.css";
 
 import defaultImg from "../../assets/ActivityCommitGraph.png";
+import { LevelContext } from "../../context/LevelContext";
 
 interface Props {
   title: string;
@@ -21,6 +23,7 @@ export default function QuestionDescription({
   onSubmit,
 }: Props) {
   const navigate = useNavigate();
+  const { selectedQuestion } = useContext(LevelContext);
 
   function alertBack() {
     const confirmBack = window.confirm(
@@ -28,9 +31,13 @@ export default function QuestionDescription({
     );
 
     if (confirmBack) {
-      navigate(-1);
+      navigate("/home");
     }
   }
+
+  const handleGoToDiscussion = () => {
+    navigate("/home", { state: { tab: "discussion" } });
+  };
 
   return (
     <Frame className={styles.container}>
@@ -56,6 +63,7 @@ export default function QuestionDescription({
 
             fontWeight: "bold",
           }}
+          onClick={handleGoToDiscussion}
         >
           Discussion
         </Button>

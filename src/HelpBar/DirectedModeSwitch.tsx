@@ -15,7 +15,7 @@ export default function DirectedModeSwitch({onToggle}: helpBarProp) {
     }
 
     return(
-        <Tooltip title= {checked ? "Scaffolded mode (Correct commands only)" : "Free mode"}>
+        <Tooltip title= {checked ? "Correct commands only mode" : "Free mode"}>
             <Switch sx={{
                 borderRadius: 2,
                 "& .MuiSwitch-switchBase.Mui-checked": {
