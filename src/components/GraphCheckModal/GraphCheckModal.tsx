@@ -25,7 +25,7 @@ const GraphCheckModal = ({ isOpen, onClose }) => {
         >
           <CloseIcon />
         </div>
-        <Typography variant="h4" className={styles["modal-title"]}>
+        <Typography variant="h3" className={styles["modal-title"]}>
           Almost There!
         </Typography>
         <Typography variant="h4" className={styles["modal-question-title"]}>
@@ -34,7 +34,7 @@ const GraphCheckModal = ({ isOpen, onClose }) => {
 
         <img className={styles["imgContainer"]} src={motivationImg} />
 
-        <Typography variant="body1">
+        <Typography variant="body1" className={styles["modal-text"]}>
           If you are still struggling try the following!{" "}
         </Typography>
         <ul className={styles["modal-key-commands"]}>
@@ -43,14 +43,14 @@ const GraphCheckModal = ({ isOpen, onClose }) => {
             Only allow correct commands by toggling the button in the top right
             hand corner
           </li>
-          <li>
-            View the discussion page{" "}
-            <a onClick={handleGoToDiscussion} className={styles["modal-link"]}>
-              click here
-            </a>
-            .
-          </li>
         </ul>
+        <Typography className={styles["modal-discussion"]}>
+          Still stuck? View the discussion page after attempting the question!{" "}
+          <a onClick={handleGoToDiscussion} className={styles["modal-link"]}>
+            here
+          </a>
+          .
+        </Typography>
       </Box>
     </Modal>
   );
