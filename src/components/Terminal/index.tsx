@@ -106,7 +106,7 @@ export default function Terminal({
         case "branch":
           const name = commandArray[2];
           setBranchHEADS(new Map(branchHEADS).set(name, HEAD));
-          setBranchNodes(new Map(branchNodes).set(name, []));
+          setBranchNodes(new Map(branchNodes).set(name, [...branchNodes.get(branch) || []]));
           break;
         case "checkout":
           const branchName = commandArray[2];
