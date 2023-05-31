@@ -20,7 +20,7 @@ export default function LevelDetailsPanel() {
         height: 1,
       }}
     >
-      <div>
+      <div style={{height: '70vh'}}>
         <span>
           <button
             className={selected ? styles.selected : styles.unselected}

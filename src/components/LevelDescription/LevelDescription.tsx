@@ -32,7 +32,7 @@ export default function LevelDescription() {
   }
 
   return (
-    <Stack className={styles["container"]}>
+    <Stack className={styles["container"]} sx={{height: 1}}>
       <Typography className={styles["title"]} variant="h2">
         {selectedQuestion.title}
       </Typography>
