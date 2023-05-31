@@ -15,8 +15,10 @@ export interface User extends GeneralObject {
 }
 
 interface Description {
-  description: string;
-  activityArray: string[];
+  title: string;
+  activity: string;
+  plan: string[];
+  desiredGraphImgUrl: string;
 }
 
 interface learningObjective {
@@ -50,6 +52,7 @@ export interface Question extends GeneralObject {
   learningObjective: learningObjective;
   discussion: Discussion;
   // commentIds: DocumentReference[];  // Reference to Comment
+  initialCommands: string[];
   initialGraph: Graph | null; // Reference to Graph
   goalGraph: Graph | null; // Reference to Graph
   difficulty: Difficulty;
@@ -61,11 +64,6 @@ export interface Tag {
   color: string;
 }
 
-export interface Node {
-  name: string;
-  branch: string;
-}
-
 export interface Edge {
   source: string;
   target: string;
@@ -73,8 +71,11 @@ export interface Edge {
 }
 
 export interface Graph extends GeneralObject {
-  name: string;
-  nodes: Node[];
+  nodes: string[];
   edges: Edge[];
-  headNode: string | null;
+  headNode?: string;
+  branch?: string;
+  branchHeads?: Map<string, string>;
+  remoteNodes?: Set<string>;
+  branchNodes?: Map<string, string[]>;
 }

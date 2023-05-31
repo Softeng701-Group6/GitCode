@@ -1,10 +1,8 @@
-import { useCallback, useEffect } from "react";
+import { useEffect } from "react";
 import ReactFlow, {
   Node,
-  addEdge,
   Background,
   Edge,
-  Connection,
   useNodesState,
   useEdgesState,
   useReactFlow,
@@ -15,11 +13,11 @@ import { Edge as FirebaseEdge } from "../../models/types";
 import "reactflow/dist/style.css";
 
 import { getLayoutedElements } from "./Layout.ts";
-import CommitNode from "./CommitNode.tsx";
 import RoundCustomNode from "./RoundCustomNode";
+import { Box } from "@mui/material";
 
 const nodeTypes = {
-  circle: RoundCustomNode
+  circle: RoundCustomNode,
 };
 
 interface GraphState {
@@ -28,9 +26,10 @@ interface GraphState {
   remote: Set<string>;
   HEAD: string;
   branch: string;
+  branchHEADS: Map<string, string>;
 }
 
-const GitGraph = ({ nodes, edges, remote, HEAD, branch }: GraphState) => {
+const GitGraph = ({ nodes, edges, remote, HEAD, branch, branchHEADS }: GraphState) => {
   const [UINodes, setNodes, onNodesChange] = useNodesState([]);
   const [UIEdges, setEdges, onEdgesChange] = useEdgesState([]);
   const reactFlowInstance = useReactFlow();
@@ -46,47 +45,42 @@ const GitGraph = ({ nodes, edges, remote, HEAD, branch }: GraphState) => {
 
     setNodes([...layoutNodes]);
     setEdges([...layoutEdges]);
-  }, [nodes, edges, remote, HEAD]);
+  }, [nodes, edges, remote, HEAD, branch]);
 
   useEffect(() => {
     reactFlowInstance.fitView();
   }, [UINodes]);
 
-  const onConnect = useCallback(
-    (params: Edge | Connection) => setEdges((els) => addEdge(params, els)),
-    [setEdges]
-  );
-
-  const addNode = () => {
-    const newNodeId = `new-node-${UINodes.length + 1}`;
-    const newNode: Node = {
-      id: newNodeId,
-      type: "default",
-      data: { label: `Node ${UINodes.length + 1}` },
-      position: { x: 200, y: 200 },
-    };
-
-    setNodes((prevNodes) => [...prevNodes, newNode]);
-  };
-
-  const convertToFlowFormat = (nodesInput: string[], edgesInput: FirebaseEdge[]) => {
+  const convertToFlowFormat = (
+    nodesInput: string[],
+    edgesInput: FirebaseEdge[]
+  ) => {
     // Convert nodes
-    const nodes: Node[] = nodesInput.map(nodeId => ({
+    const nodes: Node[] = nodesInput.map((nodeId) => ({
       id: nodeId,
-      data: { label: nodeId===HEAD?"HEAD":`Node ${nodeId}`, color: remote.has(nodeId)?"#A610BD":null },
+      data: {
+        label: nodeId === HEAD ? "HEAD" : `Node ${nodeId}`,
+        color: remote.has(nodeId)
+          ? "#A610BD"
+          : nodeId === HEAD
+          ? "#326b23"
+          : null,
+        branch: nodeId === HEAD ? branch : null,
+      },
       position: { x: 1, y: 1 },
-      type: "circle"
+
+      type: "circle",
     }));
-  
+
     // Convert edges
     const edges: Edge[] = edgesInput.map((edge, index) => ({
       ...edge,
       id: `e${edge.source}-${edge.target}`,
-      animated: edge.branch === branch
+      animated: edge.branch === branch,
     }));
-  
+
     return { nodes, edges };
-  }
+  };
 
   return (
     <ReactFlow
@@ -94,7 +88,6 @@ const GitGraph = ({ nodes, edges, remote, HEAD, branch }: GraphState) => {
       edges={UIEdges}
       onNodesChange={onNodesChange}
       onEdgesChange={onEdgesChange}
-      onConnect={onConnect}
       nodeTypes={nodeTypes}
       fitView
       panOnDrag={false}
@@ -103,6 +96,9 @@ const GitGraph = ({ nodes, edges, remote, HEAD, branch }: GraphState) => {
       zoomOnPinch={false}
     >
       <Background />
+      <Box>
+        {Array.from(branchHEADS.keys()).map(b => (<Box fontWeight={ b === branch ? 'bold' : '300'}>{b}</Box>))}
+      </Box>
     </ReactFlow>
   );
 };
