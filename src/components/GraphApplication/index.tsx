@@ -51,6 +51,8 @@ export default function GraphApplication({
     setScaffolding(checked);
   };
 
+
+  console.log(branchHEADS)
   useEffect(() => {
     if (
       nodes.length === goalNodes.length &&
@@ -72,6 +74,7 @@ export default function GraphApplication({
             remote={remote}
             HEAD={HEAD}
             branch={branch}
+            branchHEADS={branchHEADS}
           />
         </ReactFlowProvider>
       </Box>
