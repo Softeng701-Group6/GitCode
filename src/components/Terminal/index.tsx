@@ -94,6 +94,10 @@ export default function Terminal({
           setEdges([...edges, newEdge]);
 
           setHEAD(newNode);
+
+          if (branch == 'HEADLESS')
+            break;
+          
           setBranchHEADS(new Map(branchHEADS).set(branch, newNode));
 
           const newBranchNodes = new Map<string, string[]>(branchNodes);
