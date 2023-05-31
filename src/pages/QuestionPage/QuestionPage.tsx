@@ -13,6 +13,7 @@ import {
   gitCommitPushEdgesGoal,
 } from "../../components/GitGraph/git-commit-push-nodes-edges";
 import { LevelContext } from "../../context/LevelContext";
+import QuestionStartModal from "../../components/QuestionStartModal/QuestionStartModal";
 
 const QuestionPage = () => {
 
@@ -20,6 +21,7 @@ const QuestionPage = () => {
 
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isComplete, setComplete] = useState(false);
+  const [isOpened, setOpened] = useState(true);
 
   const handleModalOpen = () => {
     setIsModalOpen(true);
@@ -27,6 +29,10 @@ const QuestionPage = () => {
 
   const handleModalClose = () => {
     setIsModalOpen(false);
+  };
+
+  const handleFirstModalClose = () => {
+    setOpened(false);
   };
 
   return(
@@ -67,6 +73,7 @@ const QuestionPage = () => {
         </Grid>
       </div>
       {isModalOpen && <QuestionEndModal onClose={handleModalClose} />}
+      {isOpened && <QuestionStartModal onClose={handleFirstModalClose} />}
     </div>
   );
 };
