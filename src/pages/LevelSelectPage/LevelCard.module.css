@@ -7,3 +7,8 @@
   border-color: #9985EA;
   box-sizing: content-box;
 }
+
+.container:hover{
+  background-color: #313131;
+  cursor: pointer;
+}
