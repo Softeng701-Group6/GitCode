@@ -73,14 +73,8 @@ const QuestionPage = () => {
           </Grid>
           <Grid item xs={8} sx={{ height: "100%" }}>
             <GraphApplication
-              initialGraph={{
-                nodes: gitCommitPushNodes,
-                edges: gitCommitPushEdges,
-              }}
-              goalGraph={{
-                nodes: gitCommitPushNodesGoal,
-                edges: gitCommitPushEdgesGoal,
-              }}
+              initialGraph={selectedQuestion.initialGraph}
+              goalGraph={selectedQuestion.goalGraph}
               answers={selectedQuestion.discussion.commands}
               initialCommands={selectedQuestion.initialCommands}
               setComplete={setComplete}
