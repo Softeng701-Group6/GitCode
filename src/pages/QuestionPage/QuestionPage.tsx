@@ -71,11 +71,11 @@ const QuestionPage = () => {
           </Grid>
           <Grid item xs={8} sx={{ height: "100%" }}>
             <GraphApplication
-              initialGraph={{
+              initialGraph={selectedQuestion.initialGraph || {
                 nodes: gitCommitPushNodes,
                 edges: gitCommitPushEdges,
               }}
-              goalGraph={{
+              goalGraph={selectedQuestion.goalGraph || {
                 nodes: gitCommitPushNodesGoal,
                 edges: gitCommitPushEdgesGoal,
               }}
