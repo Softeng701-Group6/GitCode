@@ -14,7 +14,7 @@
   }
   
   .modal-title {
-    margin-bottom: 10px;
+    margin-bottom: 10px !important;
     font-weight: bold;
     color: #fff;
     text-align: center;
@@ -29,9 +29,8 @@
   }
   
   .modal-text {
-    margin-bottom: 10px;
     color: #fff;
-    text-align: center;
+    text-align: left;
   }
   
   .modal-link {
@@ -59,4 +58,10 @@
   
   .imgContainer{
     width: 30%;
+  }
+
+  .modal-discussion {
+    margin-bottom: 10px;
+    color: grey;
+    text-align: left;
   }
