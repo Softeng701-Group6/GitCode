@@ -14,6 +14,7 @@ import "reactflow/dist/style.css";
 
 import { getLayoutedElements } from "./Layout.ts";
 import RoundCustomNode from "./RoundCustomNode";
+import { Box } from "@mui/material";
 
 const nodeTypes = {
   circle: RoundCustomNode,
@@ -25,9 +26,10 @@ interface GraphState {
   remote: Set<string>;
   HEAD: string;
   branch: string;
+  branchHEADS: Map<string, string>;
 }
 
-const GitGraph = ({ nodes, edges, remote, HEAD, branch }: GraphState) => {
+const GitGraph = ({ nodes, edges, remote, HEAD, branch, branchHEADS }: GraphState) => {
   const [UINodes, setNodes, onNodesChange] = useNodesState([]);
   const [UIEdges, setEdges, onEdgesChange] = useEdgesState([]);
   const reactFlowInstance = useReactFlow();
@@ -94,6 +96,9 @@ const GitGraph = ({ nodes, edges, remote, HEAD, branch }: GraphState) => {
       zoomOnPinch={false}
     >
       <Background />
+      <Box>
+        {Array.from(branchHEADS.keys()).map(b => (<Box fontWeight={ b === branch ? 'bold' : '300'}>{b}</Box>))}
+      </Box>
     </ReactFlow>
   );
 };
