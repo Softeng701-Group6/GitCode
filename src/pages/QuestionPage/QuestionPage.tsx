@@ -6,7 +6,10 @@ import QuestionDescription from "./QuestionDescription";
 import styles from "./QuestionPage.module.css";
 import GraphApplication from "../../components/GraphApplication";
 import GraphCheckModal from "../../components/GraphCheckModal/GraphCheckModal";
-
+import { firestore } from "../../firebase/firebase";
+import { Collection } from "../../firebase/firebaseEnums";
+import { arrayUnion, doc, updateDoc } from "firebase/firestore";
+import { UserContext } from "../../context/UserContext";
 import {
   gitCommitPushNodes,
   gitCommitPushEdges,
@@ -18,6 +21,7 @@ import QuestionStartModal from "../../components/QuestionStartModal/QuestionStar
 
 const QuestionPage = () => {
   const { selectedQuestion } = useContext(LevelContext);
+  const user = useContext(UserContext)!;
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isComplete, setComplete] = useState(false);
   const [isGraphCheckModalOpen, setGraphCheckModalOpen] = useState(false);
@@ -34,6 +38,7 @@ const QuestionPage = () => {
   const handleSubmit = () => {
     if (isComplete) {
       handleModalOpen();
+      addToCompletedArray();
     } else {
       setGraphCheckModalOpen(true);
     }
@@ -47,7 +52,20 @@ const QuestionPage = () => {
     setOpened(false);
   };
 
-  return(
+  async function addToCompletedArray() {
+    const userId = user.uid;
+    const CollectionUpdate = doc(firestore, Collection.USERS, userId);
+    try {
+      await updateDoc(CollectionUpdate, {
+        completedQuestions: arrayUnion(selectedQuestion.id),
+      });
+      console.log("Completed array field updated with question id");
+    } catch (error) {
+      console.error("Error updating array field:", error);
+    }
+  }
+
+  return (
     <div style={{ display: "flex", flexDirection: "column", height: "100vh" }}>
       <NavigationBar />
       <div style={{ display: "flex", flexDirection: "column", flexGrow: 1 }}>
@@ -71,14 +89,18 @@ const QuestionPage = () => {
           </Grid>
           <Grid item xs={8} sx={{ height: "100%" }}>
             <GraphApplication
-              initialGraph={selectedQuestion.initialGraph || {
-                nodes: gitCommitPushNodes,
-                edges: gitCommitPushEdges,
-              }}
-              goalGraph={selectedQuestion.goalGraph || {
-                nodes: gitCommitPushNodesGoal,
-                edges: gitCommitPushEdgesGoal,
-              }}
+              initialGraph={
+                selectedQuestion.initialGraph || {
+                  nodes: gitCommitPushNodes,
+                  edges: gitCommitPushEdges,
+                }
+              }
+              goalGraph={
+                selectedQuestion.goalGraph || {
+                  nodes: gitCommitPushNodesGoal,
+                  edges: gitCommitPushEdgesGoal,
+                }
+              }
               answers={selectedQuestion.discussion.commands}
               setComplete={setComplete}
             />
