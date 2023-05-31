@@ -59,7 +59,7 @@ const GitGraph = ({ nodes, edges, remote, HEAD, branch, branchHEADS }: GraphStat
     const nodes: Node[] = nodesInput.map((nodeId) => ({
       id: nodeId,
       data: {
-        label: nodeId === HEAD ? "HEAD" : `Node ${nodeId}`,
+        label: nodeId === HEAD ? "HEAD" : `${nodeId}`,
         color: remote.has(nodeId)
           ? "#A610BD"
           : nodeId === HEAD
