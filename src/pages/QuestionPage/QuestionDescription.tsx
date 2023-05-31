@@ -79,7 +79,6 @@ export default function QuestionDescription({
           variant="h2"
           sx={{
             color: "#7A4CC5",
-            paddingTop:3
           }}
         >
           {title}
