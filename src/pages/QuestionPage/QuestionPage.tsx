@@ -82,7 +82,7 @@ const QuestionPage = () => {
                 edges: gitCommitPushEdgesGoal,
               }}
               answers={selectedQuestion.discussion.commands}
-              history={gitCommitPushCommandHistory}
+              initialCommands={selectedQuestion.initialCommands}
               setComplete={setComplete}
             />
           </Grid>
