@@ -17,6 +17,7 @@ interface GraphSetter {
   HEAD: string;
   isScaffolded: boolean;
   answers: string[];
+  initialCommands: string[];
   branch: string;
   branchHEADS: Map<string, string>;
   branchNodes: Map<string, string[]>;
@@ -36,6 +37,7 @@ export default function Terminal({
   HEAD,
   isScaffolded,
   answers,
+  initialCommands,
   branch,
   branchHEADS,
   branchNodes,
@@ -180,6 +182,17 @@ export default function Terminal({
           flexGrow: 1,
         }}
       >
+        {initialCommands.map((command, index) => {
+          return (
+            <p
+              key={`initial-command-${index}`}
+              style={{ color: "white" }}
+            >
+              C:\GitCode{`>`} {command}
+            </p>
+          );
+        })
+        }
         {commandHistory.map((command, index) => {
           if (isScaffolded) {
             return (

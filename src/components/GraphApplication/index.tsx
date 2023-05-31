@@ -12,13 +12,13 @@ export default function GraphApplication({
   initialGraph,
   goalGraph,
   answers,
-  history,
+  initialCommands,
   setComplete,
 }: {
   initialGraph: Graph;
   goalGraph: Graph;
   answers: string[];
-  history: string[];
+  initialCommands: string[];
   setComplete: (complete: boolean) => void;
 }) {
   const {
@@ -40,7 +40,6 @@ export default function GraphApplication({
   );
   const [HEAD, setHEAD] = useState<string>(initialHead || '1');
   const [scaffolding, setScaffolding] = useState(false);
-  const [commandHistory, setCommandHistory] = useState<string[]>(history);
 
   const [branch, setBranch] = useState<string>(initialBranch || 'main');
   const [branchHEADS, setBranchHEADS] = useState<Map<string, string>>(
@@ -97,6 +96,7 @@ export default function GraphApplication({
           remote={remote}
           isScaffolded={scaffolding}
           answers={answers}
+          initialCommands={initialCommands}
           branch={branch}
           branchHEADS={branchHEADS}
           branchNodes={branchNodes}
