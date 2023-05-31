@@ -38,6 +38,9 @@ export const DUMMY_DATA_QUESTIONS: Question[] = [
       statement: "To commit and push changes to a Git repository, you need to follow a series of commands. Let's go through each step, and then we'll provide explanations for each command:",
       commands: [
         "git commit -m \"Enter your commit message here\"",
+        "git commit -m \"Enter your commit message here\"",
+        "git commit -m \"Enter your commit message here\"",
+        "git commit -m \"Enter your commit message here\"",
         "git push origin main"
       ],
       answers: [
@@ -62,7 +65,7 @@ export const DUMMY_DATA_QUESTIONS: Question[] = [
     // commentIds: [],
     initialCommands: [
       "git init",
-      "git commit"
+      "git commit",
     ],
 
     initialGraph: {
