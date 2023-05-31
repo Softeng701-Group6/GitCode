@@ -48,7 +48,7 @@ export default function LevelDescription() {
           )
         )}
       </ul>
-      <Divider className={styles["divider"]} variant="middle" />
+      <Divider className={styles["divider"]} variant="middle" sx={{backgroundColor:"white"}} />
       <Box sx={{ flexGrow: 1 }}></Box>
       <GreenButton onClick={startProblem}>Start Problem</GreenButton>
     </Stack>
