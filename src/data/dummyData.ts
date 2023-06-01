@@ -107,7 +107,7 @@ export const DUMMY_DATA_QUESTIONS: Question[] = [
       activity: "Checkout and Branch",
       plan: [
         "All changes have already been added and staged, now we need to commit and push our changes on our branches for other to see.",
-        "We also want to add another line of development to fix a bug, called bug-fix-branch", 
+        "We also want to add another line of development to fix a bug", 
         "Use git commit commands in the terminal to complete this task and click submit to check!"
       ],
       desiredGraphImgUrl: "src/assets/checkout-and-branch.png"
@@ -121,10 +121,17 @@ export const DUMMY_DATA_QUESTIONS: Question[] = [
       ]
     },
     discussion: {
-      statement: "To branch and checkout in a remote Git repository, you need to follow a series of commands. Let's go through each step, and then we'll provide explanations for each command:",
+      statement: "To branch and checkout in a Git repository, you need to follow a series of commands. Let's go through the new key steps, and then we'll provide explanations for each command:",
       commands: [
+        "git push",
+        "git checkout <branch_name>",
+        "git push",
+        "git checkout <branch_name>",
         "git branch <branch_name>",
-        "git checkout <branch_name>"
+        "git checkout <branch_name>",
+        "git commit",
+        "git commit",
+        "git push",
       ],
       answers: [
         {
@@ -215,7 +222,7 @@ export const DUMMY_DATA_QUESTIONS: Question[] = [
       ]
     },
     discussion: {
-      statement: "To merge in a remote Git repository, you need to go through a series of commands. Let's go through the key step, and then we'll provide an explanation for the command:",
+      statement: "To merge in a remote Git repository, you need to go through a series of commands. Let's go through the new key step, and then we'll provide an explanation for the command:",
       commands: [
         "git merge <branch_name>",
         "git push",
