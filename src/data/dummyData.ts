@@ -42,6 +42,10 @@ export const DUMMY_DATA_QUESTIONS: Question[] = [
         "git commit -m \"Enter your commit message here\"",
         "git push origin main"
       ],
+      selectedCommands: [
+        "git commit -m \"Enter your commit message here\"",
+        "git push origin main"
+      ],
       answers: [
         {
           step: "Step 1: Commit the Changes",
@@ -107,7 +111,9 @@ export const DUMMY_DATA_QUESTIONS: Question[] = [
       activity: "Checkout and Branch",
       plan: [
         "All changes have already been added and staged, now we need to commit and push our changes on our branches for other to see.",
-        "We also want to add another line of development to fix a bug", 
+        "We also want to add another branch for development to fix a bug", 
+        "Please name the branch \"bug-fix-branch\" (without apostrophes)",
+        "All available branches are visible in the top left of the graph",
         "Use git commit commands in the terminal to complete this task and click submit to check!"
       ],
       desiredGraphImgUrl: "src/assets/checkout-and-branch.png"
@@ -132,6 +138,10 @@ export const DUMMY_DATA_QUESTIONS: Question[] = [
         "git commit",
         "git commit",
         "git push",
+      ],
+      selectedCommands: [
+        "git checkout <branch_name>",
+        "git branch <branch_name>",
       ],
       answers: [
         {
@@ -233,6 +243,9 @@ export const DUMMY_DATA_QUESTIONS: Question[] = [
         "git push",
         "git merge <branch_name>",
         "git push",
+      ],
+      selectedCommands: [
+        "git merge <branch_name>",
       ],
       answers: [
         {

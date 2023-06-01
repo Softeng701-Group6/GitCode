@@ -7,8 +7,11 @@ import CloseIcon from "@mui/icons-material/Close";
 
 import { useNavigate } from "react-router-dom";
 import GreenButton from "../GreenButton/GreenButton";
+import { useContext } from "react";
+import { LevelContext } from "../../context/LevelContext";
 
 export default function QuestionEndModal({ onClose }: { onClose: () => void }) {
+  const { selectedQuestion } = useContext(LevelContext);
   const navigate = useNavigate();
 
   const handleGoToQuestions = () => {
@@ -36,7 +39,7 @@ export default function QuestionEndModal({ onClose }: { onClose: () => void }) {
           Level Complete!
         </Typography>
         <Typography variant="h4" className={styles["modal-question-title"]}>
-          1. Commit and Push
+          Activity: {selectedQuestion.description.activity}
         </Typography>
         <img className={styles["green-tick"]} src={tick} alt="Green Tick" />
         <Typography variant="body1" className={styles["modal-text"]}>
@@ -46,8 +49,9 @@ export default function QuestionEndModal({ onClose }: { onClose: () => void }) {
           Key Commands Used In this Lesson:
         </Typography>
         <ul className={styles["modal-key-commands"]}>
-          <li>git commit -m "Message"</li>
-          <li>git push</li>
+          {selectedQuestion.discussion.selectedCommands.map((cmd) => (
+            <li>{cmd}</li>
+          ))}
         </ul>
         <Typography></Typography>
         <Typography variant="body1" className={styles["modal-text"]}>
