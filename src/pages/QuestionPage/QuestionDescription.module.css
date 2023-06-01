@@ -31,3 +31,7 @@
   border-radius: 4px;
 }
 
+.desired-graph-container::-webkit-scrollbar {
+  display: none;
+}
+
