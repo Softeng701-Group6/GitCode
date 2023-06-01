@@ -14,12 +14,14 @@ export default function GraphApplication({
   answers,
   initialCommands,
   setComplete,
+  hints,
 }: {
   initialGraph: Graph;
   goalGraph: Graph;
   answers: string[];
   initialCommands: string[];
   setComplete: (complete: boolean) => void;
+  hints: string[];
 }) {
   const {
     nodes: initialNodes,
@@ -80,7 +82,7 @@ export default function GraphApplication({
           />
         </ReactFlowProvider>
       </Box>
-      <HelpBar onToggle={onToggle} />
+      <HelpBar onToggle={onToggle} hints={hints} />
       <Box sx={{ height: "50%" }}>
         <Terminal
           setNodes={setNodes}
