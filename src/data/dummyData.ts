@@ -245,7 +245,6 @@ export const DUMMY_DATA_QUESTIONS: Question[] = [
           explanation: [
             "After merging the branches, the merge will exist locally but not remotely. Remember to push your changes to the repository to make them available for others who have access to the repository.",
             "As stated in previous levels git push is an essential command for sharing your code changes, allowing for effective collaboration."
-            //"Note: If the two branches you're trying to join together both modified the same parts of the same file in the code, a merge conflict will occur. In this Git will not be able to know which version you wish to keep. This will require you to manually resolve the conflict by removing one of the branches changes or accepting both of the changes"
           ]
         },
       ]
