@@ -123,8 +123,8 @@ export default function LevelDiscussion() {
                 backgroundColor: "#1E1E1E",
               }}
             >
-              {selectedQuestion.discussion.commands.map((cmd) => (
-                <Typography sx={{ textAlign: "left" }} key={cmd}>
+              {selectedQuestion.discussion.commands.map((cmd, index) => (
+                <Typography sx={{ textAlign: "left" }} key={index}>
                   {cmd}
                 </Typography>
               ))}
