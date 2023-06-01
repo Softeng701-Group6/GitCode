@@ -106,6 +106,7 @@ const QuestionPage = () => {
               answers={selectedQuestion.discussion.commands}
               initialCommands={selectedQuestion.initialCommands}
               setComplete={setComplete}
+              hints={selectedQuestion.hints}
             />
           </Grid>
         </Grid>
