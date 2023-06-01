@@ -23,5 +23,9 @@ export const Tags = {
   branch: {
     name: "branch",
     color: Colors.cyan[600],
+  } as Tag,
+  merge: {
+    name: "merge",
+    color: Colors.orange[800],
   } as Tag
 }
