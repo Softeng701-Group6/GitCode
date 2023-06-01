@@ -217,7 +217,10 @@ export const DUMMY_DATA_QUESTIONS: Question[] = [
     discussion: {
       statement: "To merge in a remote Git repository, you need to go through a series of commands. Let's go through the key step, and then we'll provide an explanation for the command:",
       commands: [
-        "git merge <branch_name>"
+        "git merge <branch_name>",
+        "git push",
+        "git merge <branch_name>",
+        "git push",
       ],
       answers: [
         {
