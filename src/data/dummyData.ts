@@ -165,7 +165,12 @@ export const DUMMY_DATA_QUESTIONS: Question[] = [
     // commentIds: [],
     initialCommands: [
       "git init",
-      "git commit"
+      "git commit",
+      "git branch feat-branch",
+      "...",
+      "git commit",
+      "git commit",
+      "git commit",
     ],
     
     initialGraph: {
@@ -263,7 +268,13 @@ export const DUMMY_DATA_QUESTIONS: Question[] = [
     // commentIds: [],
     initialCommands: [
       "git init",
-      "git commit"
+      "git commit",
+      "git branch feat-branch",
+      "...",
+      "git checkout bug-fix-branch",
+      "git commit",
+      "git commit",
+      "git push",
     ],
     
     initialGraph: {
