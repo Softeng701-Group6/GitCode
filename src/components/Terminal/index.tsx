@@ -105,9 +105,11 @@ export default function Terminal({
           setBranchNodes(newBranchNodes);
           break;
         case "push":
+          if (branch == 'HEADLESS')
+            break;
           setRemote(new Set([...remote, ...branchNodes.get(branch)!]));
           break;
-        case "branch":
+        case "branch":          
           const name = commandArray[2];
           setBranchHEADS(new Map(branchHEADS).set(name, HEAD));
           setBranchNodes(new Map(branchNodes).set(name, [...branchNodes.get(branch) || []]));
