@@ -5,6 +5,7 @@ import LevelDescription from "../../components/LevelDescription/LevelDescription
 import LevelDiscussion from "../../components/LevelDiscussion/LevelDiscussion";
 import styles from "./LevelDetailsPanel.module.css";
 import { LevelContext } from "../../context/LevelContext";
+import { Box } from "@mui/material";
 
 export default function LevelDetailsPanel() {
 
@@ -20,7 +21,9 @@ export default function LevelDetailsPanel() {
         height: 1,
       }}
     >
-      <div>
+      <Box sx={{
+        height: 1,
+      }}>
         <span>
           <button
             className={selected ? styles.selected : styles.unselected}
@@ -47,7 +50,7 @@ export default function LevelDetailsPanel() {
         ) : (
           <div>Loading...</div>
         )}
-      </div>
+      </Box>
     </Frame>
   );
 }
