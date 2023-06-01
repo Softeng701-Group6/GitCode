@@ -39,7 +39,7 @@ export default function QuestionEndModal({ onClose }: { onClose: () => void }) {
           Level Complete!
         </Typography>
         <Typography variant="h4" className={styles["modal-question-title"]}>
-          1. {selectedQuestion.description.activity}
+          Activity: {selectedQuestion.description.activity}
         </Typography>
         <img className={styles["green-tick"]} src={tick} alt="Green Tick" />
         <Typography variant="body1" className={styles["modal-text"]}>
