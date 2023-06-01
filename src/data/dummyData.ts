@@ -225,6 +225,7 @@ export const DUMMY_DATA_QUESTIONS: Question[] = [
       activity: "Merge",
       plan: [
         "Currently we have three active branches we have been working on, but its time to combine the lines of development and our efforts into one",
+        "Merge bug-fix-branch then merge into main",
         "Use git commit commands in the terminal to complete this task and click submit to check!"
       ],
       desiredGraphImgUrl: "src/assets/merge-activity.png"
