@@ -96,6 +96,9 @@ const GitGraph = ({ nodes, edges, remote, HEAD, branch, branchHEADS }: GraphStat
       zoomOnPinch={false}
     >
       <Background />
+      <Box color="#7A4CC5" fontWeight="bold">
+        Branches: 
+      </Box>
       <Box>
         {Array.from(branchHEADS.keys()).map((b, i) => (<Box key={`branch-table-${i}`} fontWeight={ b === branch ? 'bold' : '300'} color={'white'}>{b}</Box>))}
       </Box>
