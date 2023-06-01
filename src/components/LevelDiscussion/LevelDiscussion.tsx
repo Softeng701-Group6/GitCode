@@ -89,8 +89,9 @@ export default function LevelDiscussion() {
   }
 
   async function isLevelAttempted() {
-    const userObj = await getDocumentById(Collection.USERS, user.uid);
-    const attemptedArray = userObj.attemptedQuestions;
+    const userObj = await getDocumentById<User>(Collection.USERS, user.uid);
+    const attemptedArray = userObj.attemptedQuestions;  // Reference to Question
+    
     if (attemptedArray.includes(selectedQuestion.id!)) setLevelAttempted(true);
     else setLevelAttempted(false);
   }
@@ -129,8 +130,8 @@ export default function LevelDiscussion() {
                 </Typography>
               ))}
             </Stack>
-            {selectedQuestion.discussion.answers.map((ans) => (
-              <Stack key={ans.step} sx={{ py: 2 }}>
+            {selectedQuestion.discussion.answers.map((ans, index) => (
+              <Stack key={index} sx={{ py: 2 }}>
                 <Typography sx={{ textAlign: "left", py: 2 }}>
                   {ans.step}
                 </Typography>
