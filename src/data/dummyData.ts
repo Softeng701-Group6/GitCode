@@ -249,7 +249,7 @@ export const DUMMY_DATA_QUESTIONS: Question[] = [
       ]
     },
     difficulty: Difficulty.MEDIUM,
-    tags: [Tags.checkout, Tags.branch],
+    tags: [Tags.merge, Tags.checkout, Tags.branch],
   },
 
 ]

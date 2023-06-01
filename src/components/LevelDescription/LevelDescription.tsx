@@ -32,7 +32,9 @@ export default function LevelDescription() {
   }
 
   return (
-    <Stack className={styles["container"]}>
+    <Stack className={styles["container"]} useFlexGap flexWrap={"wrap"} sx={{
+      height: 1, width: '100%'
+    }}>
       <Typography className={styles["title"]} variant="h2">
         {selectedQuestion.title}
       </Typography>
@@ -48,9 +50,9 @@ export default function LevelDescription() {
           )
         )}
       </ul>
-      <Divider className={styles["divider"]} variant="middle" />
-      <Box sx={{ flexGrow: 1 }}></Box>
-      <GreenButton onClick={startProblem}>Start Problem</GreenButton>
+      <Divider className={styles["divider"]} variant="middle" sx={{backgroundColor:"white"}} />
+      <Box sx={{height:1/4}}></Box>
+      <GreenButton onClick={startProblem} sx={{position:'absolute', bottom:20, width: 0.61, marginRight:20}}>Start Problem</GreenButton>
     </Stack>
   );
 }

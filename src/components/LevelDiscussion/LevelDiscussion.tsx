@@ -20,6 +20,7 @@ import {
 } from "../../firebase/firestoreUtils.ts";
 import { Collection } from "../../firebase/firebaseEnums.ts";
 import { LevelContext } from "../../context/LevelContext.tsx";
+import GreenButton from "../GreenButton/GreenButton.tsx";
 
 export default function LevelDiscussion() {
   const { selectedQuestion } = useContext(LevelContext);
@@ -157,7 +158,7 @@ export default function LevelDiscussion() {
 
           <Divider
             className={styles["divider"]}
-            sx={{ marginTop: 4 }}
+            sx={{ marginTop: 4, backgroundColor:"white"}}
             variant="middle"
           />
           <Box sx={{ flexGrow: 1 }}></Box>
@@ -192,13 +193,7 @@ export default function LevelDiscussion() {
                     event.key === "Enter" ? handleSendComment() : null
                   }
                 />
-                <Button
-                  variant="outlined"
-                  className={styles["comment-sender-button"]}
-                  onClick={handleSendComment}
-                >
-                  Send
-                </Button>
+                  <GreenButton onClick={handleSendComment}>Send</GreenButton>
               </Stack>
 
               {comments.map((comment) => (
