@@ -17,6 +17,7 @@ interface GraphSetter {
   HEAD: string;
   isScaffolded: boolean;
   answers: string[];
+  initialCommands: string[];
   branch: string;
   branchHEADS: Map<string, string>;
   branchNodes: Map<string, string[]>;
@@ -36,6 +37,7 @@ export default function Terminal({
   HEAD,
   isScaffolded,
   answers,
+  initialCommands,
   branch,
   branchHEADS,
   branchNodes,
@@ -47,6 +49,8 @@ export default function Terminal({
   ); // TODO Need to add a colour for each command
   const [answerLine, setAnswerLine] = useState<number>(0); // TODO Need to add a line for the answer
   const [isSubmitted, setIsSubmitted] = useState<boolean>(false);
+
+  // This assumes that the user won't switch between modes in the middle of a question
 
   //This function will handle the command input and pass it to the graph component
   const handleCommand = (commandInput: string) => {
@@ -78,6 +82,9 @@ export default function Terminal({
       }
     } else if (isScaffolded && answerLine >= answers.length) {
       setCommandHistoryColours([...commandHistoryColours, "red"]);
+    } else if (!isScaffolded && answerLine < answers.length){
+      // This is to deal with the case where the user has switched from scaffolded to free mode
+      setCommandHistoryColours([...commandHistoryColours, "white"]);
     }
 
     if (isValidCommand) {
@@ -198,6 +205,17 @@ export default function Terminal({
           flexGrow: 1,
         }}
       >
+        {initialCommands.map((command, index) => {
+          return (
+            <p
+              key={`initial-command-${index}`}
+              style={{ color: "white" }}
+            >
+              C:\GitCode{`>`} {command}
+            </p>
+          );
+        })
+        }
         {commandHistory.map((command, index) => {
           if (isScaffolded) {
             return (

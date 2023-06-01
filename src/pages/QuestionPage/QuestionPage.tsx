@@ -15,6 +15,8 @@ import {
   gitCommitPushEdges,
   gitCommitPushNodesGoal,
   gitCommitPushEdgesGoal,
+  gitCommitPushAnswers,
+  gitCommitPushCommandHistory
 } from "../../components/GitGraph/git-commit-push-nodes-edges";
 import { LevelContext } from "../../context/LevelContext";
 import QuestionStartModal from "../../components/QuestionStartModal/QuestionStartModal";
@@ -102,6 +104,7 @@ const QuestionPage = () => {
                 }
               }
               answers={selectedQuestion.discussion.commands}
+              initialCommands={selectedQuestion.initialCommands}
               setComplete={setComplete}
             />
           </Grid>

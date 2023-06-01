@@ -40,7 +40,6 @@ export const DUMMY_DATA_QUESTIONS: Question[] = [
         "git commit -m \"Enter your commit message here\"",
         "git commit -m \"Enter your commit message here\"",
         "git commit -m \"Enter your commit message here\"",
-        "git commit -m \"Enter your commit message here\"",
         "git push origin main"
       ],
       answers: [

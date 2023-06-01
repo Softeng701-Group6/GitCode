@@ -12,11 +12,13 @@ export default function GraphApplication({
   initialGraph,
   goalGraph,
   answers,
+  initialCommands,
   setComplete,
 }: {
   initialGraph: Graph;
   goalGraph: Graph;
   answers: string[];
+  initialCommands: string[];
   setComplete: (complete: boolean) => void;
 }) {
   const {
@@ -94,6 +96,7 @@ export default function GraphApplication({
           remote={remote}
           isScaffolded={scaffolding}
           answers={answers}
+          initialCommands={initialCommands}
           branch={branch}
           branchHEADS={branchHEADS}
           branchNodes={branchNodes}
