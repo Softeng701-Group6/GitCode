@@ -23,7 +23,7 @@ export const DUMMY_DATA_QUESTIONS: Question[] = [
         "All changes have already been added and staged, now we need to commit and push our changes onto main.",
         "Use git commit commands in the terminal to complete this task and click submit to check!"
       ],
-      desiredGraphImgUrl: "ActivityCommitGraph.png"
+      desiredGraphImgUrl: "src/assets/ActivityCommitGraph.png"
     },
 
     learningObjective: {
@@ -108,7 +108,7 @@ export const DUMMY_DATA_QUESTIONS: Question[] = [
         "All changes have already been added and staged, now we need to commit and push our changes onto main.",
         "Use git commit commands in the terminal to complete this task and click submit to check!"
       ],
-      desiredGraphImgUrl: "checkout-and-branch.png"
+      desiredGraphImgUrl: "src/assets/checkout-and-branch.png"
     },
     learningObjective: {
       objective: "By the end of this lesson, you will understand the importance of Git checkout and branch, and how they enable you have multiple versions of your codebase, allowing collaborative work.",
@@ -202,7 +202,7 @@ export const DUMMY_DATA_QUESTIONS: Question[] = [
       plan: [
         "TODO!!!"
       ],
-      desiredGraphImgUrl: "ActivityCommitGraph.png"
+      desiredGraphImgUrl: "src/assets/merge-activity.png"
     },
     learningObjective: {
       objective: "After completing this lesson, you will understand the importance of Git merge, and how it enables you converge your multile independant lines of development into one, allowing your team's collaborative work to come together.",
