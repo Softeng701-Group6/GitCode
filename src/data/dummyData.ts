@@ -93,6 +93,7 @@ export const DUMMY_DATA_QUESTIONS: Question[] = [
     hints: [
       "When you want to work on a new feature and make commits that do not affect the main codebase, its time to create a new branch. Use the git branch command along with a descriptive branch name to document the purpose and nature of your new branch. Remember, clear communication is key within a development team, so having descriptive branch names describing its purpose is important.",
       "After creating a new branch, it's time start working on it. Use the git checkout command to move your head pointer to the new branch, allowing code changes and commits to only occur on your new branch",
+      "Git checkout can also be used to checkout previous commits, just use the commit number you want to visit to change your head to there",
       "If you require further information, check out this git guide provided by Atlassian"
     ],
     summary: [
@@ -105,7 +106,8 @@ export const DUMMY_DATA_QUESTIONS: Question[] = [
       title: "Lesson 2: Introduction to Git Checkout and Branching",
       activity: "Checkout and Branch",
       plan: [
-        "All changes have already been added and staged, now we need to commit and push our changes onto main.",
+        "All changes have already been added and staged, now we need to commit and push our changes on our branches for other to see.",
+        "We also want to add another line of development to fix a bug, called bug-fix-branch", 
         "Use git commit commands in the terminal to complete this task and click submit to check!"
       ],
       desiredGraphImgUrl: "src/assets/checkout-and-branch.png"
@@ -200,7 +202,8 @@ export const DUMMY_DATA_QUESTIONS: Question[] = [
       title: "Lesson 3: Introduction to Git Merge",
       activity: "Merge",
       plan: [
-        "TODO!!!"
+        "Currently we have three active branches we have been working on, but its time to combine the lines of development and our efforts into one",
+        "Use git commit commands in the terminal to complete this task and click submit to check!"
       ],
       desiredGraphImgUrl: "src/assets/merge-activity.png"
     },
