@@ -85,7 +85,7 @@ export default function QuestionDescription({
         </Typography>
         {children}
         <Typography variant="h3">Desired Graph</Typography>
-        <img src={defaultImg} />
+        <img src={selectedQuestion.description.desiredGraphImgUrl} />
 
         <Typography>
           {" "}
