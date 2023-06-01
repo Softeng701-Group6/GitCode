@@ -29,6 +29,7 @@ interface learningObjective {
 interface Discussion {
   statement: string;
   commands: string[];
+  selectedCommands: string[];
   answers: Answer[];
 }
 
