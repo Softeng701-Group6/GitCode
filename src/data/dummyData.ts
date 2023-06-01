@@ -202,7 +202,7 @@ export const DUMMY_DATA_QUESTIONS: Question[] = [
       plan: [
         "TODO!!!"
       ],
-      desiredGraphImgUrl: "src/assets/ActivityCommitGraph.png"
+      desiredGraphImgUrl: "src/assets/merge-activity.png"
     },
     learningObjective: {
       objective: "After completing this lesson, you will understand the importance of Git merge, and how it enables you converge your multile independant lines of development into one, allowing your team's collaborative work to come together.",
