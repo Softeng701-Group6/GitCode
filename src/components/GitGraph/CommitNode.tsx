@@ -8,8 +8,8 @@ interface NodeProps {
   };
 }
 
-export const width = 172;
-export const height = 36;
+export const width = 55;
+export const height = 55;
 
 // Define your node component
 const CommitNode: React.FC<NodeProps> = ({ data }) => {
