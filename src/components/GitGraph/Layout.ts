@@ -2,8 +2,8 @@ import { Node, Edge, Position } from "reactflow";
 import dagre from "dagre";
 import { width, height } from "./CommitNode";
 
-const nodeWidth = width;
-const nodeHeight = height;
+const nodeWidth = 55;
+const nodeHeight = 55;
 
 const dagreGraph = new dagre.graphlib.Graph();
 dagreGraph.setDefaultEdgeLabel(() => ({}));
