@@ -40,7 +40,6 @@ export const DUMMY_DATA_QUESTIONS: Question[] = [
         "git commit -m \"Enter your commit message here\"",
         "git commit -m \"Enter your commit message here\"",
         "git commit -m \"Enter your commit message here\"",
-        "git commit -m \"Enter your commit message here\"",
         "git push origin main"
       ],
       answers: [
@@ -85,16 +84,9 @@ export const DUMMY_DATA_QUESTIONS: Question[] = [
         {source: '3', target: '4', branch: 'main'}
       ]
     },
-
     difficulty: Difficulty.EASY,
     tags: [Tags.commit, Tags.push],
   },
-
-
-
-
-
-
   {
     id: "Checkout and Branching",
     title: "2. Checkout and Branching",
@@ -116,7 +108,7 @@ export const DUMMY_DATA_QUESTIONS: Question[] = [
         "All changes have already been added and staged, now we need to commit and push our changes onto main.",
         "Use git commit commands in the terminal to complete this task and click submit to check!"
       ],
-      desiredGraphImgUrl: "ActivityCommitGraph.png"
+      desiredGraphImgUrl: "checkout-and-branch.png"
     },
     learningObjective: {
       objective: "By the end of this lesson, you will understand the importance of Git checkout and branch, and how they enable you have multiple versions of your codebase, allowing collaborative work.",
@@ -160,26 +152,37 @@ export const DUMMY_DATA_QUESTIONS: Question[] = [
     ],
     
     initialGraph: {
-      nodes: ['1'],
-      edges: [],
-      headNode: '1',
-      branch: 'main',
-      branchHeads: new Map([['main', '1']]),
-      remoteNodes: new Set(),
-      branchNodes: new Map([['main', ['1']]])
-    },
-    goalGraph: {
-      nodes: ['1', '2', '3', '4'],
+      nodes: ['1', '2', '3', '4', '5', '6', '7'],
       edges: [
         {source: '1', target: '2', branch: 'main'},
         {source: '2', target: '3', branch: 'main'},
-        {source: '3', target: '4', branch: 'main'}
+        {source: '3', target: '4', branch: 'main'},
+        {source: '2', target: '5', branch: 'feat-branch'},
+        {source: '5', target: '6', branch: 'feat-branch'},
+        {source: '6', target: '7', branch: 'feat-branch'}    
+      ],
+      headNode: '7',
+      branch: 'feat-branch',
+      branchHeads: new Map([['main', '4'], ['feat-branch', '7']]),
+      remoteNodes: new Set(),
+      branchNodes: new Map([['main', ['1', '2', '3', '4']], ['feat-branch', ['1', '2', '5', '6', '7']]])
+    },
+    goalGraph: {
+      nodes:['1', '2', '3', '4', '5', '6', '7', '8', '9'],
+      edges: [
+        {source: '1', target: '2', branch: 'main'},
+        {source: '2', target: '3', branch: 'main'},
+        {source: '3', target: '4', branch: 'main'},
+        {source: '2', target: '5', branch: 'feat-branch'},
+        {source: '5', target: '6', branch: 'feat-branch'},
+        {source: '6', target: '7', branch: 'feat-branch'},
+        {source: '5', target: '8', branch: 'bug-fix-branch'},
+        {source: '8', target: '9', branch: 'bug-fix-branch'}          
       ]
     },
     difficulty: Difficulty.MEDIUM,
     tags: [Tags.checkout, Tags.branch],
   },
-
   {
     id: "Merging",
     title: "3. Merging",
@@ -233,20 +236,38 @@ export const DUMMY_DATA_QUESTIONS: Question[] = [
     ],
     
     initialGraph: {
-      nodes: ['1'],
-      edges: [],
-      headNode: '1',
-      branch: 'main',
-      branchHeads: new Map([['main', '1']]),
-      remoteNodes: new Set(),
-      branchNodes: new Map([['main', ['1']]])
-    },
-    goalGraph: {
-      nodes: ['1', '2', '3', '4'],
+      nodes:['1', '2', '3', '4', '5', '6', '7', '8', '9'],
       edges: [
         {source: '1', target: '2', branch: 'main'},
         {source: '2', target: '3', branch: 'main'},
-        {source: '3', target: '4', branch: 'main'}
+        {source: '3', target: '4', branch: 'main'},
+        {source: '2', target: '5', branch: 'feat-branch'},
+        {source: '5', target: '6', branch: 'feat-branch'},
+        {source: '6', target: '7', branch: 'feat-branch'},
+        {source: '5', target: '8', branch: 'bug-fix-branch'},
+        {source: '8', target: '9', branch: 'bug-fix-branch'}          
+      ],
+      headNode: '7',
+      branch: 'feat-branch',
+      branchHeads: new Map([['main', '4'], ['feat-branch', '7'], ['bug-fix-branch', '9']]),
+      remoteNodes: new Set(['1', '2', '3', '4', '5', '6', '7', '8', '9']),
+      branchNodes: new Map([['main', ['1', '2', '3', '4']], ['feat-branch', ['1', '2', '5', '6', '7']], ['bug-fix-branch', ['8', '9']]])
+    },
+    goalGraph: {
+      nodes:['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11'],
+      edges: [
+        {source: '1', target: '2', branch: 'main'},
+        {source: '2', target: '3', branch: 'main'},
+        {source: '3', target: '4', branch: 'main'},
+        {source: '2', target: '5', branch: 'feat-branch'},
+        {source: '5', target: '6', branch: 'feat-branch'},
+        {source: '6', target: '7', branch: 'feat-branch'},
+        {source: '5', target: '8', branch: 'bug-fix-branch'},
+        {source: '8', target: '9', branch: 'bug-fix-branch'},
+        {source: '9', target: '10', branch: 'bug-fix-branch'},          
+        {source: '7', target: '10', branch: 'feat-branch'},
+        {source: '4', target: '11', branch: 'main'},  
+        {source: '10', target: '11', branch: 'feat-branch'},
       ]
     },
     difficulty: Difficulty.MEDIUM,
