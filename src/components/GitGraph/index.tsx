@@ -97,7 +97,7 @@ const GitGraph = ({ nodes, edges, remote, HEAD, branch, branchHEADS }: GraphStat
     >
       <Background />
       <Box>
-        {Array.from(branchHEADS.keys()).map((b, i) => (<Box key={`branch-table-${i}`} fontWeight={ b === branch ? 'bold' : '300'}>{b}</Box>))}
+        {Array.from(branchHEADS.keys()).map((b, i) => (<Box key={`branch-table-${i}`} fontWeight={ b === branch ? 'bold' : '300'} color={'white'}>{b}</Box>))}
       </Box>
     </ReactFlow>
   );
