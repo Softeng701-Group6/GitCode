@@ -21,6 +21,8 @@ interface GraphSetter {
   branch: string;
   branchHEADS: Map<string, string>;
   branchNodes: Map<string, string[]>;
+  goalNodes: string[];
+  goalEdges: Edge[];
 }
 
 export default function Terminal({
@@ -41,6 +43,8 @@ export default function Terminal({
   branch,
   branchHEADS,
   branchNodes,
+  goalNodes,
+  goalEdges
 }: GraphSetter) {
   const [command, setCommand] = useState<string>("");
   const [commandHistory, setCommandHistory] = useState<string[]>([]);
@@ -66,28 +70,21 @@ export default function Terminal({
       }
     }
 
-    //Logic to deal with colours
-    if (isScaffolded && answerLine < answers.length) {
-      const answerCommandArray = answers[answerLine].split(" ");
-      if (commandArray[0] !== answerCommandArray[0]) {
-        setCommandHistoryColours([...commandHistoryColours, "red"]);
-      } else {
-        if (commandArray[1] !== answerCommandArray[1]) {
-          setCommandHistoryColours([...commandHistoryColours, "red"]);
-        } else {
-          setCommandHistoryColours([...commandHistoryColours, "green"]);
-          setAnswerLine(answerLine + 1);
-          isValidCommand = true;
-        }
+      const containsEdge = (edges: Edge[], edge: Edge) => {
+        return edges.some(elem =>{
+          return JSON.stringify(edge) === JSON.stringify(elem);
+        })
       }
-    } else if (isScaffolded && answerLine >= answers.length) {
-      setCommandHistoryColours([...commandHistoryColours, "red"]);
-    } else if (!isScaffolded && answerLine < answers.length){
-      // This is to deal with the case where the user has switched from scaffolded to free mode
-      setCommandHistoryColours([...commandHistoryColours, "white"]);
-    }
 
-    if (isValidCommand) {
+      const sourceNum = (edges: Edge[], edge: Edge) => {
+        let sourceNum = 0;
+        edges.forEach(elm => {
+          if (elm.target == edge.target)
+            sourceNum++;
+        });
+        return sourceNum;
+      }
+
       switch (commandArray[1]) {
         case "commit":
           const newNode: string = `${nodes.length + 1}`;
@@ -96,6 +93,13 @@ export default function Terminal({
             target: newNode,
             branch: branch,
           };
+
+          if ((!goalNodes.includes(newNode) || !containsEdge(goalEdges, newEdge) || !(sourceNum(goalEdges, newEdge) <= 1))){
+            setCommandHistoryColours([...commandHistoryColours, "red"]);
+            if (isScaffolded) break;
+          } else {
+            setCommandHistoryColours([...commandHistoryColours, "green"]);
+          }
 
           setNodes([...nodes, newNode]);
           setEdges([...edges, newEdge]);
@@ -112,23 +116,38 @@ export default function Terminal({
           setBranchNodes(newBranchNodes);
           break;
         case "push":
-          if (branch == 'HEADLESS')
-            break;
+          if (branch == 'HEADLESS'){
+            setCommandHistoryColours([...commandHistoryColours, "red"]);
+            if (isScaffolded) break;
+          } else{
+            setCommandHistoryColours([...commandHistoryColours, 'green']);
+          }
+
           setRemote(new Set([...remote, ...branchNodes.get(branch)!]));
           break;
         case "branch":          
           const name = commandArray[2];
+
+          if ((goalEdges.find(edge => edge.branch == name) == null)){
+            setCommandHistoryColours([...commandHistoryColours, "red"]);
+            if (isScaffolded) break;
+          } else {
+            setCommandHistoryColours([...commandHistoryColours, "green"]);
+          }
+
           setBranchHEADS(new Map(branchHEADS).set(name, HEAD));
           setBranchNodes(new Map(branchNodes).set(name, [...branchNodes.get(branch) || []]));
           break;
         case "checkout":
           const branchName = commandArray[2];
 
+          setCommandHistoryColours([...commandHistoryColours, "green"]);
+
           if (branchHEADS.has(branchName)) {
             setBranch(branchName);
             setHEAD(branchHEADS.get(branchName)!);
           }
-
+          
           if (nodes.includes(branchName)) {
             setHEAD(branchName);
             setBranch("HEADLESS");
@@ -137,7 +156,7 @@ export default function Terminal({
           break;
         case "merge":
           const branchToMerge = commandArray[2];
-
+          
           if (branchHEADS.has(branchToMerge)) {
             const newNode: string = `${nodes.length + 1}`;
             const newEdge: Edge = {
@@ -150,6 +169,13 @@ export default function Terminal({
               target: newNode,
               branch: branchToMerge,
             };
+            
+            if ((!goalNodes.includes(newNode) ||  !containsEdge(goalEdges, newEdge) || !containsEdge(goalEdges, newEdgeOther))){
+              setCommandHistoryColours([...commandHistoryColours, "red"]);
+              if (isScaffolded) break;
+            } else{
+              setCommandHistoryColours([...commandHistoryColours, "green"]);
+            }
 
             setNodes([...nodes, newNode]);
             setEdges([...edges, newEdgeOther, newEdge]);
@@ -162,10 +188,15 @@ export default function Terminal({
             newBranchNodes.get(branch)?.push(newNode);
             newBranchNodes.get(branchToMerge)?.push(newNode);
             setBranchNodes(newBranchNodes);
+          } else {
+            setCommandHistoryColours([...commandHistoryColours, "red"]);
           }
           break;
+
+          default:
+            setCommandHistoryColours([...commandHistoryColours, "red"]);
+            break;
       }
-    }
   };
 
   //Whenever command changes

@@ -102,6 +102,8 @@ export default function GraphApplication({
           branch={branch}
           branchHEADS={branchHEADS}
           branchNodes={branchNodes}
+          goalNodes={goalNodes}
+          goalEdges={goalEdges}
         />
       </Box>
     </Stack>
