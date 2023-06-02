@@ -8,6 +8,7 @@ GitCode is a educational application for teaching university-level students basi
 - Michelle Lu
 - Patrick Oliver
 - Afereti Pama
+- Michael Theron
 - Kevin Wang
 - Bill Wong
 
